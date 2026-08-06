@@ -91,9 +91,12 @@ const MaskLine = ({ children, delay }) => (
 );
 
 const Hero = () => {
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const needleRotate = useTransform(scrollYProgress, [0, 1], [0, 24]);
   const labels = ["Direction", "Validation", "Blueprint", "Growth", "Legacy"];
   return (
-    <section id="home" className="relative min-h-screen w-full overflow-hidden pt-28" data-testid="hero">
+    <section id="home" ref={heroRef} className="relative min-h-screen w-full overflow-hidden pt-28" data-testid="hero">
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[120vh] w-[120vh] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"
         style={{ background: "radial-gradient(circle, rgba(184,148,95,0.08) 0%, rgba(10,10,11,0) 60%)" }} />
       <div className="mx-auto grid max-w-[1500px] grid-cols-1 items-center gap-16 px-6 pb-24 md:px-12 lg:grid-cols-12 lg:gap-8">
@@ -136,7 +139,7 @@ const Hero = () => {
         <div className="relative flex items-center justify-center lg:col-span-5">
           <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, duration: 1.6, ease: EASE }}>
-            <Compass size={430} />
+            <Compass size={430} needleRotate={needleRotate} />
           </motion.div>
           <div className="absolute top-1/2 right-0 hidden -translate-y-1/2 flex-col gap-5 lg:flex lg:-right-4 xl:-right-14">
             {labels.map((l, i) => (
@@ -222,6 +225,81 @@ const About = () => (
           </div>
         </Reveal>
       </div>
+    </div>
+  </section>
+);
+
+/* -------------------------------------------------------------- Manifesto */
+const MANIFESTO = [
+  { n: "01", text: ["Every successful company", "begins with the", "right direction."] },
+  { n: "02", text: ["Execution without", "direction is", "expensive."] },
+  { n: "03", text: ["We don't sell consulting.", "We create", "businesses."] },
+];
+const VALUES = ["Direction", "Clarity", "Conviction", "Precision", "Purpose", "Long-term Thinking"];
+
+const lineVariant = {
+  hidden: { y: "112%" },
+  show: { y: "0%", transition: { duration: 1, ease: EASE } },
+};
+
+const Manifesto = () => (
+  <section id="manifesto" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-48" data-testid="manifesto">
+    <Reveal>
+      <div className="mb-20 flex items-center gap-4">
+        <Star size={14} color="var(--brass)" />
+        <span className="eyebrow">The Manifesto</span>
+        <span className="h-px flex-1 bg-[var(--line)]" />
+        <span className="eyebrow">Build in Silence</span>
+      </div>
+    </Reveal>
+
+    <div className="space-y-24 md:space-y-36">
+      {MANIFESTO.map((m, idx) => (
+        <div key={m.n} className={`flex flex-col gap-6 md:flex-row md:items-start md:gap-16 ${idx % 2 ? "md:justify-end" : ""}`}>
+          <Reveal>
+            <span className="font-serif text-xl text-[var(--brass)]">{m.n}</span>
+          </Reveal>
+          <motion.h2
+            className="serif-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl xl:text-[5.5rem]"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ staggerChildren: 0.09 }}
+          >
+            {m.text.map((line, i) => (
+              <span key={i} className="block overflow-hidden pb-[0.08em]">
+                <motion.span className="block" variants={lineVariant}>
+                  {i === m.text.length - 1
+                    ? <span className="italic text-[var(--grey)]">{line}</span>
+                    : line}
+                </motion.span>
+              </span>
+            ))}
+          </motion.h2>
+        </div>
+      ))}
+    </div>
+
+    <div className="mt-32 border-t border-[var(--line)] pt-16">
+      <Reveal>
+        <p className="eyebrow mb-10">The compass points to six things</p>
+      </Reveal>
+      <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
+        {VALUES.map((v, i) => (
+          <Reveal key={v} delay={i * 0.05}>
+            <span className="flex items-center gap-4 font-serif text-3xl text-[var(--ivory)] md:text-4xl">
+              {v}
+              {i < VALUES.length - 1 && <Star size={12} color="var(--brass)" className="opacity-70" />}
+            </span>
+          </Reveal>
+        ))}
+      </div>
+      <Reveal delay={0.1}>
+        <p className="mt-20 max-w-2xl font-serif text-3xl italic leading-snug text-[var(--ivory-dim)] md:text-4xl">
+          Build in Silence is not our name.
+          <span className="text-[var(--brass)]"> It is our philosophy.</span>
+        </p>
+      </Reveal>
     </div>
   </section>
 );
@@ -565,6 +643,7 @@ function App() {
             <About />
           </div>
         </div>
+        <Manifesto />
         <Services />
         <Process />
         <Why />
