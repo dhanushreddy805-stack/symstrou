@@ -1,20 +1,16 @@
 import React from "react";
 
-// AEDIFICA mark — the four-point compass star, rebuilt as crisp vector.
-export const Star = ({ size = 28, color = "var(--ivory)", className = "", ...rest }) => (
-  <svg
+// AEDIFICA mark — the actual uploaded compass-star logo.
+export const Star = ({ size = 28, color = "var(--ivory)", className = "", style = {}, ...rest }) => (
+  <img
+    src="/aedifica-logo.png"
     width={size}
     height={size}
-    viewBox="-120 -120 240 240"
+    alt="AEDIFICA"
     className={className}
-    aria-hidden="true"
+    style={{ width: size, height: size, objectFit: "contain", ...style }}
     {...rest}
-  >
-    <path
-      d="M0 -112 C 7 -34, 26 -7, 96 0 C 26 7, 7 34, 0 112 C -7 34, -26 7, -96 0 C -26 -7, -7 -34, 0 -112 Z"
-      fill={color}
-    />
-  </svg>
+  />
 );
 
 // Hero centrepiece — the star framed by a slowly rotating brass compass ring.
