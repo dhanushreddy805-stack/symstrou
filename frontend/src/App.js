@@ -260,7 +260,7 @@ const Manifesto = () => (
             <span className="font-serif text-xl text-[var(--brass)]">{m.n}</span>
           </Reveal>
           <motion.h2
-            className="serif-display text-5xl leading-[0.98] sm:text-6xl lg:text-7xl xl:text-[5.5rem]"
+            className="serif-display text-4xl leading-[1.02] sm:text-5xl lg:text-6xl xl:text-[4rem]"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
@@ -287,17 +287,17 @@ const Manifesto = () => (
       <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
         {VALUES.map((v, i) => (
           <Reveal key={v} delay={i * 0.05}>
-            <span className="flex items-center gap-4 font-serif text-3xl text-[var(--ivory)] md:text-4xl">
+            <span className="flex items-center gap-4 font-serif text-2xl text-[var(--ivory)] md:text-3xl">
               {v}
-              {i < VALUES.length - 1 && <Star size={12} color="var(--brass)" className="opacity-70" />}
+              {i < VALUES.length - 1 && <Star size={11} color="var(--brass)" className="opacity-70" />}
             </span>
           </Reveal>
         ))}
       </div>
       <Reveal delay={0.1}>
-        <p className="mt-20 max-w-2xl font-serif text-3xl italic leading-snug text-[var(--ivory-dim)] md:text-4xl">
-          Build in Silence is not our name.
-          <span className="text-[var(--brass)]"> It is our philosophy.</span>
+        <p className="mt-20 max-w-2xl font-serif text-2xl italic leading-snug text-[var(--ivory-dim)] md:text-3xl">
+          We don't build for applause.
+          <span className="text-[var(--brass)]"> We build in silence.</span>
         </p>
       </Reveal>
     </div>
@@ -620,7 +620,7 @@ function App() {
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 2000);
-    const lenis = new Lenis({ duration: 1.3, easing: (x) => Math.min(1, 1.001 - Math.pow(2, -10 * x)) });
+    const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true, touchMultiplier: 1.6 });
     const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
     return () => { clearTimeout(t); lenis.destroy(); };

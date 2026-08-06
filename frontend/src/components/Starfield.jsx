@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 // Very subtle drifting universe / starfield — canvas, lightweight, respects motion.
-export const Starfield = ({ density = 90 }) => {
+export const Starfield = ({ density = 55 }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -12,11 +12,11 @@ export const Starfield = ({ density = 90 }) => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       W = canvas.clientWidth; H = canvas.clientHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.floor((W * H) / 16000) + density;
+      const count = Math.min(Math.floor((W * H) / 26000) + density, 150);
       stars = Array.from({ length: count }).map(() => ({
         x: Math.random() * W,
         y: Math.random() * H,
