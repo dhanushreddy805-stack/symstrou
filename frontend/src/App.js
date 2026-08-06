@@ -8,6 +8,7 @@ import { Toaster, toast } from "sonner";
 import { Nav } from "@/components/Nav";
 import { Compass, Star } from "@/components/Compass";
 import { Starfield } from "@/components/Starfield";
+import { CircleCursor } from "@/components/CircleCursor";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -254,11 +255,11 @@ const ServiceRow = ({ s }) => {
         onMouseLeave={() => setOpen(false)}
         className="group grid cursor-default grid-cols-1 gap-8 border-t border-[var(--line)] py-12 transition-colors duration-500 hover:bg-[rgba(184,148,95,0.03)] md:grid-cols-12 md:py-16"
       >
-        <div className="flex items-start gap-6 md:col-span-4">
+        <div className="flex items-start gap-6 pr-4 md:col-span-4">
           <span className="font-serif text-2xl text-[var(--grey-2)]">{s.no}</span>
-          <div>
-            <div className="flex items-center gap-4">
-              <h3 className="font-serif text-4xl text-[var(--ivory)] md:text-5xl">{s.name}</h3>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <h3 className="font-serif text-3xl leading-[0.96] text-[var(--ivory)] md:text-4xl lg:text-[2.6rem]">{s.name}</h3>
               {s.flag && (
                 <span className="border border-[var(--brass)] px-3 py-1 font-sans text-[0.6rem] tracking-[0.24em] text-[var(--brass)]">
                   {s.flag.toUpperCase()}
@@ -550,12 +551,20 @@ function App() {
   return (
     <div className="App grain">
       <Toaster position="bottom-right" theme="dark" />
+      <CircleCursor />
       <Loader done={loaded} />
       <Nav />
       <main>
-        <Hero />
-        <Marquee />
-        <About />
+        <div className="relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 z-0">
+            <Starfield />
+          </div>
+          <div className="relative z-10">
+            <Hero />
+            <Marquee />
+            <About />
+          </div>
+        </div>
         <Services />
         <Process />
         <Why />
