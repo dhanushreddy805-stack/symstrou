@@ -30,6 +30,7 @@ export const Starfield = ({ density = 55 }) => {
     };
 
     const draw = () => {
+      if (document.hidden) { raf = requestAnimationFrame(draw); return; }
       ctx.clearRect(0, 0, W, H);
       for (const s of stars) {
         s.tw += s.ts;

@@ -580,7 +580,7 @@ const Contact = () => {
 
 /* ----------------------------------------------------------------- Footer */
 const Footer = () => (
-  <footer className="border-t border-[var(--line)]" data-testid="footer">
+  <footer className="relative z-10 border-t border-[var(--line)]" data-testid="footer">
     <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-12">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
         <div className="md:col-span-6">
@@ -628,34 +628,23 @@ function App() {
 
   return (
     <div className="App grain">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-80">
+        <Starfield />
+      </div>
       <Toaster position="bottom-right" theme="dark" />
       {loaded && <CircleCursor />}
       <Loader done={loaded} />
       <Nav />
-      <main>
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 z-0">
-            <Starfield />
-          </div>
-          <div className="relative z-10">
-            <Hero />
-            <Marquee />
-            <About />
-          </div>
-        </div>
+      <main className="relative z-10">
+        <Hero />
+        <Marquee />
+        <About />
         <Manifesto />
         <Services />
         <Process />
         <Why />
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 z-0">
-            <Starfield />
-          </div>
-          <div className="relative z-10">
-            <CTA />
-            <Contact />
-          </div>
-        </div>
+        <CTA />
+        <Contact />
       </main>
       <Footer />
     </div>
