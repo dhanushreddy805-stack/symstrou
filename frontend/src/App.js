@@ -138,12 +138,12 @@ const Hero = () => {
             transition={{ delay: 0.5, duration: 1.6, ease: EASE }}>
             <Compass size={430} />
           </motion.div>
-          <div className="absolute right-0 top-1/2 hidden -translate-y-1/2 flex-col gap-5 lg:flex">
+          <div className="absolute top-1/2 right-0 hidden -translate-y-1/2 flex-col gap-5 lg:flex lg:-right-4 xl:-right-14">
             {labels.map((l, i) => (
               <motion.div key={l} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2 + i * 0.12, duration: 0.9, ease: EASE }}
                 className="flex items-center gap-3">
-                <span className="h-px w-6 bg-[var(--line)]" />
+                <span className="h-px w-10 bg-[var(--line)]" />
                 <span className="font-sans text-[0.7rem] tracking-[0.3em] text-[var(--grey)]">{l.toUpperCase()}</span>
               </motion.div>
             ))}
@@ -551,7 +551,7 @@ function App() {
   return (
     <div className="App grain">
       <Toaster position="bottom-right" theme="dark" />
-      <CircleCursor />
+      {loaded && <CircleCursor />}
       <Loader done={loaded} />
       <Nav />
       <main>

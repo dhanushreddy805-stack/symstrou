@@ -50,8 +50,8 @@ export const Compass = ({ size = 460 }) => (
         return (
           <text
             key={d}
-            x={Math.cos(a) * 168}
-            y={Math.sin(a) * 168 + 5}
+            x={Math.cos(a) * 150}
+            y={Math.sin(a) * 150 + 5}
             textAnchor="middle"
             fill="var(--grey)"
             fontFamily="Outfit, sans-serif"
