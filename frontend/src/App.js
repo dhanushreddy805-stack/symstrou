@@ -59,7 +59,7 @@ const Loader = ({ done }) => (
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: EASE }}
             >
-              AEDIFICA
+              AEDIVOR
             </motion.span>
           </div>
           <div className="h-px w-40 overflow-hidden bg-[var(--line)]">
@@ -188,10 +188,10 @@ const About = () => (
     <div className="mt-12 grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
       <div className="lg:col-span-7">
         <Reveal delay={0.05}>
-          <h2 className="serif-display text-5xl md:text-6xl lg:text-7xl">About AEDIFICA</h2>
+          <h2 className="serif-display text-5xl md:text-6xl lg:text-7xl">About AEDIVOR</h2>
         </Reveal>
         <div className="mt-12 max-w-2xl space-y-8 font-sans text-lg font-light leading-relaxed text-[var(--ivory-dim)]">
-          <Reveal delay={0.1}><p>AEDIFICA is a Venture Creation Company dedicated to helping founders transform ambitious ideas into scalable, execution-ready businesses.</p></Reveal>
+          <Reveal delay={0.1}><p>AEDIVOR is a Venture Creation Company dedicated to helping founders transform ambitious ideas into scalable, execution-ready businesses.</p></Reveal>
           <Reveal delay={0.15}><p>From idea validation and business architecture to brand positioning, growth systems and investment readiness, we partner with founders through every stage of building.</p></Reveal>
           <Reveal delay={0.2}><p className="text-[var(--ivory)]">We believe every great company deserves the right direction before execution.</p></Reveal>
           <Reveal delay={0.25}>
@@ -451,7 +451,7 @@ const Why = () => (
   <section className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="why">
     <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
       <div className="lg:col-span-4">
-        <Reveal><span className="eyebrow">Why AEDIFICA</span></Reveal>
+        <Reveal><span className="eyebrow">Why AEDIVOR</span></Reveal>
         <Reveal delay={0.05}>
           <h2 className="serif-display mt-6 text-5xl md:text-6xl">Why founders trust us.</h2>
         </Reveal>
@@ -544,7 +544,7 @@ const Contact = () => {
             </p>
           </Reveal>
           <div className="mt-14 space-y-8">
-            {[["Email", "hello@aedifica.com"], ["Website", "aedifica.com"], ["Response", "Within 24 hours"]].map(([k, v]) => (
+            {[["Email", "hello@aedivor.com"], ["Website", "aedivor.com"], ["Response", "Within 24 hours"]].map(([k, v]) => (
               <Reveal key={k} delay={0.05}>
                 <div className="flex items-center justify-between border-b border-[var(--line)] pb-4">
                   <span className="font-sans text-xs tracking-[0.24em] text-[var(--grey)]">{k.toUpperCase()}</span>
@@ -586,10 +586,10 @@ const Footer = () => (
         <div className="md:col-span-6">
           <div className="flex items-center gap-4">
             <Star size={26} />
-            <span className="font-serif text-4xl tracking-wide">AEDIFICA</span>
+            <span className="font-serif text-4xl tracking-wide">AEDIVOR</span>
           </div>
           <p className="mt-6 font-serif text-2xl italic text-[var(--brass)]">Build in Silence.</p>
-          <p className="mt-4 font-sans text-xs tracking-[0.24em] text-[var(--grey-2)]">AEDIFICA PRIVATE LIMITED</p>
+          <p className="mt-4 font-sans text-xs tracking-[0.24em] text-[var(--grey-2)]">AEDIVOR PRIVATE LIMITED</p>
         </div>
         <div className="md:col-span-3">
           <p className="eyebrow mb-6">The Journey</p>
@@ -600,13 +600,13 @@ const Footer = () => (
         <div className="md:col-span-3">
           <p className="eyebrow mb-6">Reach</p>
           <ul className="space-y-3 font-sans text-sm text-[var(--ivory-dim)]">
-            <li><span className="link-underline inline-block">hello@aedifica.com</span></li>
-            <li><span className="link-underline inline-block">aedifica.com</span></li>
+            <li><span className="link-underline inline-block">hello@aedivor.com</span></li>
+            <li><span className="link-underline inline-block">aedivor.com</span></li>
           </ul>
         </div>
       </div>
       <div className="mt-20 flex flex-col justify-between gap-4 border-t border-[var(--line)] pt-8 text-[0.7rem] tracking-[0.24em] text-[var(--grey-2)] md:flex-row">
-        <span>© {new Date().getFullYear()} AEDIFICA PRIVATE LIMITED</span>
+        <span>© {new Date().getFullYear()} AEDIVOR PRIVATE LIMITED</span>
         <span className="text-[var(--brass)]">+89° 15′ · TRUE NORTH</span>
         <span>DIRECTION · CLARITY · CONVICTION · PRECISION</span>
       </div>

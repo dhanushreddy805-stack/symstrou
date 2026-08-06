@@ -7,7 +7,7 @@ export const Star = ({ size = 28, color = "var(--ivory)", className = "", style 
     src="/aedifica-logo.png"
     width={size}
     height={size}
-    alt="AEDIFICA"
+    alt="AEDIVOR"
     className={className}
     style={{ width: size, height: size, objectFit: "contain", ...style }}
     {...rest}
