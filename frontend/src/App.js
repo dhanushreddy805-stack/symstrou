@@ -7,6 +7,7 @@ import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import { Nav } from "@/components/Nav";
 import { Compass, Star } from "@/components/Compass";
+import { Starfield } from "@/components/Starfield";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -99,7 +100,7 @@ const Hero = () => {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 1 }}
             className="mb-8 flex items-center gap-4">
             <span className="h-px w-10 bg-[var(--brass)]" />
-            <span className="eyebrow">Venture Creation Company · Est. 2024</span>
+            <span className="eyebrow">Venture Creation Company</span>
           </motion.div>
 
           <h1 className="serif-display text-[15vw] leading-[0.9] sm:text-7xl lg:text-8xl xl:text-[8.5rem]">
@@ -150,8 +151,10 @@ const Hero = () => {
       </div>
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 font-sans text-[0.65rem] tracking-[0.4em] text-[var(--grey-2)]">
-        BUILD IN SILENCE
+        className="absolute bottom-8 left-0 flex w-full items-center justify-between px-6 font-sans text-[0.65rem] tracking-[0.35em] text-[var(--grey-2)] md:px-12">
+        <span className="text-[var(--brass)]">+89° 15′</span>
+        <span>BUILD IN SILENCE</span>
+        <span className="hidden sm:block">TRUE NORTH</span>
       </motion.div>
     </section>
   );
@@ -193,12 +196,10 @@ const About = () => (
         </div>
         <Reveal delay={0.3}>
           <div className="mt-16 flex items-center gap-5 border-t border-[var(--line)] pt-8">
-            <div className="grid h-14 w-14 place-items-center rounded-full border border-[var(--line)]">
-              <span className="font-serif text-2xl text-[var(--brass)]">D</span>
-            </div>
             <div>
-              <p className="font-serif text-2xl text-[var(--ivory)]">Dhanush</p>
-              <p className="font-sans text-xs tracking-[0.24em] text-[var(--grey)]">FOUNDER &amp; CEO</p>
+              <p className="eyebrow mb-2">Founder</p>
+              <p className="font-serif text-3xl text-[var(--ivory)]">Dhanush</p>
+              <p className="mt-1 font-sans text-xs tracking-[0.24em] text-[var(--grey)]">FOUNDER &amp; CEO</p>
             </div>
           </div>
         </Reveal>
@@ -269,9 +270,10 @@ const ServiceRow = ({ s }) => {
         </div>
 
         <div className="md:col-span-6">
-          <div className="flex flex-wrap gap-x-8 gap-y-3">
+          <div className="grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-2">
             {s.items.map((it) => (
-              <span key={it} className="font-sans text-sm text-[var(--ivory-dim)] transition-colors duration-500 group-hover:text-[var(--ivory)]">
+              <span key={it} className="flex items-center gap-3 whitespace-nowrap font-sans text-sm leading-relaxed text-[var(--ivory-dim)] transition-colors duration-500 group-hover:text-[var(--ivory)]">
+                <span className="h-1 w-1 shrink-0 rounded-full bg-[var(--brass)] opacity-60" />
                 {it}
               </span>
             ))}
@@ -463,7 +465,7 @@ const Contact = () => {
             </p>
           </Reveal>
           <div className="mt-14 space-y-8">
-            {[["Email", "hello@aedifica.in"], ["Website", "aedifica.in"], ["Response", "Within 24 hours"]].map(([k, v]) => (
+            {[["Email", "hello@aedifica.com"], ["Website", "aedifica.com"], ["Response", "Within 24 hours"]].map(([k, v]) => (
               <Reveal key={k} delay={0.05}>
                 <div className="flex items-center justify-between border-b border-[var(--line)] pb-4">
                   <span className="font-sans text-xs tracking-[0.24em] text-[var(--grey)]">{k.toUpperCase()}</span>
@@ -519,13 +521,14 @@ const Footer = () => (
         <div className="md:col-span-3">
           <p className="eyebrow mb-6">Reach</p>
           <ul className="space-y-3 font-sans text-sm text-[var(--ivory-dim)]">
-            <li className="link-underline inline-block">hello@aedifica.in</li>
-            <li className="link-underline inline-block">aedifica.in</li>
+            <li><span className="link-underline inline-block">hello@aedifica.com</span></li>
+            <li><span className="link-underline inline-block">aedifica.com</span></li>
           </ul>
         </div>
       </div>
       <div className="mt-20 flex flex-col justify-between gap-4 border-t border-[var(--line)] pt-8 text-[0.7rem] tracking-[0.24em] text-[var(--grey-2)] md:flex-row">
         <span>© {new Date().getFullYear()} AEDIFICA PRIVATE LIMITED</span>
+        <span className="text-[var(--brass)]">+89° 15′ · TRUE NORTH</span>
         <span>DIRECTION · CLARITY · CONVICTION · PRECISION</span>
       </div>
     </div>
@@ -556,8 +559,15 @@ function App() {
         <Services />
         <Process />
         <Why />
-        <CTA />
-        <Contact />
+        <div className="relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 z-0">
+            <Starfield />
+          </div>
+          <div className="relative z-10">
+            <CTA />
+            <Contact />
+          </div>
+        </div>
       </main>
       <Footer />
     </div>
