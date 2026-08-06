@@ -1,0 +1,101 @@
+{
+  "theme_strategy": "Luxury Dark (Primary) with extreme contrast and architectural precision",
+  "brand_philosophy": "Build in Silence. A $100M Venture Creation Company. COMPASS: Direction, Clarity, Conviction, Precision, Purpose, Long-term Thinking.",
+  "colors": {
+    "background": "#050505",
+    "foreground": "#F8F7F4",
+    "luxury_black": "#0A0A0A",
+    "ivory": "#F8F7F4",
+    "charcoal": "#1C1C1C",
+    "subtle_grey": "#A0A0A0",
+    "accent_gold": "#B89B5E",
+    "border": "#2A2A2A"
+  },
+  "typography": {
+    "headings": {
+      "family": "\"Cormorant Garamond\", serif",
+      "weights": ["300", "400", "500", "600"],
+      "style": "Elegant, timeless, tight tracking for large text"
+    },
+    "body": {
+      "family": "\"Outfit\", sans-serif",
+      "weights": ["300", "400"],
+      "style": "Modern, crisp, geometric, highly legible"
+    },
+    "scales": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-none",
+      "h2": "text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight",
+      "h3": "text-xl sm:text-2xl tracking-tight",
+      "body": "text-base sm:text-lg text-[#A0A0A0]",
+      "overline": "text-xs uppercase tracking-[0.2em] text-[#B89B5E]"
+    }
+  },
+  "layouts": {
+    "general": "Asymmetric, editorial, predominantly left-aligned. Extreme breathing room and negative space.",
+    "spacing": "Generous spacing. Use py-24, py-32, py-40 for vertical section padding. Containers must not feel cramped.",
+    "hero": "Kinetic layout. Compass logo centerpiece. On-load masked line-by-line staggered text reveal.",
+    "services_pillars": "5 premium pillars. AVOID standard SaaS cards. Use flat, structural partitions with massive typography (01, 02) and left-aligned editorial content. Use 1px borders for separation.",
+    "process_journey": "Vertical timeline map (Direction \u2192 Validation \u2192 Blueprint \u2192 Execution \u2192 Growth \u2192 Investment). Clean, connected, austere.",
+    "manifesto_why": "Editorial chapters. Huge quotes, vast negative space, slow marquee integration.",
+    "contact": "Minimalist luxury form. 1px bottom borders for inputs, no standard boxes."
+  },
+  "visual_enhancers": {
+    "borders": "1px solid #2A2A2A to create grid-like precision and architectural structure.",
+    "surfaces": "Avoid 'SaaS' soft shadows. Use stark contrast. Do NOT use pure transparent backgrounds for nav.",
+    "imagery": "Desaturated or black and white. Abstract architectural shadows, precision engineering."
+  },
+  "motion": {
+    "philosophy": "Extremely smooth, deliberate, unhurried.",
+    "scroll": "Lenis smooth scrolling is MANDATORY.",
+    "reveals": "Framer Motion. Masked line-by-line reveal (y: 100% to 0, clip-path or overflow hidden). Premium scroll reveals.",
+    "easing": "Custom cubic-bezier(0.16, 1, 0.3, 1) for a 'luxury glide'.",
+    "interactions": "Subtle desaturation on hover, slight scale down of images, line expansions for links. No bouncy effects."
+  },
+  "components": {
+    "navigation": "Sticky, minimal. Logo left, links right. background-color: #050505/90 with backdrop-blur-md on scroll.",
+    "buttons": "Sharp corners (rounded-none) or very slight radius (rounded-sm). 1px border. Hover: invert colors (bg-ivory text-black).",
+    "inputs": "Highly customized: transparent background, 1px bottom border, no side/top borders. Focus: border-ivory.",
+    "marquee": "Slow, editorial serif marquee. Massive text. Divider lines."
+  },
+  "image_urls": {
+    "hero_abstract": {
+      "url": "https://images.pexels.com/photos/36969840/pexels-photo-36969840.jpeg",
+      "description": "Black and white abstract shadows for hero backdrop or manifesto section"
+    },
+    "office_luxury": {
+      "url": "https://images.pexels.com/photos/34549315/pexels-photo-34549315.jpeg",
+      "description": "Dark wood, luxury office interior for About or Service sections"
+    },
+    "precision_engineering": {
+      "url": "https://images.pexels.com/photos/16401928/pexels-photo-16401928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Minimalist black and white architectural precision for Process section"
+    },
+    "glass_dark": {
+      "url": "https://images.unsplash.com/photo-1515703944563-dbcfbf121b3d",
+      "description": "Dark room with clear glass wall for contact or footer backdrop"
+    }
+  },
+  "instructions_to_main_agent": [
+    "DO NOT use blue, gradients, stock illustrations, or default Tailwind colors. Stick STRICTLY to the defined hex codes.",
+    "Ensure headings use Cormorant Garamond and body uses Outfit. Load from Google Fonts.",
+    "Avoid the 'startup SaaS' aesthetic. No random floating cards with heavy drop shadows. Use 1px borders and flat architectural layouts.",
+    "All interactive elements MUST have `data-testid` attributes (e.g., `data-testid='hero-cta-button'`).",
+    "Implement Framer Motion for line-by-line staggered text reveals on load.",
+    "Ensure Lenis is set up for smooth scrolling.",
+    "Do NOT use transparent backgrounds for the sticky nav when content scrolls underneath. Use solid #050505 or #050505 with backdrop-blur.",
+    "For the Service section, build it as a list of premium pillars rather than a generic grid of cards.",
+    "For the Process section, design a vertical journey layout with timeline indicators.",
+    "Do not use generic icons. Rely on typography, lines, and the curated images."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects carefully with backdrop filters (12-24px blur).",
+    "MUST NOT apply universal transition (transition: all).",
+    "MUST NOT center align the app container in global CSS.",
+    "NEVER use emoji characters for icons.",
+    "Every interaction needs micro-animations (hover states, transitions).",
+    "Use 2-3x more spacing than typical designs for a luxurious feel.",
+    "Prioritize using existing UI components but highly customize their styles.",
+    "Use sonner for toasts if needed."
+  ]
+}
