@@ -19,7 +19,7 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-app = FastAPI(title="AEDIVOR API")
+app = FastAPI(title="SYMSTRUO API")
 api_router = APIRouter(prefix="/api")
 
 
@@ -48,7 +48,7 @@ class ContactMessage(BaseModel):
 
 @api_router.get("/")
 async def root():
-    return {"message": "AEDIVOR — Build in Silence."}
+    return {"message": "SYMSTRUO — Build in Silence."}
 
 
 @api_router.post("/contact", response_model=ContactMessage)

@@ -1,13 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// AEDIFICA mark — the actual uploaded compass-star logo.
+// SYMSTRUO mark — the uploaded compass-star logo.
 export const Star = ({ size = 28, color = "var(--ivory)", className = "", style = {}, ...rest }) => (
   <img
     src="/aedifica-logo.png"
     width={size}
     height={size}
-    alt="AEDIVOR"
+    alt="SYMSTRUO"
     className={className}
     style={{ width: size, height: size, objectFit: "contain", ...style }}
     {...rest}
