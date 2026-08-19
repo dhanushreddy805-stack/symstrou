@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Star } from "./Compass";
+import { Mark, Wordmark } from "./Compass";
 
 const LINKS = [
   { label: "Home", id: "home" },
@@ -40,8 +40,8 @@ export const Nav = () => {
     >
       <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 md:px-12">
         <button data-testid="nav-logo" onClick={() => go("home")} className="flex items-center gap-3">
-          <Star size={20} />
-          <span className="font-sans text-sm tracking-[0.42em]">SYMSTRUO</span>
+          <Mark size={22} />
+          <Wordmark height={13} className="mt-[1px]" />
         </button>
 
         <div className="hidden items-center gap-11 md:flex">

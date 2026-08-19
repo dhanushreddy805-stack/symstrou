@@ -1,17 +1,44 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// SYMSTRUO mark — the uploaded compass-star logo.
-export const Star = ({ size = 28, color = "var(--ivory)", className = "", style = {}, ...rest }) => (
+// SYMSTRUO logo mark — the pinwheel star.
+export const Mark = ({ size = 40, className = "", style = {}, ...rest }) => (
   <img
-    src="/aedifica-logo.png"
-    width={size}
-    height={size}
+    src="/symstruo-mark.png"
     alt="SYMSTRUO"
     className={className}
-    style={{ width: size, height: size, objectFit: "contain", ...style }}
+    style={{ width: size, height: "auto", objectFit: "contain", ...style }}
     {...rest}
   />
+);
+
+// SYMSTRUO wordmark — the name lockup in the brand font.
+export const Wordmark = ({ height = 18, className = "", ...rest }) => (
+  <img
+    src="/symstruo-wordmark.png"
+    alt="SYMSTRUO"
+    className={className}
+    style={{ height, width: "auto", objectFit: "contain" }}
+    {...rest}
+  />
+);
+
+// Decorative four-point star accent (brass-tintable vector).
+export const Star = ({ size = 28, color = "var(--ivory)", className = "", style = {}, ...rest }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="-130 -130 260 260"
+    className={className}
+    style={style}
+    aria-hidden="true"
+    {...rest}
+  >
+    <path
+      d="M0 -122 C 2.4 -26, 15 -3.4, 108 0 C 15 3.4, 2.4 26, 0 122 C -2.4 26, -15 3.4, -108 0 C -15 -3.4, -2.4 -26, 0 -122 Z"
+      fill={color}
+    />
+  </svg>
 );
 
 // Hero centrepiece — the star framed by a slowly rotating brass compass ring.
@@ -72,7 +99,7 @@ export const Compass = ({ size = 460, needleRotate }) => (
         transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
       >
         <motion.div style={needleRotate ? { rotate: needleRotate } : undefined}>
-          <Star size={size * 0.5} color="var(--ivory)" style={{ filter: "drop-shadow(0 0 40px rgba(184,148,95,0.25))" }} />
+          <Mark size={size * 0.46} style={{ filter: "drop-shadow(0 0 42px rgba(184,148,95,0.28))" }} />
         </motion.div>
       </motion.div>
     </div>

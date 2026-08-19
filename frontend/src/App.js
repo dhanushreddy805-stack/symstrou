@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import { Nav } from "@/components/Nav";
-import { Compass, Star } from "@/components/Compass";
+import { Compass, Star, Mark, Wordmark } from "@/components/Compass";
 import { Starfield } from "@/components/Starfield";
 import { CircleCursor } from "@/components/CircleCursor";
 
@@ -50,17 +50,16 @@ const Loader = ({ done }) => (
             animate={{ scale: 1, opacity: 1, rotate: 0 }}
             transition={{ duration: 1.2, ease: EASE }}
           >
-            <Star size={54} />
+            <Mark size={62} />
           </motion.div>
           <div className="overflow-hidden">
-            <motion.span
-              className="font-sans text-xs tracking-[0.6em] text-[var(--grey)]"
+            <motion.div
               initial={{ y: 30 }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: EASE }}
             >
-              SYMSTRUO
-            </motion.span>
+              <Wordmark height={13} />
+            </motion.div>
           </div>
           <div className="h-px w-40 overflow-hidden bg-[var(--line)]">
             <motion.div
@@ -585,8 +584,8 @@ const Footer = () => (
       <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
         <div className="md:col-span-6">
           <div className="flex items-center gap-4">
-            <Star size={26} />
-            <span className="font-serif text-4xl tracking-wide">SYMSTRUO</span>
+            <Mark size={30} />
+            <Wordmark height={22} />
           </div>
           <p className="mt-6 font-serif text-2xl italic text-[var(--brass)]">Build in Silence.</p>
           <p className="mt-4 font-sans text-xs tracking-[0.24em] text-[var(--grey-2)]">SYMSTRUO PRIVATE LIMITED</p>
