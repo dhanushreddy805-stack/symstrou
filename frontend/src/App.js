@@ -3,7 +3,7 @@ import "@/App.css";
 import axios from "axios";
 import Lenis from "lenis";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Plus } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import { Nav } from "@/components/Nav";
 import { Compass, Star, Mark, Wordmark } from "@/components/Compass";
@@ -391,6 +391,87 @@ const Services = () => (
   </section>
 );
 
+/* -------------------------------------------------------------------- FAQ */
+const FAQS = [
+  { q: "What is SYMSTRUO?", a: "SYMSTRUO is a business-building and advisory firm that helps founders and businesses move from idea to structured business, brand, growth, and capital readiness. We work across the critical stages of building a business — from defining the business model and positioning to building the brand, developing growth strategies, and preparing for fundraising." },
+  { q: "Who does SYMSTRUO work with?", a: "SYMSTRUO works with founders, entrepreneurs, startups, emerging businesses, and established companies looking to build, restructure, launch, or scale. Our approach is tailored to the stage and specific requirements of each business." },
+  { q: "I only have a business idea. Can SYMSTRUO help me?", a: "Yes. An idea is only the starting point. We help evaluate the opportunity, define the business model, identify the target market, establish positioning, and create a structured path toward launching the business." },
+  { q: "Can SYMSTRUO help me start a business from scratch?", a: "Yes. We can support the process from concept → business model → strategy → brand → launch → growth. The objective is not simply to create a business plan, but to build the foundations required to turn the idea into an operating business." },
+  { q: "Do you provide business ideas?", a: "Yes, where appropriate. We can help identify and evaluate business opportunities based on market demand, customer problems, industry trends, business economics, and the founder's objectives. However, our focus is not on giving random business ideas. It is on identifying opportunities that can become viable businesses." },
+  { q: "What is Business Architecture?", a: "Business Architecture is the process of defining how a business is designed to work. This can include the business model, customer segments, value proposition, revenue streams, operations, positioning, competitive advantage, and growth structure. It creates the foundation before significant time and capital are invested." },
+  { q: "Can SYMSTRUO help with branding?", a: "Yes. Our branding work goes beyond logos and visual design. We focus on positioning, brand strategy, identity, messaging, customer perception, and creating a consistent brand system that supports the business strategy." },
+  { q: "Do you provide logo and graphic design?", a: "Design can be part of the branding engagement, depending on the project. However, we believe design should follow strategy. A strong visual identity should communicate what the business stands for rather than simply make it look attractive." },
+  { q: "Can you help an existing business that is already operating?", a: "Absolutely. SYMSTRUO is not only for new businesses. We can work with existing companies that need to reposition their brand, restructure their business model, improve growth, prepare for fundraising, or build systems for the next stage of expansion." },
+  { q: "Can SYMSTRUO help with fundraising?", a: "Yes. We help businesses become fundraising-ready. This can include business model refinement, financial and growth narratives, investor positioning, pitch materials, fundraising strategy, and preparation for investor conversations." },
+  { q: "Do you guarantee funding?", a: "No. No legitimate advisory firm can guarantee that an investor will fund a business. What we can do is improve the quality of the business, its positioning, its fundraising preparation, and the way its opportunity is presented to potential investors." },
+  { q: "When should a startup raise funding?", a: "Funding should be raised when capital can meaningfully accelerate a validated opportunity. Raising too early can create unnecessary dilution and pressure. Raising too late can limit growth. The right timing depends on the business model, traction, capital requirements, market opportunity, and growth strategy." },
+  { q: "Does SYMSTRUO invest in businesses?", a: "SYMSTRUO's advisory engagement should not automatically be interpreted as an investment. Where investment or capital introductions are relevant, the structure depends on the specific business, opportunity, and engagement." },
+  { q: "How long does a SYMSTRUO engagement take?", a: "There is no universal timeline. A focused strategy engagement may take a few weeks, while building a complete business, brand, and growth architecture can require several months. The scope is determined based on the business stage and objectives." },
+  { q: "How much does SYMSTRUO charge?", a: "Pricing depends on the scope, complexity, stage of the business, and level of involvement required. After understanding the business and objectives, we recommend the appropriate engagement structure." },
+  { q: "Do you work with companies outside India?", a: "Yes. Business-building, strategy, branding, and advisory work can be delivered across markets, subject to the requirements of the engagement." },
+  { q: "What makes SYMSTRUO different from a typical business consultant?", a: "We don't approach businesses as isolated problems. A business model, brand, growth strategy, operations, and capital strategy are interconnected. SYMSTRUO takes a business-building approach, connecting these elements into one coherent system rather than providing disconnected consulting services." },
+  { q: "Can I approach SYMSTRUO if I am not sure what service I need?", a: "Yes. In fact, that is often the right place to start. You don't need to know exactly what service you need before speaking with us. We first understand the business, identify the most important problem or opportunity, and determine where SYMSTRUO can create the most value." },
+  { q: "What is the first step?", a: "The first step is a conversation about the business, where it currently stands, what you are trying to build, and what is preventing you from getting there. From there, we determine the appropriate strategy and engagement." },
+  { q: "Is SYMSTRUO an agency or a consulting firm?", a: "SYMSTRUO sits between the two. We combine strategic advisory with execution-oriented business building. The goal is not simply to provide recommendations and leave the founder to figure out the rest. Where appropriate, we work alongside the business to turn strategy into an operating system." },
+];
+
+const FAQItem = ({ q, a, idx }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-t border-[var(--line)]">
+      <button
+        data-testid={`faq-${idx}`}
+        onClick={() => setOpen((v) => !v)}
+        className="group flex w-full items-start justify-between gap-8 py-7 text-left"
+        aria-expanded={open}
+      >
+        <div className="flex items-start gap-5 md:gap-8">
+          <span className="pt-1.5 font-serif text-sm text-[var(--grey-2)]">{String(idx + 1).padStart(2, "0")}</span>
+          <span className={`font-serif text-2xl leading-tight transition-colors duration-300 md:text-3xl ${open ? "text-[var(--ivory)]" : "text-[var(--ivory-dim)] group-hover:text-[var(--ivory)]"}`}>
+            {q}
+          </span>
+        </div>
+        <Plus size={20} className={`mt-1.5 shrink-0 text-[var(--brass)] transition-transform duration-500 ${open ? "rotate-[135deg]" : "group-hover:rotate-90"}`} />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="overflow-hidden"
+          >
+            <p className="max-w-3xl pb-9 pl-10 font-sans text-base leading-relaxed text-[var(--ivory-dim)] md:pl-[4.25rem]">{a}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const FAQ = () => (
+  <section id="faq" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="faq">
+    <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <div>
+        <Reveal><span className="eyebrow">FAQ</span></Reveal>
+        <Reveal delay={0.05}>
+          <h2 className="serif-display mt-6 text-5xl md:text-7xl">Questions, answered.</h2>
+        </Reveal>
+      </div>
+      <Reveal delay={0.1}>
+        <p className="max-w-sm font-sans text-sm leading-relaxed text-[var(--grey)]">
+          Everything founders ask before we begin. If your question isn't here,
+          a conversation is the best place to start.
+        </p>
+      </Reveal>
+    </div>
+    <div className="border-b border-[var(--line)]">
+      {FAQS.map((f, i) => <FAQItem key={i} idx={i} q={f.q} a={f.a} />)}
+    </div>
+  </section>
+);
+
 /* ---------------------------------------------------------------- Process */
 const STEPS = ["Direction", "Validation", "Blueprint", "Execution", "Growth", "Investment"];
 const STEP_DESC = [
@@ -437,46 +518,6 @@ const Process = () => {
     </section>
   );
 };
-
-/* -------------------------------------------------------------------- Why */
-const WHY = [
-  { t: "Direction", d: "Execution without direction is expensive. We give founders true north before capital, time or conviction is spent — so every move compounds." },
-  { t: "Clarity", d: "Ambiguity is the enemy of scale. We turn tangled ambition into a precise, legible architecture the whole company can build against." },
-  { t: "Execution", d: "A strategy no one can act on is decoration. Our blueprints are sequenced, resourced and ready — designed to be built, not admired." },
-  { t: "Legacy", d: "We build for permanence, not trend. The companies we shape are engineered to outlast the noise and endure across decades." },
-];
-
-const Why = () => (
-  <section className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="why">
-    <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
-      <div className="lg:col-span-4">
-        <Reveal><span className="eyebrow">Why SYMSTRUO</span></Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="serif-display mt-6 text-5xl md:text-6xl">Why founders trust us.</h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mt-8 max-w-xs font-sans text-sm leading-relaxed text-[var(--grey)]">
-            We don't sell consulting. We create businesses — and we stay accountable to
-            the outcome, not the deck.
-          </p>
-        </Reveal>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:col-span-8">
-        {WHY.map((w, i) => (
-          <Reveal key={w.t} delay={0.05 * i}>
-            <div className="border-t border-[var(--line)] py-12 sm:px-8">
-              <div className="mb-6 flex items-center gap-4">
-                <span className="font-serif text-lg text-[var(--brass)]">0{i + 1}</span>
-                <h3 className="font-serif text-4xl text-[var(--ivory)]">{w.t}</h3>
-              </div>
-              <p className="font-sans text-sm leading-relaxed text-[var(--ivory-dim)]">{w.d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </div>
-  </section>
-);
 
 /* -------------------------------------------------------------------- CTA */
 const CTA = () => (
@@ -640,8 +681,8 @@ function App() {
         <About />
         <Manifesto />
         <Services />
+        <FAQ />
         <Process />
-        <Why />
         <CTA />
         <Contact />
       </main>
