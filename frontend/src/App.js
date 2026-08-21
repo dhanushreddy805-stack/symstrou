@@ -11,6 +11,10 @@ import { Compass, Star, Mark, Wordmark } from "@/components/Compass";
 import { Starfield } from "@/components/Starfield";
 import { CircleCursor } from "@/components/CircleCursor";
 import { SERVICE_DETAILS, SERVICE_ORDER } from "@/data/serviceDetails";
+import { INSIGHTS } from "@/data/insights";
+
+// Home FAQ shows a curated subset (questions 1, 2, 4, 20, 12, 6).
+const HOME_FAQ = [0, 1, 3, 19, 11, 5];
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -476,9 +480,164 @@ const FAQ = () => (
       </Reveal>
     </div>
     <div className="border-b border-[var(--line)]">
-      {FAQS.map((f, i) => <FAQItem key={i} idx={i} q={f.q} a={f.a} />)}
+      {HOME_FAQ.map((qi, i) => <FAQItem key={qi} idx={i} q={FAQS[qi].q} a={FAQS[qi].a} />)}
+    </div>
+    <Reveal delay={0.1}>
+      <div className="mt-14">
+        <Link to="/faq" data-testid="more-questions" className="btn-ghost btn-fill inline-flex items-center gap-3 border border-[var(--ivory)] px-9 py-4 font-sans text-xs tracking-[0.24em]">
+          <span>MORE QUESTIONS</span><ArrowUpRight size={15} className="relative z-[1]" />
+        </Link>
+      </div>
+    </Reveal>
+  </section>
+);
+
+/* --------------------------------------------------------------- Insights */
+const InsightRow = ({ a, i }) => (
+  <Reveal>
+    <Link
+      to={`/insights/${a.slug}`}
+      data-testid={`insight-${i}`}
+      className="group grid grid-cols-1 gap-3 border-t border-[var(--line)] py-9 transition-colors duration-500 hover:bg-[rgba(184,148,95,0.03)] md:grid-cols-12 md:items-center md:gap-6 md:py-11"
+    >
+      <span className="font-serif text-sm text-[var(--grey-2)] md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
+      <span className="eyebrow md:col-span-2">{a.kicker}</span>
+      <h3 className="font-serif text-2xl leading-tight text-[var(--ivory-dim)] transition-colors group-hover:text-[var(--ivory)] md:col-span-8 md:text-3xl">{a.title}</h3>
+      <div className="flex md:col-span-1 md:justify-end">
+        <ArrowUpRight size={20} className="text-[var(--brass)] transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1" />
+      </div>
+    </Link>
+  </Reveal>
+);
+
+const Insights = () => (
+  <section id="insights" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="insights">
+    <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <div>
+        <Reveal><span className="eyebrow">Insights</span></Reveal>
+        <Reveal delay={0.05}>
+          <h2 className="serif-display mt-6 text-5xl md:text-7xl">Thinking, before building.</h2>
+        </Reveal>
+      </div>
+      <Reveal delay={0.1}>
+        <p className="max-w-sm font-sans text-sm leading-relaxed text-[var(--grey)]">
+          Perspectives on how enduring businesses are designed, positioned, funded and scaled.
+        </p>
+      </Reveal>
+    </div>
+    <div className="border-b border-[var(--line)]">
+      {INSIGHTS.map((a, i) => <InsightRow key={a.slug} a={a} i={i} />)}
     </div>
   </section>
+);
+
+/* ----------------------------------------------------------- Page shell */
+const Page = ({ children }) => {
+  useLenis();
+  useEffect(() => { window.scrollTo(0, 0); }, []);
+  return (
+    <div className="App grain">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-80"><Starfield /></div>
+      <Toaster position="bottom-right" theme="dark" />
+      <CircleCursor />
+      <Nav />
+      <main className="relative z-10">{children}</main>
+      <Footer />
+    </div>
+  );
+};
+
+const InsightsIndex = () => (
+  <Page>
+    <section className="mx-auto max-w-[1500px] px-6 pt-40 pb-32 md:px-12 md:pt-52" data-testid="insights-page">
+      <Reveal><span className="eyebrow">Insights</span></Reveal>
+      <Reveal delay={0.05}>
+        <h1 className="serif-display mt-6 max-w-4xl text-5xl md:text-7xl">Thinking, before building.</h1>
+      </Reveal>
+      <div className="mt-16 border-b border-[var(--line)]">
+        {INSIGHTS.map((a, i) => <InsightRow key={a.slug} a={a} i={i} />)}
+      </div>
+    </section>
+  </Page>
+);
+
+const ArticlePage = () => {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const idx = INSIGHTS.findIndex((a) => a.slug === slug);
+  const a = INSIGHTS[idx];
+  if (!a) {
+    return (
+      <Page>
+        <section className="mx-auto max-w-3xl px-6 pt-52 pb-40 md:px-12">
+          <p className="font-serif text-4xl">Article not found.</p>
+          <Link to="/insights" className="link-underline mt-6 inline-block font-sans text-xs tracking-[0.24em] text-[var(--brass)]">ALL INSIGHTS</Link>
+        </section>
+      </Page>
+    );
+  }
+  const next = INSIGHTS[(idx + 1) % INSIGHTS.length];
+  return (
+    <Page>
+      <article className="mx-auto max-w-3xl px-6 pt-40 pb-20 md:pt-52" data-testid="article-page">
+        <Reveal>
+          <button onClick={() => navigate("/insights")} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
+            <ArrowRight size={13} className="rotate-180" /> ALL INSIGHTS
+          </button>
+        </Reveal>
+        <Reveal delay={0.05}><span className="eyebrow">{a.kicker}</span></Reveal>
+        <Reveal delay={0.1}><h1 className="serif-display mt-6 text-4xl md:text-6xl">{a.title}</h1></Reveal>
+        <Reveal delay={0.15}><p className="mt-8 font-serif text-2xl italic leading-snug text-[var(--ivory-dim)] md:text-3xl">{a.deck}</p></Reveal>
+        <div className="mt-16 space-y-14">
+          {a.sections.map((s, i) => (
+            <Reveal key={i}>
+              <div>
+                {s.h && <h2 className="font-serif text-2xl text-[var(--ivory)] md:text-3xl">{s.h}</h2>}
+                {s.p && <p className="mt-4 font-sans text-base leading-relaxed text-[var(--ivory-dim)]">{s.p}</p>}
+                {s.bullets && (
+                  <ul className="mt-6 space-y-3">
+                    {s.bullets.map((b, j) => (
+                      <li key={j} className="flex gap-3 font-sans text-base leading-relaxed text-[var(--ivory-dim)]">
+                        <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[var(--brass)]" />{b}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </article>
+      <section className="mx-auto max-w-3xl px-6 pb-32 md:pb-40">
+        <Reveal>
+          <Link to={`/insights/${next.slug}`} data-testid="next-insight" className="group block border border-[var(--line)] p-8 transition-colors duration-500 hover:border-[var(--brass)]">
+            <p className="eyebrow mb-3">Next Insight</p>
+            <p className="font-serif text-2xl text-[var(--ivory)] transition-colors group-hover:text-[var(--brass)] md:text-3xl">{next.title}</p>
+          </Link>
+        </Reveal>
+      </section>
+    </Page>
+  );
+};
+
+const REST_FAQ = FAQS.map((_, i) => i).filter((i) => !HOME_FAQ.includes(i));
+const FAQPage = () => (
+  <Page>
+    <section className="mx-auto max-w-[1500px] px-6 pt-40 pb-32 md:px-12 md:pt-52" data-testid="faq-page">
+      <Reveal>
+        <button onClick={() => window.history.back()} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
+          <ArrowRight size={13} className="rotate-180" /> BACK
+        </button>
+      </Reveal>
+      <Reveal delay={0.05}><span className="eyebrow">FAQ</span></Reveal>
+      <Reveal delay={0.1}>
+        <h1 className="serif-display mt-6 max-w-4xl text-5xl md:text-7xl">Everything else, answered.</h1>
+      </Reveal>
+      <div className="mt-14 border-b border-[var(--line)]">
+        {REST_FAQ.map((qi, i) => <FAQItem key={qi} idx={i} q={FAQS[qi].q} a={FAQS[qi].a} />)}
+      </div>
+    </section>
+  </Page>
 );
 
 /* ---------------------------------------------------------------- Process */
@@ -831,7 +990,7 @@ const Home = () => {
         <About />
         <Manifesto />
         <Services />
-        <Process />
+        <Insights />
         <FAQ />
         <CTA />
         <Contact />
@@ -847,6 +1006,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services/:slug" element={<ServiceDetail />} />
+        <Route path="/insights" element={<InsightsIndex />} />
+        <Route path="/insights/:slug" element={<ArticlePage />} />
+        <Route path="/faq" element={<FAQPage />} />
       </Routes>
     </BrowserRouter>
   );
