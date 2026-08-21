@@ -141,14 +141,37 @@ export default function Deck() {
     if (exporting) return;
     setExporting(true);
     const tId = toast.loading("Generating PDF… this takes a few seconds");
-    await new Promise((r) => setTimeout(r, 900));
+    // wait for React to mount the offscreen export deck
+    await new Promise((r) => setTimeout(r, 400));
     try {
-      const pages = exportRef.current.querySelectorAll(".export-page");
+      const root = exportRef.current;
+      // 1) wait for fonts
+      if (document.fonts && document.fonts.ready) {
+        try { await document.fonts.ready; } catch (e) {}
+      }
+      // 2) wait for every image in the export deck to finish loading/decoding
+      const imgs = Array.from(root.querySelectorAll("img"));
+      await Promise.all(
+        imgs.map((im) =>
+          im.complete && im.naturalWidth > 0
+            ? Promise.resolve()
+            : new Promise((res) => {
+                im.addEventListener("load", res, { once: true });
+                im.addEventListener("error", res, { once: true });
+              })
+        )
+      );
+      // 3) two animation frames + settle so first paint is committed
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      await new Promise((r) => setTimeout(r, 500));
+
+      const pages = root.querySelectorAll(".export-page");
       const W = 1280, H = 720;
       const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [W, H] });
       for (let i = 0; i < pages.length; i++) {
         const canvas = await html2canvas(pages[i], {
-          scale: 2, backgroundColor: "#090C10", useCORS: true, logging: false, width: W, height: H,
+          scale: 2, backgroundColor: "#090C10", useCORS: true, allowTaint: false,
+          logging: false, imageTimeout: 20000, width: W, height: H,
           windowWidth: W, windowHeight: H,
         });
         const img = canvas.toDataURL("image/jpeg", 0.92);
