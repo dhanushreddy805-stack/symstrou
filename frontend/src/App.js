@@ -427,7 +427,7 @@ const FAQItem = ({ q, a, idx }) => {
       >
         <div className="flex items-start gap-5 md:gap-8">
           <span className="pt-1.5 font-serif text-sm text-[var(--grey-2)]">{String(idx + 1).padStart(2, "0")}</span>
-          <span className={`font-serif text-2xl leading-tight transition-colors duration-300 md:text-3xl ${open ? "text-[var(--ivory)]" : "text-[var(--ivory-dim)] group-hover:text-[var(--ivory)]"}`}>
+          <span className={`font-serif text-xl leading-tight transition-colors duration-300 md:text-2xl ${open ? "text-[var(--ivory)]" : "text-[var(--ivory-dim)] group-hover:text-[var(--ivory)]"}`}>
             {q}
           </span>
         </div>
@@ -442,7 +442,7 @@ const FAQItem = ({ q, a, idx }) => {
             transition={{ duration: 0.5, ease: EASE }}
             className="overflow-hidden"
           >
-            <p className="max-w-3xl pb-9 pl-10 font-sans text-base leading-relaxed text-[var(--ivory-dim)] md:pl-[4.25rem]">{a}</p>
+            <p className="max-w-3xl pb-9 pl-10 font-sans text-sm leading-relaxed text-[var(--ivory-dim)] md:pl-[4.25rem]">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -681,8 +681,8 @@ function App() {
         <About />
         <Manifesto />
         <Services />
-        <FAQ />
         <Process />
+        <FAQ />
         <CTA />
         <Contact />
       </main>
