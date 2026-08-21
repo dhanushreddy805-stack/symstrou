@@ -5,10 +5,12 @@ import Lenis from "lenis";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, ArrowRight, Plus } from "lucide-react";
 import { Toaster, toast } from "sonner";
+import { BrowserRouter, Routes, Route, Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { Nav } from "@/components/Nav";
 import { Compass, Star, Mark, Wordmark } from "@/components/Compass";
 import { Starfield } from "@/components/Starfield";
 import { CircleCursor } from "@/components/CircleCursor";
+import { SERVICE_DETAILS, SERVICE_ORDER } from "@/data/serviceDetails";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -305,19 +307,19 @@ const Manifesto = () => (
 
 /* --------------------------------------------------------------- Services */
 const SERVICES = [
-  { no: "01", name: "IDEA LAB", flag: "", desc: "For founders with ideas but no clear direction.",
+  { slug: "idea-lab", no: "01", name: "IDEA LAB", flag: "", desc: "For founders with ideas but no clear direction.",
     items: ["Idea Validation", "Market Research", "Competitor Analysis", "Customer Persona", "Opportunity Score", "Risk Analysis", "Revenue Possibilities"],
     outcome: "Should I build this business?" },
-  { no: "02", name: "BUSINESS BLUEPRINT", flag: "Flagship", desc: "Complete business architecture designed for execution.",
+  { slug: "business-blueprint", no: "02", name: "BUSINESS BLUEPRINT", flag: "Flagship", desc: "Complete business architecture designed for execution.",
     items: ["Business Model", "Revenue Streams", "Pricing Strategy", "Brand Positioning", "Operations Blueprint", "Hiring Plan", "Financial Projection", "Go-To-Market Strategy", "90 Day Execution Roadmap", "Investor Readiness"],
     outcome: "Complete roadmap to build the business." },
-  { no: "03", name: "BRAND ARCHITECTURE", flag: "", desc: "Positioning and identity engineered for permanence.",
+  { slug: "brand-architecture", no: "03", name: "BRAND ARCHITECTURE", flag: "", desc: "Positioning and identity engineered for permanence.",
     items: ["Brand Name", "Brand Story", "Mission", "Vision", "Identity", "Tone of Voice", "Product Positioning", "Customer Experience", "Brand Guidelines"],
     outcome: "A premium brand — not just a logo." },
-  { no: "04", name: "GROWTH ENGINE", flag: "", desc: "Systems that turn traction into scale.",
+  { slug: "growth-engine", no: "04", name: "GROWTH ENGINE", flag: "", desc: "Systems that turn traction into scale.",
     items: ["Sales Process", "CRM", "SOP Creation", "Lead Generation Strategy", "LinkedIn Positioning", "Founder Personal Branding", "Partnerships", "Expansion Strategy"],
     outcome: "A scalable company." },
-  { no: "05", name: "INVESTMENT PREPARATION", flag: "", desc: "Everything required to stand before capital with conviction.",
+  { slug: "investment-preparation", no: "05", name: "INVESTMENT PREPARATION", flag: "", desc: "Everything required to stand before capital with conviction.",
     items: ["Pitch Deck", "Financial Model", "Valuation Guidance", "Investor Strategy", "Data Room", "Due Diligence", "Fundraising Narrative"],
     outcome: "Investor-ready startup." },
 ];
@@ -358,11 +360,18 @@ const ServiceRow = ({ s }) => {
           </div>
         </div>
 
-        <div className="flex items-start justify-between md:col-span-2 md:justify-end">
+        <div className="flex flex-col items-start justify-between gap-5 md:col-span-2 md:items-end">
           <div className="text-left md:text-right">
             <p className="eyebrow mb-2">Outcome</p>
             <p className="font-serif text-lg italic text-[var(--brass)]">{s.outcome}</p>
           </div>
+          <Link
+            to={`/services/${s.slug}`}
+            data-testid={`service-more-${s.no}`}
+            className="link-underline inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--ivory)]"
+          >
+            KNOW MORE <ArrowUpRight size={13} />
+          </Link>
         </div>
       </div>
     </Reveal>
@@ -654,17 +663,158 @@ const Footer = () => (
   </footer>
 );
 
+/* ---------------------------------------------------------- Service Page */
+const useLenis = () => {
+  useEffect(() => {
+    const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true, touchMultiplier: 1.6 });
+    let id;
+    const raf = (time) => { lenis.raf(time); id = requestAnimationFrame(raf); };
+    id = requestAnimationFrame(raf);
+    return () => { cancelAnimationFrame(id); lenis.destroy(); };
+  }, []);
+};
+
+const ServiceDetail = () => {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const data = SERVICE_DETAILS[slug];
+  useLenis();
+  useEffect(() => { window.scrollTo(0, 0); }, [slug]);
+
+  if (!data) {
+    return (
+      <div className="grid min-h-screen place-items-center bg-[var(--ink)]">
+        <div className="text-center">
+          <p className="font-serif text-4xl">Service not found.</p>
+          <Link to="/" className="link-underline mt-6 inline-block font-sans text-xs tracking-[0.24em] text-[var(--brass)]">RETURN HOME</Link>
+        </div>
+      </div>
+    );
+  }
+
+  const idx = SERVICE_ORDER.indexOf(slug);
+  const next = SERVICE_ORDER[(idx + 1) % SERVICE_ORDER.length];
+  const nextData = SERVICE_DETAILS[next];
+
+  return (
+    <div className="App grain">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-80"><Starfield /></div>
+      <Toaster position="bottom-right" theme="dark" />
+      <CircleCursor />
+      <Nav />
+      <main className="relative z-10">
+        {/* header */}
+        <section className="mx-auto max-w-[1500px] px-6 pt-40 pb-16 md:px-12 md:pt-52 md:pb-24" data-testid="service-detail">
+          <Reveal>
+            <button onClick={() => navigate("/#services")} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
+              <ArrowRight size={13} className="rotate-180" /> ALL SERVICES
+            </button>
+          </Reveal>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+              <Reveal delay={0.05}>
+                <div className="mb-6 flex items-center gap-5">
+                  <span className="font-serif text-2xl text-[var(--brass)]">{data.no}</span>
+                  {data.flag && <span className="border border-[var(--brass)] px-3 py-1 font-sans text-[0.6rem] tracking-[0.24em] text-[var(--brass)]">{data.flag.toUpperCase()}</span>}
+                </div>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <h1 className="serif-display text-5xl md:text-7xl">{data.name}</h1>
+              </Reveal>
+              <Reveal delay={0.15}>
+                <p className="mt-8 max-w-2xl font-serif text-3xl italic leading-snug text-[var(--ivory-dim)] md:text-4xl">{data.headline}</p>
+              </Reveal>
+            </div>
+            <div className="lg:col-span-4 lg:pt-10">
+              <Reveal delay={0.2}>
+                <p className="font-sans text-base leading-relaxed text-[var(--grey)]">{data.intro}</p>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* deliverable blocks */}
+        <section className="mx-auto max-w-[1500px] px-6 md:px-12">
+          <div className="border-b border-[var(--line)]">
+            {data.blocks.map((b, i) => (
+              <Reveal key={b.t}>
+                <div className="grid grid-cols-1 gap-8 border-t border-[var(--line)] py-14 md:grid-cols-12 md:py-20">
+                  <div className="flex items-start gap-5 md:col-span-4">
+                    <span className="font-serif text-sm text-[var(--grey-2)]">{String(i + 1).padStart(2, "0")}</span>
+                    <h2 className="font-serif text-3xl leading-tight text-[var(--ivory)] md:text-4xl">{b.t}</h2>
+                  </div>
+                  <div className="md:col-span-8">
+                    <p className="max-w-2xl font-sans text-base leading-relaxed text-[var(--ivory-dim)]">{b.d}</p>
+                    {b.r && (
+                      <div className="mt-8">
+                        <p className="eyebrow mb-5">You receive</p>
+                        <div className="grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2">
+                          {b.r.map((item) => (
+                            <span key={item} className="flex items-center gap-3 font-sans text-sm text-[var(--ivory-dim)]">
+                              <span className="h-1 w-1 shrink-0 rounded-full bg-[var(--brass)] opacity-60" />
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    <div className="mt-8 flex items-baseline gap-3 border-l border-[var(--brass)] pl-5">
+                      <span className="eyebrow shrink-0">Outcome</span>
+                      <span className="font-serif text-xl italic text-[var(--brass)]">{b.o}</span>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* footer nav: next service + CTA */}
+        <section className="mx-auto max-w-[1500px] px-6 py-28 md:px-12 md:py-36">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+            <Reveal>
+              <Link to={`/services/${next}`} className="group block border border-[var(--line)] p-10 transition-colors duration-500 hover:border-[var(--brass)]" data-testid="next-service">
+                <p className="eyebrow mb-4">Next Service · {nextData.no}</p>
+                <p className="font-serif text-4xl text-[var(--ivory)] transition-colors group-hover:text-[var(--brass)] md:text-5xl">{nextData.name}</p>
+                <span className="mt-6 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">CONTINUE <ArrowUpRight size={13} /></span>
+              </Link>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <div className="flex h-full flex-col justify-between border border-[var(--line)] p-10">
+                <div>
+                  <p className="eyebrow mb-4">Ready when you are</p>
+                  <p className="font-serif text-3xl leading-tight text-[var(--ivory)] md:text-4xl">Let's find your direction.</p>
+                </div>
+                <button onClick={() => navigate("/#contact")} className="btn-ghost btn-fill mt-8 inline-flex w-fit items-center gap-3 border border-[var(--ivory)] px-8 py-4 font-sans text-xs tracking-[0.24em]">
+                  <span>START BUILDING</span><ArrowUpRight size={15} className="relative z-[1]" />
+                </button>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
 /* -------------------------------------------------------------------- App */
-function App() {
+const Home = () => {
   const [loaded, setLoaded] = useState(false);
+  const { hash } = useLocation();
+  useLenis();
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 2000);
-    const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true, touchMultiplier: 1.6 });
-    const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
-    requestAnimationFrame(raf);
-    return () => { clearTimeout(t); lenis.destroy(); };
+    return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace("#", "");
+      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 300);
+    }
+  }, [hash]);
 
   return (
     <div className="App grain">
@@ -688,6 +838,17 @@ function App() {
       </main>
       <Footer />
     </div>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services/:slug" element={<ServiceDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

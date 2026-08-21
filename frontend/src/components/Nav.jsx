@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Mark, Wordmark } from "./Compass";
 
 const LINKS = [
@@ -19,6 +20,8 @@ const scrollTo = (id) => {
 export const Nav = () => {
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 40);
@@ -26,7 +29,14 @@ export const Nav = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const go = (id) => { setOpen(false); scrollTo(id); };
+  const go = (id) => {
+    setOpen(false);
+    if (pathname !== "/") {
+      navigate(`/#${id}`);
+    } else {
+      scrollTo(id);
+    }
+  };
 
   return (
     <header
