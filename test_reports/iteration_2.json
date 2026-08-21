@@ -1,0 +1,25 @@
+{
+  "summary": "Frontend-only Playwright testing of SYMSTRUO iteration 2 (12-slide deck + real client-side PDF export). All 23 checks passed: counter '01 / 12', cover shows big SYMSTRUO (96px font), ₹20 Lakhs pill, DHANUSH B / Founder & CEO, /logo-star.png loaded (natural width 941), overview grid has exactly 12 thumbnails (overview-slide-0..11), sequential next/prev nav across all 12 slides with correct disabled states, ArrowLeft/ArrowRight keyboard works, slide-12 shows contact-email mailto:dhanush@symstruo.com and contact-phone tel:+917019421089, Express Interest empty-form error toast + valid submit success + auto-close, deep-link ?slide=4 works with all 5 ecosystem tabs clickable, slide 8 shows full competition matrix (SYMSTRUO, Agencies, Consultants, Branding Firms, Startup Studios), slide 11 has all 6 allocation legend items + Q1-Q4 milestones. PDF EXPORT: clicking export-pdf-button triggered a real browser download 'SYMSTRUO-Pitch-Deck.pdf' (~4.1 MB, %PDF magic bytes, exactly 12 /Type /Page objects). Button showed 'Preparing…' state, 'PDF downloaded' success toast appeared, and console logged 'PDF_EXPORT_SUCCESS pages=12' with NO PDF_EXPORT_FAIL / SecurityError / toDataURL errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Recharts (console)", "issues": ["Recharts still logs 'width(-1)/height(-1)' warnings during slide transitions via AnimatePresence — cosmetic console noise, no visual defect. Same as iteration 1."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Deck.jsx exportPDF() renders an offscreen deck at fixed 1280x720; some slide content (e.g., Financials line chart via ResponsiveContainer) may render at 0-size in that offscreen context. Not observed as failure here (PDF has 12 valid pages, 4.1 MB), but worth double-checking each exported page visually if any slide relies on ResponsiveContainer measuring its parent height.",
+    "html2canvas at scale:2 with 12 pages produces a ~4 MB PDF — acceptable but could be reduced by lowering scale to 1.5 or using image/jpeg quality 0.85 if size becomes a concern."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend)", "frontend": "100% (23/23 checks passed)"},
+  "test_credentials": "None required",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 2 fully passes. Key verified behaviors: 12-slide deck, big SYMSTRUO cover (96px), new /logo-star.png (naturalWidth 941), real jsPDF+html2canvas PDF download producing a valid 12-page ~4.1 MB SYMSTRUO-Pitch-Deck.pdf, console log 'PDF_EXPORT_SUCCESS pages=12', contact email/phone links on slide 12 with correct mailto:/tel: hrefs. Express Interest form remains mocked (toast-only) as expected. Only lingering non-blocker: Recharts width/height=-1 console warnings during transitions.",
+  "rca of the issue": "N/A — no issues found."
+}

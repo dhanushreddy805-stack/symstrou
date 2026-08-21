@@ -1,7 +1,6 @@
 import React from "react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { ASSETS } from "@/data/deck";
 
 export const cn = (...a) => twMerge(clsx(a));
 
@@ -13,12 +12,12 @@ export function Eyebrow({ children, className }) {
   );
 }
 
-export function BrandMark({ size = 28, showWord = true, className }) {
+export function BrandMark({ size = 26, showWord = true, className }) {
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      <img src={ASSETS.mark} alt="SYMSTRUO mark" style={{ width: size, height: size }} className="object-contain" />
+      <img src="/logo-star.png" alt="SYMSTRUO mark" style={{ width: size, height: size }} className="object-contain" />
       {showWord && (
-        <img src={ASSETS.wordmark} alt="SYMSTRUO" className="wordmark-invert h-3 object-contain md:h-3.5" />
+        <span className="font-ui text-sm font-light uppercase tracking-[0.4em] text-white/90">SYMSTRUO</span>
       )}
     </div>
   );

@@ -44,6 +44,15 @@ body {
   color: transparent;
 }
 
+/* html2canvas cannot render background-clip:text — force solid gold during PDF export */
+.exporting .gold-text {
+  color: #E8C765 !important;
+  -webkit-text-fill-color: #E8C765 !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+}
+
 .hairline { height: 1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,0.55), transparent); }
 
 .glass {

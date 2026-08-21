@@ -22,18 +22,24 @@ Investor-facing 15-slide pitch deck for SYMSTRUO, a services-first, systems-led 
 - `/app/frontend/src/data/deck.js` → all content/constants.
 - Fonts: Cormorant Garamond (display), Outfit (UI), JetBrains Mono (eyebrows).
 
-## Implemented (2026-06 / iteration 1)
-- 15 slides: Cover, Problem, Market, Solution, Ecosystem (interactive tabs), How It Works (interactive steps), Business Model, Traction, Competition (matrix), Advantage, Go-To-Market, Financials (scenario toggle + line chart), Investment Ask, Use of Capital (donut + milestones), Vision (Express Interest modal).
-- Keyboard nav (←/→/Space/PageUp/Down/Home/End/G), progress bar, slide counter, overview grid jump.
-- PDF/Print export via print stylesheet.
-- Use-of-capital donut fixed-size PieChart; financial line chart.
+## Implemented (2026-06)
+
+### Iteration 1
+- 15-slide interactive deck, keyboard nav, overview grid, print stylesheet.
+
+### Iteration 2 (current)
+- Cut deck to **12 slides**: Cover, Problem, Market, Solution & Ecosystem (merged), How It Works, Business Model, Traction, Competition & Advantage (merged), Go-To-Market, Financial Model, Investment Ask & Use of Capital (merged), Vision & Contact.
+- **Real PDF export**: "Download PDF" button generates an actual `SYMSTRUO-Pitch-Deck.pdf` client-side via jsPDF + html2canvas (offscreen 1280x720 pages). Verified: valid 12-page ~4.1MB PDF.
+- New **silver star logo** processed to transparent PNG at `/app/frontend/public/logo-star.png` (old logo removed).
+- Company name **"SYMSTRUO" rendered as large letter-spaced text** (cover ~96px + big on Vision slide), PDF-safe.
+- **Contact** on last slide: dhanush@symstruo.com + +91 70194 21089 (mailto/tel links).
+- Tested: 23/23 frontend checks passed (iteration_2.json).
 
 ## Open Items / Backlog
-- Exact pre-sales revenue figures (currently presented honestly as qualitative signals + NDA note).
-- Brand exact hex/fonts if founder wants to override defaults.
-- Optional: real backend to capture Express Interest submissions (currently toast-only, no persistence). MOCKED — form does not persist.
+- Exact pre-sales revenue figures (presented honestly as qualitative signals + NDA note).
+- Express Interest form is toast-only — MOCKED, no persistence/email yet.
 
 ## Next Tasks (P1/P2)
-- Persist Express Interest leads to a backend/email.
-- Add founder photo / short bio on Vision slide if provided.
-- Add downloadable one-pager summary.
+- Persist Express Interest leads to backend/email.
+- Founder photo/bio on Vision slide if provided.
+- Optional: reduce PDF size (scale 1.5) if needed.

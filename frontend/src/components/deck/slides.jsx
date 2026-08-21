@@ -2,25 +2,24 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, XAxis, YAxis,
-  CartesianGrid, Tooltip, BarChart, Bar,
+  CartesianGrid, Tooltip,
 } from "recharts";
 import {
   Lightbulb, LayoutGrid, Gem, Rocket, Landmark, ArrowRight, Puzzle,
   Layers, Network, Handshake, Target, Users, Megaphone, Radio, Building2,
-  ShieldCheck, TrendingUp, Quote, CircleDot,
+  ShieldCheck, TrendingUp, Quote, CircleDot, Mail, Phone,
 } from "lucide-react";
 import {
-  BRAND, ASSETS, IMAGES, PROBLEMS, MARKET, MARKET_STATS, ECOSYSTEM, STEPS,
+  BRAND, IMAGES, PROBLEMS, MARKET, MARKET_STATS, ECOSYSTEM, STEPS,
   REVENUE, TRACTION, COMP_COLS, COMP_ROWS, MOATS, GTM, SCENARIOS,
   FIN_ASSUMPTIONS, ALLOCATION, MILESTONES, INVEST_TERMS,
 } from "@/data/deck";
-import { SlideLayout, Eyebrow, GlassCard, Stat, Check, BrandMark, cn } from "./primitives";
+import { SlideLayout, Eyebrow, GlassCard, Check, cn } from "./primitives";
 
 const fade = {
   hidden: { opacity: 0, y: 18 },
   show: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: 0.06 * i, duration: 0.5, ease: [0.22, 1, 0.36, 1] } }),
 };
-
 function Reveal({ i = 0, children, className }) {
   return (
     <motion.div variants={fade} custom={i} initial="hidden" animate="show" className={className}>
@@ -39,17 +38,19 @@ function Cover() {
       </div>
       <Reveal i={0}>
         <div className="flex items-center gap-3">
-          <img src={ASSETS.mark} alt="mark" className="h-9 w-9 object-contain" />
+          <img src="/logo-star.png" alt="mark" className="h-10 w-10 object-contain" />
           <Eyebrow>Investor Pitch · Confidential</Eyebrow>
         </div>
       </Reveal>
 
-      <div className="max-w-4xl">
+      <div className="max-w-5xl">
         <Reveal i={1}>
-          <img src={ASSETS.wordmark} alt="SYMSTRUO" className="wordmark-invert h-9 object-contain md:h-14" />
+          <h1 className="font-ui text-5xl font-extralight uppercase leading-none tracking-[0.24em] text-white sm:text-6xl md:text-7xl lg:text-8xl">
+            SYMSTRUO
+          </h1>
         </Reveal>
         <Reveal i={2}>
-          <p className="mt-6 font-display text-2xl leading-tight text-[#F3E5AB] md:text-4xl">
+          <p className="mt-7 font-display text-2xl leading-tight text-[#F3E5AB] md:text-4xl">
             {BRAND.tagline}
           </p>
         </Reveal>
@@ -83,7 +84,7 @@ function Problem() {
     <SlideLayout
       eyebrow="01 · The Problem"
       title={<>Business-building is <span className="gold-text">fragmented</span>.</>}
-      subtitle="Founders and businesses are forced to assemble disconnected support — and it costs them speed, capital and scale-readiness."
+      subtitle="Founders are forced to assemble disconnected support — and it costs them speed, capital and scale-readiness."
     >
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
         {PROBLEMS.map((p, i) => (
@@ -115,7 +116,7 @@ function Market() {
     <SlideLayout
       eyebrow="02 · Market Opportunity"
       title={<>Demand exists <span className="gold-text">before</span> venture scale.</>}
-      subtitle="A large and growing pool of founders and businesses need structured growth support long before they are venture-ready."
+      subtitle="A large, growing pool of founders and businesses need structured growth support long before they are venture-ready."
     >
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
         <div className="lg:col-span-3">
@@ -150,60 +151,20 @@ function Market() {
   );
 }
 
-/* 4 — SOLUTION */
-function Solution() {
-  return (
-    <SlideLayout
-      eyebrow="03 · The Solution"
-      title={<>One connected <span className="gold-text">business architecture</span>.</>}
-      subtitle="Not another consulting deliverable — a structured system for designing and executing a company end to end."
-    >
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <Reveal i={0}>
-          <GlassCard hover={false} className="h-full border-white/5">
-            <span className="font-mono-ui text-[11px] uppercase tracking-[0.25em] text-[#64748B]">Traditional approach</span>
-            <ul className="mt-4 space-y-3 text-sm text-[#94A3B8]">
-              {["Separate vendors, separate agendas", "Deliverables without a system", "No line of sight to capital", "Founder stitches it all together"].map((t) => (
-                <li key={t} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#3b4657]" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </GlassCard>
-        </Reveal>
-        <Reveal i={1}>
-          <div className="glass h-full rounded-xl border border-[#D4AF37]/40 p-5 md:p-6">
-            <span className="font-mono-ui text-[11px] uppercase tracking-[0.25em] text-[#D4AF37]">The SYMSTRUO model</span>
-            <ul className="mt-4 space-y-3 text-sm text-white">
-              {["One team, one connected architecture", "Reusable systems, not one-off outputs", "Built toward investment readiness", "Idea clarity → structured, scalable company"].map((t, i) => (
-                <li key={t} className="flex items-start gap-3">
-                  <Check ok={true} />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-      </div>
-    </SlideLayout>
-  );
-}
-
-/* 5 — ECOSYSTEM */
+/* 4 — SOLUTION & ECOSYSTEM */
 const ECO_ICONS = { "idea-lab": Lightbulb, blueprint: LayoutGrid, brand: Gem, growth: Rocket, investment: Landmark };
-function Ecosystem() {
+function SolutionEcosystem() {
   const [active, setActive] = useState("idea-lab");
   const cur = ECOSYSTEM.find((e) => e.id === active);
   return (
     <SlideLayout
-      eyebrow="04 · The Ecosystem"
-      title={<>Five modules, <span className="gold-text">one system</span>.</>}
-      subtitle="Each module is a standalone strength — together they form a connected business-building engine."
+      eyebrow="03 · Solution & Ecosystem"
+      title={<>One connected <span className="gold-text">business architecture</span>.</>}
+      subtitle="Not another consulting deliverable — an integrated system of five modules, from idea clarity to investment readiness."
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
         <div className="flex flex-wrap gap-3 lg:col-span-3 lg:flex-col">
-          {ECOSYSTEM.map((e, i) => {
+          {ECOSYSTEM.map((e) => {
             const Icon = ECO_ICONS[e.id];
             const on = e.id === active;
             return (
@@ -242,18 +203,17 @@ function Ecosystem() {
           </div>
         </motion.div>
       </div>
-      <p className="mt-5 text-xs text-[#64748B]">Premium add-ons available on top of any package when scope demands.</p>
     </SlideLayout>
   );
 }
 
-/* 6 — HOW IT WORKS */
+/* 5 — HOW IT WORKS */
 function HowItWorks() {
   const [active, setActive] = useState(0);
   const cur = STEPS[active];
   return (
     <SlideLayout
-      eyebrow="05 · How It Works"
+      eyebrow="04 · How It Works"
       title={<>A disciplined <span className="gold-text">operating roadmap</span>.</>}
       subtitle="From diagnosis to capital — a repeatable path, not improvisation."
     >
@@ -290,12 +250,12 @@ function HowItWorks() {
   );
 }
 
-/* 7 — BUSINESS MODEL */
+/* 6 — BUSINESS MODEL */
 const REV_ICONS = { packages: Puzzle, commissions: Handshake, retainers: Layers, premium: Gem };
 function BusinessModel() {
   return (
     <SlideLayout
-      eyebrow="06 · Business Model"
+      eyebrow="05 · Business Model"
       title={<>A <span className="gold-text">dual-engine</span> revenue model.</>}
       subtitle="We earn through custom-built business packages and through commissions on the capital we help clients raise."
     >
@@ -324,11 +284,11 @@ function BusinessModel() {
   );
 }
 
-/* 8 — TRACTION */
+/* 7 — TRACTION */
 function Traction() {
   return (
     <SlideLayout
-      eyebrow="07 · Traction & Proof"
+      eyebrow="06 · Traction & Proof"
       title={<>Early, and <span className="gold-text">honestly</span> presented.</>}
       subtitle="We are choosing credibility over inflated claims. The demand signals are real and pre-launch."
     >
@@ -361,77 +321,67 @@ function Traction() {
   );
 }
 
-/* 9 — COMPETITION */
-function Competition() {
-  return (
-    <SlideLayout
-      eyebrow="08 · Competitive Landscape"
-      title={<>Everyone owns a <span className="gold-text">piece</span>. We own the system.</>}
-      subtitle="Agencies, consultants, branding firms and studios each solve a fragment — SYMSTRUO integrates them."
-    >
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[640px] border-collapse text-sm">
-          <thead>
-            <tr>
-              <th className="w-[34%] p-3 text-left font-mono-ui text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Capability</th>
-              {COMP_COLS.map((c, i) => (
-                <th key={c} className={cn("p-3 text-center font-ui text-xs", i === 0 ? "text-[#D4AF37]" : "text-[#94A3B8]")}>{c}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {COMP_ROWS.map((row, ri) => (
-              <tr key={row.cap} className="border-t border-[#222D3D]">
-                <td className="p-3 text-left text-[#F8FAFC]">{row.cap}</td>
-                {row.v.map((val, ci) => (
-                  <td key={ci} className={cn("p-3 text-center", ci === 0 && "bg-[#D4AF37]/5")}>
-                    <span className="inline-flex justify-center"><Check ok={val} /></span>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </SlideLayout>
-  );
-}
-
-/* 10 — COMPETITIVE ADVANTAGE */
+/* 8 — COMPETITION & ADVANTAGE */
 const MOAT_ICONS = [Network, Layers, TrendingUp, Handshake];
-function Advantage() {
+function CompetitionAdvantage() {
   return (
     <SlideLayout
-      eyebrow="09 · Competitive Advantage"
-      title={<>Why SYMSTRUO <span className="gold-text">compounds</span>.</>}
-      subtitle="Integration and systems turn every engagement into leverage for the next."
+      eyebrow="07 · Competition & Advantage"
+      title={<>Everyone owns a <span className="gold-text">piece</span>. We own the system.</>}
+      subtitle="Agencies, consultants, branding firms and studios each solve a fragment — SYMSTRUO integrates and compounds them."
     >
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        {MOATS.map((m, i) => {
-          const Icon = MOAT_ICONS[i];
-          return (
-            <Reveal i={i} key={m.title}>
-              <GlassCard className="flex h-full items-start gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#D4AF37]/12 text-[#D4AF37]"><Icon size={20} /></span>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[560px] border-collapse text-sm">
+              <thead>
+                <tr>
+                  <th className="w-[36%] p-2.5 text-left font-mono-ui text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Capability</th>
+                  {COMP_COLS.map((c, i) => (
+                    <th key={c} className={cn("p-2.5 text-center font-ui text-[11px]", i === 0 ? "text-[#D4AF37]" : "text-[#94A3B8]")}>{c}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {COMP_ROWS.map((row) => (
+                  <tr key={row.cap} className="border-t border-[#222D3D]">
+                    <td className="p-2.5 text-left text-[13px] text-[#F8FAFC]">{row.cap}</td>
+                    {row.v.map((val, ci) => (
+                      <td key={ci} className={cn("p-2.5 text-center", ci === 0 && "bg-[#D4AF37]/5")}>
+                        <span className="inline-flex justify-center"><Check ok={val} /></span>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className="grid content-start gap-3 lg:col-span-2">
+          {MOATS.map((m, i) => {
+            const Icon = MOAT_ICONS[i];
+            return (
+              <div key={m.title} className="flex items-start gap-3 rounded-xl border border-[#222D3D] bg-[#121720] p-3.5">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#D4AF37]/12 text-[#D4AF37]"><Icon size={16} /></span>
                 <div>
-                  <h3 className="font-display text-xl text-white">{m.title}</h3>
-                  <p className="mt-1.5 text-sm text-[#94A3B8]">{m.desc}</p>
+                  <h3 className="font-display text-base text-white">{m.title}</h3>
+                  <p className="mt-0.5 text-xs text-[#94A3B8]">{m.desc}</p>
                 </div>
-              </GlassCard>
-            </Reveal>
-          );
-        })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </SlideLayout>
   );
 }
 
-/* 11 — GO TO MARKET */
+/* 9 — GO TO MARKET */
 const GTM_ICONS = [Target, Users, Megaphone, Radio, Building2];
 function GoToMarket() {
   return (
     <SlideLayout
-      eyebrow="10 · Go-To-Market"
+      eyebrow="08 · Go-To-Market"
       title={<>Founder-led, <span className="gold-text">relationship-driven</span>.</>}
       subtitle="A disciplined acquisition motion built on trust before spend."
     >
@@ -454,13 +404,13 @@ function GoToMarket() {
   );
 }
 
-/* 12 — FINANCIAL MODEL */
+/* 10 — FINANCIAL MODEL */
 function Financials() {
   const [sc, setSc] = useState("Base");
   const data = SCENARIOS[sc];
   return (
     <SlideLayout
-      eyebrow="11 · Financial Model"
+      eyebrow="09 · Financial Model"
       title={<>Conservative logic, <span className="gold-text">defensible</span> math.</>}
       subtitle="High-ticket, expertise-led delivery with strong gross margins. No aggressive fantasy projections."
     >
@@ -522,97 +472,73 @@ function Financials() {
   );
 }
 
-/* 13 — INVESTMENT ASK */
-function InvestmentAsk() {
-  return (
-    <SlideLayout
-      eyebrow="12 · Investment Ask"
-      title={<>Raising <span className="gold-text">₹20 Lakhs</span> to build the company.</>}
-      subtitle="Growth-enabling capital for company building, key hiring and working capital — not vanity spend."
-    >
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-        <Reveal i={0} className="lg:col-span-2">
-          <div className="glass flex h-full flex-col justify-center rounded-2xl border border-[#D4AF37]/40 p-8 text-center">
-            <span className="font-mono-ui text-[11px] uppercase tracking-[0.3em] text-[#94A3B8]">Total Raise</span>
-            <div className="mt-2 font-display text-6xl font-medium gold-text leading-none md:text-7xl">₹20L</div>
-            <p className="mt-4 text-sm text-[#94A3B8]">Deployed over a focused 12-month execution window.</p>
-          </div>
-        </Reveal>
-        <div className="grid grid-cols-2 gap-4 lg:col-span-3">
-          {INVEST_TERMS.map((t, i) => (
-            <Reveal i={i + 1} key={t.label}>
-              <GlassCard className="h-full">
-                <div className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-[#64748B]">{t.label}</div>
-                <div className="mt-2 font-display text-xl text-white">{t.value}</div>
-              </GlassCard>
-            </Reveal>
-          ))}
-          <Reveal i={5} className="col-span-2">
-            <div className="rounded-xl border border-[#222D3D] bg-[#121720] p-4 text-sm text-[#94A3B8]">
-              Instrument is open for discussion — equity, revenue-share or convertible — structured to fit the right strategic investor.
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </SlideLayout>
-  );
-}
-
-/* 14 — USE OF CAPITAL */
-function UseOfCapital() {
+/* 11 — INVESTMENT ASK & USE OF CAPITAL */
+function AskCapital() {
   const [hover, setHover] = useState(null);
   return (
     <SlideLayout
-      eyebrow="13 · Use of Capital & Milestones"
-      title={<>Every rupee <span className="gold-text">allocated</span>.</>}
-      subtitle="A transparent ₹20L breakdown mapped to a 12-month execution roadmap."
+      eyebrow="10 · Investment Ask & Use of Capital"
+      title={<>Raising <span className="gold-text">₹20 Lakhs</span> to build the company.</>}
+      subtitle="Growth-enabling capital for company building, hiring and working capital — every rupee allocated."
     >
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
-        <div className="flex justify-center lg:col-span-2">
-          <div className="relative" style={{ width: 220, height: 220 }}>
-            <PieChart width={220} height={220}>
-              <Pie
-                data={ALLOCATION} dataKey="value" nameKey="name" cx={105} cy={105}
-                innerRadius={62} outerRadius={92} paddingAngle={2} stroke="none"
-                isAnimationActive={false}
-                onMouseEnter={(_, i) => setHover(i)} onMouseLeave={() => setHover(null)}
-              >
-                {ALLOCATION.map((a, i) => (
-                  <Cell key={a.name} fill={a.color} opacity={hover === null || hover === i ? 1 : 0.4} />
-                ))}
-              </Pie>
-            </PieChart>
-            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-              <span className="font-display text-3xl font-medium gold-text">₹20L</span>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-[#64748B]">Total</span>
-            </div>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
+        <div className="lg:col-span-2">
+          <div className="glass flex flex-col justify-center rounded-2xl border border-[#D4AF37]/40 p-6 text-center">
+            <span className="font-mono-ui text-[11px] uppercase tracking-[0.3em] text-[#94A3B8]">Total Raise</span>
+            <div className="mt-1 font-display text-6xl font-medium gold-text leading-none">₹20L</div>
           </div>
-        </div>
-        <div className="lg:col-span-3">
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {ALLOCATION.map((a, i) => (
-              <div
-                key={a.name}
-                onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}
-                className={cn("flex items-center gap-3 rounded-lg border p-3 transition-colors", hover === i ? "border-[#D4AF37]/40 bg-[#121720]" : "border-transparent")}
-              >
-                <span className="h-3 w-3 shrink-0 rounded-sm" style={{ background: a.color }} />
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm text-white">{a.name}</div>
-                  <div className="truncate text-[11px] text-[#64748B]">{a.note}</div>
-                </div>
-                <span className="font-display text-lg font-medium text-white">₹{a.value}L</span>
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            {INVEST_TERMS.map((t) => (
+              <div key={t.label} className="rounded-xl border border-[#222D3D] bg-[#121720] p-3">
+                <div className="font-mono-ui text-[9px] uppercase tracking-[0.2em] text-[#64748B]">{t.label}</div>
+                <div className="mt-1 font-display text-base text-white">{t.value}</div>
               </div>
             ))}
           </div>
         </div>
+
+        <div className="lg:col-span-3">
+          <div className="flex flex-col items-center gap-5 sm:flex-row">
+            <div className="relative shrink-0" style={{ width: 190, height: 190 }}>
+              <PieChart width={190} height={190}>
+                <Pie
+                  data={ALLOCATION} dataKey="value" nameKey="name" cx={95} cy={95}
+                  innerRadius={54} outerRadius={82} paddingAngle={2} stroke="none" isAnimationActive={false}
+                  onMouseEnter={(_, i) => setHover(i)} onMouseLeave={() => setHover(null)}
+                >
+                  {ALLOCATION.map((a, i) => (
+                    <Cell key={a.name} fill={a.color} opacity={hover === null || hover === i ? 1 : 0.4} />
+                  ))}
+                </Pie>
+              </PieChart>
+              <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                <span className="font-display text-2xl font-medium gold-text">₹20L</span>
+                <span className="text-[9px] uppercase tracking-[0.2em] text-[#64748B]">Total</span>
+              </div>
+            </div>
+            <div className="grid w-full grid-cols-1 gap-1.5 sm:grid-cols-2">
+              {ALLOCATION.map((a, i) => (
+                <div
+                  key={a.name}
+                  onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}
+                  className={cn("flex items-center gap-2.5 rounded-lg border p-2 transition-colors", hover === i ? "border-[#D4AF37]/40 bg-[#121720]" : "border-transparent")}
+                >
+                  <span className="h-2.5 w-2.5 shrink-0 rounded-sm" style={{ background: a.color }} />
+                  <span className="min-w-0 flex-1 truncate text-xs text-white">{a.name}</span>
+                  <span className="font-display text-base font-medium text-white">₹{a.value}L</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
+
       <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
         {MILESTONES.map((m, i) => (
           <Reveal i={i} key={m.q}>
             <div className="rounded-xl border border-[#222D3D] bg-[#121720] p-4">
               <span className="font-mono-ui text-xs tracking-[0.3em] text-[#D4AF37]">{m.q}</span>
-              <div className="mt-2 font-display text-lg text-white">{m.title}</div>
+              <div className="mt-1.5 font-display text-lg text-white">{m.title}</div>
               <p className="mt-1 text-xs text-[#94A3B8]">{m.desc}</p>
             </div>
           </Reveal>
@@ -622,8 +548,8 @@ function UseOfCapital() {
   );
 }
 
-/* 15 — VISION */
-function Vision({ onExpress }) {
+/* 12 — VISION & CONTACT */
+function VisionContact({ onExpress }) {
   return (
     <div className="relative flex h-full w-full flex-col justify-between overflow-hidden">
       <div className="absolute inset-0 -z-10">
@@ -631,7 +557,7 @@ function Vision({ onExpress }) {
         <div className="absolute inset-0 bg-gradient-to-tr from-[#090C10] via-[#090C10]/90 to-[#090C10]/60" />
       </div>
       <div>
-        <Eyebrow>14 · Vision</Eyebrow>
+        <Eyebrow>11 · Vision</Eyebrow>
         <h2 className="mt-3 max-w-4xl font-display text-4xl leading-[1.05] text-white md:text-6xl">
           The <span className="gold-text">operating layer</span> for founders who need structure before scale.
         </h2>
@@ -643,9 +569,17 @@ function Vision({ onExpress }) {
 
       <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <div>
-          <div className="font-display text-2xl text-white">{BRAND.founder}</div>
-          <div className="text-sm text-[#94A3B8]">{BRAND.founderRole}, SYMSTRUO</div>
-          <div className="mt-1 font-mono-ui text-xs text-[#64748B]">{BRAND.contactEmail}</div>
+          <div className="mb-3 font-ui text-3xl font-extralight uppercase tracking-[0.24em] text-white md:text-4xl">SYMSTRUO</div>
+          <div className="font-display text-xl text-white">{BRAND.founder}</div>
+          <div className="text-sm text-[#94A3B8]">{BRAND.founderRole}</div>
+          <div className="mt-3 space-y-1.5">
+            <a href={`mailto:${BRAND.contactEmail}`} data-testid="contact-email" className="flex items-center gap-2 text-sm text-[#F3E5AB] transition-colors hover:text-white">
+              <Mail size={15} className="text-[#D4AF37]" /> {BRAND.contactEmail}
+            </a>
+            <a href={`tel:${BRAND.contactPhone.replace(/\s/g, "")}`} data-testid="contact-phone" className="flex items-center gap-2 text-sm text-[#F3E5AB] transition-colors hover:text-white">
+              <Phone size={15} className="text-[#D4AF37]" /> {BRAND.contactPhone}
+            </a>
+          </div>
         </div>
         <button
           data-testid="express-interest-button"
@@ -664,16 +598,13 @@ export const SLIDES = [
   { id: "cover", label: "Cover", Component: Cover },
   { id: "problem", label: "Problem", Component: Problem },
   { id: "market", label: "Market", Component: Market },
-  { id: "solution", label: "Solution", Component: Solution },
-  { id: "ecosystem", label: "Ecosystem", Component: Ecosystem },
+  { id: "solution", label: "Solution & Ecosystem", Component: SolutionEcosystem },
   { id: "how", label: "How It Works", Component: HowItWorks },
   { id: "model", label: "Business Model", Component: BusinessModel },
   { id: "traction", label: "Traction", Component: Traction },
-  { id: "competition", label: "Competition", Component: Competition },
-  { id: "advantage", label: "Advantage", Component: Advantage },
+  { id: "competition", label: "Competition & Advantage", Component: CompetitionAdvantage },
   { id: "gtm", label: "Go-To-Market", Component: GoToMarket },
-  { id: "financials", label: "Financials", Component: Financials },
-  { id: "ask", label: "Investment Ask", Component: InvestmentAsk },
-  { id: "capital", label: "Use of Capital", Component: UseOfCapital },
-  { id: "vision", label: "Vision", Component: Vision },
+  { id: "financials", label: "Financial Model", Component: Financials },
+  { id: "ask", label: "Ask & Use of Capital", Component: AskCapital },
+  { id: "vision", label: "Vision & Contact", Component: VisionContact },
 ];

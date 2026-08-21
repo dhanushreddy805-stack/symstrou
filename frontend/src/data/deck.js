@@ -7,11 +7,12 @@ export const BRAND = {
   founder: "DHANUSH B",
   founderRole: "Founder & CEO",
   ask: "₹20 Lakhs",
-  contactEmail: "invest@symstruo.com",
+  contactEmail: "dhanush@symstruo.com",
+  contactPhone: "+91 70194 21089",
 };
 
 export const ASSETS = {
-  mark: "https://customer-assets-0z36b82j.emergentagent.net/job_pitch-symstruo/artifacts/42w0t173_ChatGPT%20Image%20Aug%2019%2C%202026%2C%2004_53_58%20PM.png",
+  mark: "/logo-star.png",
   wordmark: "https://customer-assets-0z36b82j.emergentagent.net/job_pitch-symstruo/artifacts/u45rd8oa_NAME.webp",
 };
 

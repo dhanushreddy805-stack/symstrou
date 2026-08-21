@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Toaster, toast } from "sonner";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import {
-  ChevronLeft, ChevronRight, LayoutGrid, Download, X, Keyboard,
+  ChevronLeft, ChevronRight, LayoutGrid, Download, X, Keyboard, Loader2,
 } from "lucide-react";
 import { SLIDES } from "./slides";
-import { BRAND, ASSETS } from "@/data/deck";
+import { BRAND } from "@/data/deck";
 import { BrandMark, cn } from "./primitives";
 
 function ExpressInterestModal({ open, onClose }) {
@@ -22,7 +24,7 @@ function ExpressInterestModal({ open, onClose }) {
     onClose();
   };
   return (
-    <div className="screen-only fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} data-testid="modal-overlay" />
       <motion.div
         initial={{ opacity: 0, scale: 0.96, y: 12 }} animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -62,14 +64,14 @@ function ExpressInterestModal({ open, onClose }) {
 function Overview({ open, onClose, onJump, current }) {
   if (!open) return null;
   return (
-    <div className="screen-only fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="relative z-10 w-full max-w-5xl">
         <div className="mb-5 flex items-center justify-between">
           <span className="font-mono-ui text-[11px] uppercase tracking-[0.3em] text-[#D4AF37]">All Slides</span>
           <button onClick={onClose} data-testid="overview-close" className="text-[#64748B] hover:text-white"><X size={20} /></button>
         </div>
-        <div className="deck-scroll grid max-h-[70vh] grid-cols-2 gap-3 overflow-y-auto sm:grid-cols-3 lg:grid-cols-5">
+        <div className="deck-scroll grid max-h-[70vh] grid-cols-2 gap-3 overflow-y-auto sm:grid-cols-3 lg:grid-cols-4">
           {SLIDES.map((s, i) => (
             <button
               key={s.id} data-testid={`overview-slide-${i}`}
@@ -104,6 +106,8 @@ export default function Deck() {
   const [overview, setOverview] = useState(false);
   const [interest, setInterest] = useState(false);
   const [hint, setHint] = useState(true);
+  const [exporting, setExporting] = useState(false);
+  const exportRef = useRef(null);
 
   const go = useCallback((n) => {
     setIdx((p) => {
@@ -115,7 +119,7 @@ export default function Deck() {
 
   useEffect(() => {
     const onKey = (e) => {
-      if (overview || interest) return;
+      if (overview || interest || exporting) return;
       const t = e.target;
       if (t && ["INPUT", "TEXTAREA", "BUTTON", "SELECT"].includes(t.tagName)) return;
       if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); go(idx + 1); }
@@ -126,34 +130,57 @@ export default function Deck() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [idx, go, overview, interest]);
+  }, [idx, go, overview, interest, exporting]);
 
   useEffect(() => {
     const t = setTimeout(() => setHint(false), 4500);
     return () => clearTimeout(t);
   }, []);
 
-  const printPDF = () => window.print();
+  const exportPDF = async () => {
+    if (exporting) return;
+    setExporting(true);
+    const tId = toast.loading("Generating PDF… this takes a few seconds");
+    await new Promise((r) => setTimeout(r, 900));
+    try {
+      const pages = exportRef.current.querySelectorAll(".export-page");
+      const W = 1280, H = 720;
+      const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [W, H] });
+      for (let i = 0; i < pages.length; i++) {
+        const canvas = await html2canvas(pages[i], {
+          scale: 2, backgroundColor: "#090C10", useCORS: true, logging: false, width: W, height: H,
+          windowWidth: W, windowHeight: H,
+        });
+        const img = canvas.toDataURL("image/jpeg", 0.92);
+        if (i > 0) pdf.addPage([W, H], "landscape");
+        pdf.addImage(img, "JPEG", 0, 0, W, H);
+      }
+      pdf.save("SYMSTRUO-Pitch-Deck.pdf");
+      console.log("PDF_EXPORT_SUCCESS pages=" + pages.length);
+      toast.success("PDF downloaded", { id: tId });
+    } catch (e) {
+      console.error("PDF_EXPORT_FAIL", e);
+      toast.error("PDF export failed — please try again", { id: tId });
+    }
+    setExporting(false);
+  };
+
   const Current = SLIDES[idx].Component;
   const progress = ((idx + 1) / SLIDES.length) * 100;
 
   return (
     <>
-      {/* SCREEN DECK */}
-      <div className="screen-only grain relative h-screen w-screen overflow-hidden bg-[#090C10]">
-        {/* ambient glow */}
+      <div className="grain relative h-screen w-screen overflow-hidden bg-[#090C10]">
         <div className="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-[#D4AF37]/10 blur-[120px]" />
         <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-[#5C7A99]/10 blur-[120px]" />
 
-        {/* top progress */}
         <div className="absolute left-0 top-0 z-30 h-[3px] w-full bg-white/5">
           <motion.div className="h-full bg-gradient-to-r from-[#F3E5AB] to-[#D4AF37]" animate={{ width: `${progress}%` }} transition={{ duration: 0.5 }} />
         </div>
 
-        {/* header */}
         <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between px-6 py-5 md:px-12">
           <button onClick={() => go(0)} data-testid="brand-home" className="opacity-90 transition-opacity hover:opacity-100">
-            <BrandMark size={26} />
+            <BrandMark size={30} />
           </button>
           <div className="flex items-center gap-2">
             <span className="mr-1 hidden font-mono-ui text-xs tracking-[0.25em] text-[#94A3B8] sm:inline">
@@ -163,14 +190,14 @@ export default function Deck() {
               className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#222D3D] text-[#94A3B8] transition-colors hover:border-[#D4AF37]/40 hover:text-white">
               <LayoutGrid size={16} />
             </button>
-            <button onClick={printPDF} data-testid="export-pdf-button" title="Download / Print PDF"
-              className="flex h-9 items-center gap-2 rounded-lg border border-[#222D3D] px-3 text-[#94A3B8] transition-colors hover:border-[#D4AF37]/40 hover:text-white">
-              <Download size={15} /> <span className="hidden text-xs md:inline">PDF</span>
+            <button onClick={exportPDF} disabled={exporting} data-testid="export-pdf-button" title="Download PDF"
+              className="flex h-9 items-center gap-2 rounded-lg border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-3 text-[#F3E5AB] transition-colors hover:bg-[#D4AF37]/20 disabled:opacity-60">
+              {exporting ? <Loader2 size={15} className="animate-spin" /> : <Download size={15} />}
+              <span className="hidden text-xs md:inline">{exporting ? "Preparing…" : "Download PDF"}</span>
             </button>
           </div>
         </header>
 
-        {/* slide stage */}
         <main className="absolute inset-0 flex items-center px-6 pb-24 pt-20 md:px-12 md:pb-24 md:pt-24">
           <div className="relative h-full max-h-[calc(100vh-160px)] w-full">
             <AnimatePresence mode="wait" custom={dir}>
@@ -189,7 +216,6 @@ export default function Deck() {
           </div>
         </main>
 
-        {/* footer nav */}
         <footer className="absolute inset-x-0 bottom-0 z-20 flex items-center justify-between px-6 py-5 md:px-12">
           <span className="font-mono-ui text-[11px] uppercase tracking-[0.25em] text-[#64748B]">{SLIDES[idx].label}</span>
           <div className="flex items-center gap-2">
@@ -204,7 +230,6 @@ export default function Deck() {
           </div>
         </footer>
 
-        {/* keyboard hint */}
         <AnimatePresence>
           {hint && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
@@ -220,25 +245,34 @@ export default function Deck() {
         <ExpressInterestModal open={interest} onClose={() => setInterest(false)} />
       </div>
 
-      {/* PRINT DECK */}
-      <div className="print-only">
-        {SLIDES.map((s, i) => {
-          const C = s.Component;
-          return (
-            <div className="print-page" key={s.id}>
-              <div className="mb-3 flex items-center justify-between">
-                <img src={ASSETS.mark} alt="" style={{ height: 18 }} />
-                <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 9, letterSpacing: "0.2em", color: "#64748B" }}>
-                  SYMSTRUO · {String(i + 1).padStart(2, "0")} / {SLIDES.length}
-                </span>
+      {/* OFFSCREEN EXPORT DECK (for real PDF generation) */}
+      {exporting && (
+        <div ref={exportRef} className="exporting" style={{ position: "fixed", left: "-10000px", top: 0, zIndex: -1 }}>
+          {SLIDES.map((s, i) => {
+            const C = s.Component;
+            return (
+              <div
+                key={s.id}
+                className="export-page grain"
+                style={{ width: 1280, height: 720, background: "#090C10", color: "#F8FAFC", padding: "46px 56px", position: "relative", overflow: "hidden" }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <img src="/logo-star.png" alt="" style={{ width: 22, height: 22 }} />
+                    <span style={{ fontFamily: "Outfit, sans-serif", fontWeight: 300, letterSpacing: "0.4em", fontSize: 12, color: "#fff" }}>SYMSTRUO</span>
+                  </div>
+                  <span style={{ fontFamily: "JetBrains Mono, monospace", fontSize: 9, letterSpacing: "0.2em", color: "#64748B" }}>
+                    {String(i + 1).padStart(2, "0")} / {SLIDES.length}
+                  </span>
+                </div>
+                <div style={{ height: "calc(100% - 42px)" }}>
+                  <C onExpress={() => {}} />
+                </div>
               </div>
-              <div style={{ height: "calc(100% - 30px)" }}>
-                <C onExpress={() => {}} />
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       <Toaster theme="dark" position="bottom-center" richColors />
     </>
