@@ -752,7 +752,7 @@ const Contact = () => {
             </p>
           </Reveal>
           <div className="mt-14 space-y-8">
-            {[["Email", "hello@symstruo.com"], ["Website", "symstruo.com"], ["Response", "Within 24 hours"]].map(([k, v]) => (
+            {[["Email", "dhanush@symstruo.com"], ["Website", "symstruo.com"], ["Response", "Within 24 hours"]].map(([k, v]) => (
               <Reveal key={k} delay={0.05}>
                 <div className="flex items-center justify-between border-b border-[var(--line)] pb-4">
                   <span className="font-sans text-xs tracking-[0.24em] text-[var(--grey)]">{k.toUpperCase()}</span>
@@ -808,7 +808,7 @@ const Footer = () => (
         <div className="md:col-span-3">
           <p className="eyebrow mb-6">Reach</p>
           <ul className="space-y-3 font-sans text-sm text-[var(--ivory-dim)]">
-            <li><span className="link-underline inline-block">hello@symstruo.com</span></li>
+            <li><span className="link-underline inline-block">dhanush@symstruo.com</span></li>
             <li><span className="link-underline inline-block">symstruo.com</span></li>
           </ul>
         </div>
