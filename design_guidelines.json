@@ -1,0 +1,180 @@
+{
+  "project_name": "SYMSTRUO Investor Pitch Deck",
+  "app_type": "presentation / investor pitch deck (single-page web app, dark premium minimal)",
+  "emotional_archetype": "Luxury Consulting & Architectural Precision (Swiss Brutalism + Obsidian Muted Gold)",
+  "target_audience": "Angel Investors, High Net Worth Individuals (HNIs), Micro VCs, Strategic Business Partners seeking structured, low-risk, systems-led equity/revenue-share opportunities",
+  "positioning_narrative": "SYMSTRUO is a structured, systems-led business-building company. An honest, credible, pre-sales proven narrative positioning SYMSTRUO as the end-to-end execution engine for scalable enterprises—not an inflated venture-tech startup.",
+  "typography": {
+    "heading_font": "Cinzel / Playfair Display / Plus Jakarta Sans",
+    "subheading_font": "Outfit / Sora / Space Grotesk",
+    "body_font": "Inter / Plus Jakarta Sans",
+    "mono_font": "JetBrains Mono",
+    "font_scale": {
+      "slide_hero_h1": "text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]",
+      "section_h2": "text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight leading-snug",
+      "card_h3": "text-xl sm:text-2xl font-medium tracking-normal",
+      "body_lg": "text-base sm:text-lg text-slate-300 leading-relaxed",
+      "body_md": "text-sm sm:text-base text-slate-400 leading-normal",
+      "caption_mono": "font-mono text-xs uppercase tracking-[0.2em] text-amber-400/90"
+    }
+  },
+  "colors": {
+    "palette_archetype": "Obsidian Slate & Muted Gold",
+    "background_main": "#090C10",
+    "background_card": "#121720",
+    "background_card_hover": "#1A2230",
+    "border_subtle": "#222D3D",
+    "border_accent": "#D4AF37",
+    "primary_gold": "#D4AF37",
+    "primary_gold_hover": "#E5C158",
+    "accent_champagne": "#F3E5AB",
+    "accent_emerald": "#10B981",
+    "text_bright": "#F8FAFC",
+    "text_muted": "#94A3B8",
+    "text_dim": "#64748B",
+    "gradients": {
+      "gold_text": "bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#AA7C11] bg-clip-text text-transparent",
+      "card_glow": "bg-gradient-to-b from-[#1E293B]/60 to-[#0F172A]/90",
+      "border_beam": "linear-gradient(90deg, transparent, #D4AF37, transparent)"
+    }
+  },
+  "spacing_and_layout": {
+    "slide_container": "min-h-screen w-full bg-[#090C10] text-[#F8FAFC] flex flex-col justify-between p-6 md:p-12 relative overflow-hidden select-none",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8 items-stretch",
+    "padding_standard": "p-6 md:p-8 lg:p-10",
+    "radius_system": "rounded-xl border border-[#222D3D]"
+  },
+  "slide_structure_15_deck": [
+    {
+      "slide_number": 1,
+      "id": "cover",
+      "title": "SYMSTRUO",
+      "subtitle": "Systems-Led Business Building Engine",
+      "key_elements": "Hero tag, Executive summary, ₹20L Ask highlight pill, 'Start Presentation' CTA, Quick keyboard hint badge"
+    },
+    {
+      "slide_number": 2,
+      "id": "problem",
+      "title": "The Execution Gap in Early Enterprises",
+      "subtitle": "Why 88% of promising businesses fail before scale",
+      "key_elements": "3 Problem Pillars (Fragmented Agencies, Lack of Systems Architecture, High Burn / Low Accountability) with metric callouts"
+    },
+    {
+      "slide_number": 3,
+      "id": "market-opportunity",
+      "title": "Market Opportunity",
+      "subtitle": "The Unmet Need for Turnkey Business Infrastructure",
+      "key_elements": "TAM / SAM / SOM breakdown metrics, MSME/SME business creation statistics in India, market trajectory"
+    },
+    {
+      "slide_number": 4,
+      "id": "solution",
+      "title": "The Solution: Systems Over Guesswork",
+      "subtitle": "A disciplined, end-to-end execution framework",
+      "key_elements": "Comparison split view: Unstructured Traditional Approach vs SYMSTRUO Systems-Led Model"
+    },
+    {
+      "slide_number": 5,
+      "id": "ecosystem",
+      "title": "The SYMSTRUO Ecosystem",
+      "subtitle": "5 Core Modules powering predictable business growth",
+      "key_elements": "Interactive module cards for Idea Lab, Business Blueprint, Brand Architecture, Growth Engine, and Investment Preparation with tabbed detail drill-downs"
+    },
+    {
+      "slide_number": 6,
+      "id": "how-it-works",
+      "title": "How It Works",
+      "subtitle": "5-Step Operational Roadmap from Onboarding to Scale",
+      "key_elements": "Interactive 5-step process line with step selection, deliverable milestones, and timeframes"
+    },
+    {
+      "slide_number": 7,
+      "id": "business-model",
+      "title": "Dual-Engine Revenue Model",
+      "subtitle": "Custom Business Packages + Investment Commissions",
+      "key_elements": "Revenue stream cards (Package Fee Structure, Commission Structure, Retainer Upsell) with unit economics metrics"
+    },
+    {
+      "slide_number": 8,
+      "id": "traction",
+      "title": "Traction & Pre-Sales Proof",
+      "subtitle": "Honest early-stage validation, zero inflated claims",
+      "key_elements": "Pipeline metrics, committed client LOIs/contracts value, case studies/testimonials, proof points counter"
+    },
+    {
+      "slide_number": 9,
+      "id": "competition",
+      "title": "Competitive Landscape",
+      "subtitle": "Where SYMSTRUO stands in the market matrix",
+      "key_elements": "Feature comparison matrix table evaluating SYMSTRUO vs Traditional Agencies, Freelance Networks, and Venture Incubators"
+    },
+    {
+      "slide_number": 10,
+      "id": "competitive-advantage",
+      "title": "Unfair Competitive Advantage",
+      "subtitle": "Why SYMSTRUO wins predictably",
+      "key_elements": "4 Moat Cards: Reusable Systems Library, Skin in the Game Model, Multi-Disciplinary Core, Rapid Deployment Playbooks"
+    },
+    {
+      "slide_number": 11,
+      "id": "go-to-market",
+      "title": "Go-To-Market Strategy",
+      "subtitle": "Disciplined customer acquisition channels",
+      "key_elements": "Direct B2B Outbound, Founder Circle Partnerships, Executive Seminars, Referral Network loops"
+    },
+    {
+      "slide_number": 12,
+      "id": "financial-model",
+      "title": "Financial Model & Projections",
+      "subtitle": "3-Year Revenue & Margin Trajectory",
+      "key_elements": "Interactive Year 1 to Year 3 financial table & growth chart (Recharts) with customizable scenario toggle (Conservative vs Base vs Growth)"
+    },
+    {
+      "slide_number": 13,
+      "id": "investment-ask",
+      "title": "Investment Ask: ₹20 Lakhs",
+      "subtitle": "Growth capital proposal for strategic investors",
+      "key_elements": "Valuation/Structure badge, Key investor terms pill, Expected Return profile, Investor Governance summary"
+    },
+    {
+      "slide_number": 14,
+      "id": "use-of-capital",
+      "title": "Use of Capital & Milestones",
+      "subtitle": "Exact ₹20L Allocation & 12-Month Execution Roadmap",
+      "key_elements": "Interactive Recharts Allocation Donut/Bar Chart (₹3L Infra, ₹4L Hiring, ₹5L Sales/Marketing, ₹5L Working Capital, ₹2L Brand/Website, ₹1L Contingency) + 12-Month Milestone Timeline"
+    },
+    {
+      "slide_number": 15,
+      "id": "vision-team",
+      "title": "Vision & Founding Leadership",
+      "subtitle": "Building the infrastructure backbone for India's business builders",
+      "key_elements": "Founding philosophy, Core leadership bios, Contact details for Investor Discussion, Interactive 'Schedule Meeting / Express Interest' modal"
+    }
+  ],
+  "key_functionalities": [
+    "15 full-screen slides with keyboard (ArrowLeft, ArrowRight, Space, PageUp, PageDown) & touch/click navigation",
+    "Slide progress bar indicator at top/bottom and slide counter pill ('Slide 04 / 15')",
+    "Interactive Slide Overview Drawer / Grid selector modal to jump directly to any slide",
+    "Interactive Use-of-Capital allocation breakdown chart (Recharts pie/bar) with hover details",
+    "Interactive Ecosystem Module selector with animated tab details",
+    "5-Step 'How It Works' process timeline controller",
+    "Interactive Financial Scenario Toggle (Conservative vs Base vs Optimistic)",
+    "Download PDF / Print-Friendly View mode (renders entire 15-slide deck linearly for standard browser printing or PDF saving)",
+    "Investor Interest / Inquiry dialog form with toast confirmation",
+    "Presenter view notes toggle (optional investor presentation mode)"
+  ],
+  "image_urls": {
+    "hero_architecture": "https://images.unsplash.com/photo-1775471234593-40352bbee713?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjBidXNpbmVzcyUyMGFyY2hpdGVjdHVyZSUyMGludGVyaW9yJTIwZGFya3xlbnwwfHx8fDE3ODczMzI0NTd8MA&ixlib=rb-4.1.0&q=85",
+    "luxury_interior_hallway": "https://images.pexels.com/photos/3118195/pexels-photo-3118195.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "executive_meeting": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwyfHxleGVjdXRpdmUlMjBidXNpbmVzcyUyMG1lZXRpbmclMjBtaW5pbWFsfGVufDB8fHx8MTc4NzMzMjQ1N3ww&ixlib=rb-4.1.0&q=85",
+    "financial_growth": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHwxfHxmaW5hbmNpYWwlMjBncm93dGglMjBjaGFydCUyMG1pbmltYWxpc3QlMjBkYXJrfGVufDB8fHx8MTc4NzMzMjQ1N3ww&ixlib=rb-4.1.0&q=85"
+  },
+  "instructions_to_main_agent": [
+    "Construct all 15 slides with rich, realistic content for SYMSTRUO—no generic placeholder text like 'Lorem ipsum' or 'TBD'.",
+    "Use Framer Motion for crisp, low-latency slide entry transitions (`AnimatePresence` with direction-aware sliding and fading).",
+    "Ensure the PDF / Print-Friendly mode formats all 15 slides into distinct page-break sections (`@media print` rules) so printing or saving as PDF works cleanly without visual overflow.",
+    "Verify all interactive buttons, navigation triggers, slide thumbnails, and form inputs include explicit `data-testid` attributes (e.g., `data-testid='next-slide-button'`, `data-testid='slide-thumb-5'`, `data-testid='export-pdf-button'`).",
+    "Maintain strict dark theme contrast compliance with WCAG AA standards using bright white headings (`#F8FAFC`), muted slate subtexts (`#94A3B8`), and gold highlights (`#D4AF37`).",
+    "Never use generic centered layouts across all slides—vary the layout structure (Split Bento grids, Left heavy headlines, 3-column feature cards, full-width timeline steps, matrix comparison table)."
+  ]
+}
