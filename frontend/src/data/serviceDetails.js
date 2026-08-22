@@ -7,6 +7,15 @@ export const SERVICE_DETAILS = {
     headline: "Turn an idea into an opportunity worth pursuing.",
     intro:
       "An idea is only the beginning. Before investing significant time, money, people, or resources into building a business, the opportunity needs to be understood from multiple angles. IDEA LAB evaluates the idea, the market, the customer, the competition, the economics, and the risks to determine whether the opportunity has the potential to become a viable business.",
+    keywords: [
+      "Startup idea validation framework",
+      "Business opportunity score assessment",
+      "How to validate a startup idea before building",
+      "Competitor gap analysis for new startups",
+      "Early stage startup customer persona mapping",
+      "Startup market research and viability",
+      "Idea Lab venture studio",
+    ],
     blocks: [
       { t: "Idea Validation", d: "We test the fundamental assumptions behind your business idea. We examine whether the problem is real, whether customers actually experience it, whether existing alternatives are solving it, and whether there is a meaningful reason for customers to choose a new solution. The objective is not to prove that the idea is good. The objective is to discover whether there is enough evidence to justify building it.", r: ["Core problem assessment", "Customer need assessment", "Key assumptions", "Validation framework", "Initial viability assessment"], o: "A clearer understanding of whether the idea deserves to be built." },
       { t: "Market Research", d: "We study the environment in which the business would operate. This includes market size, customer behavior, industry dynamics, emerging trends, demand patterns, existing solutions, and relevant market opportunities. The objective is to understand not just whether a market exists, but where the opportunity actually sits within that market.", r: ["Market overview", "Target market assessment", "Market trends", "Opportunity areas", "Market attractiveness assessment"], o: "A clearer picture of the market you're entering." },
@@ -25,6 +34,15 @@ export const SERVICE_DETAILS = {
     headline: "Build the architecture behind the business.",
     intro:
       "Once an opportunity has been validated, the next question is: How should the business actually work? BUSINESS BLUEPRINT is the flagship SYMSTRUO service. It transforms the opportunity into a structured business model and creates the roadmap required to build, launch, operate, and grow the company.",
+    keywords: [
+      "Startup business blueprint roadmap",
+      "Business model design and revenue architecture",
+      "90-day startup execution roadmap",
+      "Go-to-market strategy for tech ventures",
+      "First 100 customers acquisition plan",
+      "Startup operational blueprint and hiring plan",
+      "Business Architecture consulting",
+    ],
     blocks: [
       { t: "Business Model", d: "We define how the company creates value, delivers value, and captures value. This includes the core offering, customer segments, value proposition, channels, key activities, resources, partnerships, and economics of the business.", o: "A clearly structured business model." },
       { t: "Revenue Streams", d: "We identify how the company can generate revenue and which revenue streams should form the foundation of the business. We assess transaction-based, recurring, subscription, service, licensing, partnership, or other relevant models depending on the business.", o: "A defined revenue architecture." },
@@ -48,6 +66,13 @@ export const SERVICE_DETAILS = {
     headline: "Build a brand with meaning, positioning, and consistency.",
     intro:
       "A brand is more than a logo. Once the business itself is clearly defined, BRAND ARCHITECTURE translates that strategy into a recognizable market identity and customer experience.",
+    keywords: [
+      "Brand architecture for B2B startups",
+      "Strategic brand positioning vs visual design",
+      "Startup brand story and tone of voice framework",
+      "Product positioning and value proposition design",
+      "Startup brand guidelines and customer experience",
+    ],
     blocks: [
       { t: "Brand Name", d: "We develop or refine the naming direction based on positioning, audience, category, meaning, memorability, and long-term brand potential.", o: "A name aligned with the business rather than chosen in isolation." },
       { t: "Brand Story", d: "Every meaningful brand has a reason for existing. We develop the narrative that communicates where the company came from, what it believes, what problem it exists to solve, and what it is building toward.", o: "A story that gives the brand meaning." },
@@ -68,6 +93,13 @@ export const SERVICE_DETAILS = {
     headline: "Turn the business into a scalable operating system.",
     intro:
       "Launching is not the finish line. Once the business enters the market, it needs systems that can consistently generate customers, manage operations, develop relationships, and support expansion. GROWTH ENGINE focuses on building those systems.",
+    keywords: [
+      "Founder-led to system-led growth",
+      "Startup SOP creation and repeatable sales systems",
+      "B2B lead generation engine for founders",
+      "Founder personal branding and LinkedIn authority",
+      "Startup expansion roadmap and partnerships",
+    ],
     blocks: [
       { t: "Sales Process", d: "We structure the journey from lead to customer. This can include sales stages, qualification, communication, follow-up, conversion processes, and measurement.", o: "A more repeatable sales system." },
       { t: "CRM", d: "Customer relationships become increasingly difficult to manage as a company grows. We help structure the CRM approach around lead management, customer information, pipeline visibility, follow-ups, and reporting.", o: "Better visibility and control over the customer pipeline." },
@@ -87,6 +119,13 @@ export const SERVICE_DETAILS = {
     headline: "Prepare the business to meet capital with clarity.",
     intro:
       "Fundraising should not begin with a pitch deck. It begins with a business that can explain its opportunity, economics, growth potential, capital requirements, and future clearly. INVESTMENT PREPARATION prepares the company for that conversation.",
+    keywords: [
+      "Investor readiness framework for startups",
+      "Seed stage financial model and pitch narrative",
+      "Startup valuation guidance and investor data room",
+      "Due diligence preparation for tech founders",
+      "Venture capital fundraising strategy",
+    ],
     blocks: [
       { t: "Pitch Deck", d: "We structure the investment story around the elements investors need to understand. This includes the problem, solution, market, business model, traction, growth opportunity, competitive position, financials, team, funding requirement, and investment narrative where relevant.", o: "A clear and investor-oriented presentation of the opportunity." },
       { t: "Financial Model", d: "A credible fundraising process requires financial understanding. We structure financial assumptions, revenue expectations, expenses, growth scenarios, cash requirements, and other relevant financial metrics.", o: "A financial model that supports strategic and investor conversations." },

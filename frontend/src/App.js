@@ -921,6 +921,7 @@ const ServiceDetail = () => {
       <SEO
         title={`${data.name} — Venture Services`}
         description={data.headline + " " + data.intro}
+        keywords={data.keywords?.join(", ")}
         schema={{
           "@context": "https://schema.org",
           "@type": "Service",

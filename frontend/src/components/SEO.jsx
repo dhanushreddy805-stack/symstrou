@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 export const SEO = ({
   title,
   description,
+  keywords,
   canonical,
   schema,
   type = "website",
@@ -12,12 +13,13 @@ export const SEO = ({
   const fullCanonical = canonical || `https://symstruo.com${location.pathname}`;
   const pageTitle = title ? `${title} | SYMSTRUO` : "SYMSTRUO — Venture Creation Company | Build in Silence";
   const metaDescription = description || "SYMSTRUO is a global Venture Creation Company. We partner with founders to turn ideas into enduring businesses through venture strategy, business blueprints, brand architecture, growth systems, and investment readiness.";
+  const metaKeywords = keywords || "SYMSTRUO, Venture Creation Company, Venture Studio, Business Architecture, Startup Growth Engine, Pitch Deck Preparation";
 
   useEffect(() => {
     // 1. Update Document Title
     document.title = pageTitle;
 
-    // 2. Update Meta Description
+    // 2. Update Meta Description & Keywords
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
       metaDesc = document.createElement("meta");
@@ -25,6 +27,14 @@ export const SEO = ({
       document.head.appendChild(metaDesc);
     }
     metaDesc.setAttribute("content", metaDescription);
+
+    let metaKey = document.querySelector('meta[name="keywords"]');
+    if (!metaKey) {
+      metaKey = document.createElement("meta");
+      metaKey.setAttribute("name", "keywords");
+      document.head.appendChild(metaKey);
+    }
+    metaKey.setAttribute("content", metaKeywords);
 
     // 3. Update Canonical Link
     let linkCanonical = document.querySelector('link[rel="canonical"]');
