@@ -38,10 +38,7 @@ services:
         destination: /index.html
     envVars:
       - key: REACT_APP_BACKEND_URL
-        fromService:
-          name: symstruo-backend
-          type: web
-          property: host
+        value: https://symstruo-backend.onrender.com
 
 # ── Managed PostgreSQL Database ───────────────────
 databases:
