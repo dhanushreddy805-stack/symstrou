@@ -14,7 +14,7 @@ services:
       - key: CORS_ORIGINS
         value: https://symstruo.com,https://www.symstruo.com
       - key: SMTP_HOST
-        value: smtp.gmail.com
+        value: smtp.hostinger.com
       - key: SMTP_PORT
         value: 465
       # Set these in the Render dashboard prompt
