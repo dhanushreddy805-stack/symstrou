@@ -12,7 +12,7 @@ services:
           name: symstruo-postgres
           property: connectionString
       - key: CORS_ORIGINS
-        value: https://symstruo.com,https://www.symstruo.com
+        value: "*"
       - key: SMTP_HOST
         value: smtp.hostinger.com
       - key: SMTP_PORT

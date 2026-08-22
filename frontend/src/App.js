@@ -17,7 +17,11 @@ import { SEO } from "@/components/SEO";
 // Home FAQ shows a curated subset (questions 1, 2, 4, 20, 12, 6).
 const HOME_FAQ = [0, 1, 3, 19, 11, 5];
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const rawBackendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+const formattedBackendUrl = rawBackendUrl.startsWith("http")
+  ? rawBackendUrl
+  : `https://${rawBackendUrl}`;
+const API = `${formattedBackendUrl}/api`;
 
 const IMG = {
   about: "https://images.unsplash.com/photo-1565371557106-c2abcc6fb36a?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",

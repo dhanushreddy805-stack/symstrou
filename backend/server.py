@@ -75,7 +75,7 @@ class ContactMessage(BaseModel):
 # ──────────────────────────────────────────────────
 def send_lead_email(lead: ContactCreate):
     if not SMTP_USER or not SMTP_PASSWORD:
-        logging.warning("SMTP credentials not configured. Skipping email notification.")
+        logging.warning(f"SMTP credentials not configured (User: {bool(SMTP_USER)}, Pass: {bool(SMTP_PASSWORD)}). Skipping email notification.")
         return
 
     try:
@@ -84,32 +84,32 @@ def send_lead_email(lead: ContactCreate):
         msg["To"] = ADMIN_EMAIL
         msg["Subject"] = f"🚀 New SYMSTRUO Lead: {lead.name}"
 
-        body = f"""
-        New lead submitted via the SYMSTRUO contact form:
+        body = f"""New lead submitted via the SYMSTRUO contact form:
 
-        Name: {lead.name}
-        Email: {lead.email}
-        Company: {lead.company}
-        Stage: {lead.stage}
-        
-        Message:
-        {lead.message}
-        """
+Name: {lead.name}
+Email: {lead.email}
+Company: {lead.company or 'N/A'}
+Stage: {lead.stage or 'N/A'}
+
+Message:
+{lead.message}
+"""
         msg.attach(MIMEText(body, "plain"))
 
-        # Gmail typically uses 465 with SSL
+        logging.info(f"Connecting to SMTP server {SMTP_HOST}:{SMTP_PORT}...")
         if SMTP_PORT == 465:
-            server = smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT)
+            with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=15) as server:
+                server.login(SMTP_USER, SMTP_PASSWORD)
+                server.send_message(msg)
         else:
-            server = smtplib.SMTP(SMTP_HOST, SMTP_PORT)
-            server.starttls()
-            
-        server.login(SMTP_USER, SMTP_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        logging.info(f"Lead email notification sent to {ADMIN_EMAIL}")
+            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=15) as server:
+                server.starttls()
+                server.login(SMTP_USER, SMTP_PASSWORD)
+                server.send_message(msg)
+
+        logging.info(f"Lead email notification successfully sent to {ADMIN_EMAIL}")
     except Exception as e:
-        logging.error(f"Failed to send lead email: {str(e)}")
+        logging.error(f"Failed to send lead email to {ADMIN_EMAIL}: {str(e)}", exc_info=True)
 
 # ──────────────────────────────────────────────────
 # FastAPI App
@@ -119,7 +119,6 @@ api_router = APIRouter(prefix="/api")
 
 @app.on_event("startup")
 async def startup():
-    # Auto-create tables on boot
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
@@ -130,7 +129,7 @@ async def shutdown():
 # ──────────────────────────────────────────────────
 # Routes
 # ──────────────────────────────────────────────────
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root():
     return {"message": "SYMSTRUO — Build in Silence."}
 
