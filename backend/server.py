@@ -1,84 +1,176 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
-import os
-import logging
-from pathlib import Path
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import Column, String, Text, DateTime
+from sqlalchemy.future import select
 from pydantic import BaseModel, Field, EmailStr
-from typing import List, Optional, Annotated, Any
-from pydantic import BeforeValidator, ConfigDict
+from pydantic import ConfigDict
+from typing import List, Optional
+import os
 import uuid
+import logging
 from datetime import datetime, timezone
+from pathlib import Path
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
-
+# ──────────────────────────────────────────────────
+# Environment & Config
+# ──────────────────────────────────────────────────
 ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
+load_dotenv(ROOT_DIR / ".env")
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+DATABASE_URL = os.environ.get("DATABASE_URL", "postgresql://symstruo:symstruo_pass@localhost:5432/symstruo_db")
+# asyncpg requires the "postgresql+asyncpg://" prefix
+ASYNC_DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://")
 
+SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.gmail.com")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "465")) # Gmail uses 465 for SSL or 587 for TLS
+SMTP_USER = os.environ.get("SMTP_USER")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
+ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", SMTP_USER)
+
+# ──────────────────────────────────────────────────
+# SQLAlchemy Async Setup
+# ──────────────────────────────────────────────────
+Base = declarative_base()
+engine = create_async_engine(ASYNC_DATABASE_URL, echo=False)
+AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+class ContactMessageORM(Base):
+    __tablename__ = "contact_messages"
+    id          = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    name        = Column(String(120), nullable=False)
+    email       = Column(String(254), nullable=False)
+    company     = Column(String(160), nullable=True, default="")
+    stage       = Column(String(80),  nullable=True, default="")
+    message     = Column(Text, nullable=False)
+    created_at  = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+# ──────────────────────────────────────────────────
+# Pydantic Schemas
+# ──────────────────────────────────────────────────
+class ContactCreate(BaseModel):
+    name:    str           = Field(..., min_length=1, max_length=120)
+    email:   EmailStr
+    company: Optional[str] = Field(default="", max_length=160)
+    stage:   Optional[str] = Field(default="", max_length=80)
+    message: str           = Field(..., min_length=1, max_length=4000)
+
+class ContactMessage(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id:         str
+    name:       str
+    email:      str
+    company:    str = ""
+    stage:      str = ""
+    message:    str
+    created_at: datetime
+
+# ──────────────────────────────────────────────────
+# Email Notification Function (Sync for Background)
+# ──────────────────────────────────────────────────
+def send_lead_email(lead: ContactCreate):
+    if not SMTP_USER or not SMTP_PASSWORD:
+        logging.warning("SMTP credentials not configured. Skipping email notification.")
+        return
+
+    try:
+        msg = MIMEMultipart()
+        msg["From"] = SMTP_USER
+        msg["To"] = ADMIN_EMAIL
+        msg["Subject"] = f"🚀 New SYMSTRUO Lead: {lead.name}"
+
+        body = f"""
+        New lead submitted via the SYMSTRUO contact form:
+
+        Name: {lead.name}
+        Email: {lead.email}
+        Company: {lead.company}
+        Stage: {lead.stage}
+        
+        Message:
+        {lead.message}
+        """
+        msg.attach(MIMEText(body, "plain"))
+
+        # Gmail typically uses 465 with SSL
+        if SMTP_PORT == 465:
+            server = smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT)
+        else:
+            server = smtplib.SMTP(SMTP_HOST, SMTP_PORT)
+            server.starttls()
+            
+        server.login(SMTP_USER, SMTP_PASSWORD)
+        server.send_message(msg)
+        server.quit()
+        logging.info(f"Lead email notification sent to {ADMIN_EMAIL}")
+    except Exception as e:
+        logging.error(f"Failed to send lead email: {str(e)}")
+
+# ──────────────────────────────────────────────────
+# FastAPI App
+# ──────────────────────────────────────────────────
 app = FastAPI(title="SYMSTRUO API")
 api_router = APIRouter(prefix="/api")
 
+@app.on_event("startup")
+async def startup():
+    # Auto-create tables on boot
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 
-def _now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+@app.on_event("shutdown")
+async def shutdown():
+    await engine.dispose()
 
-
-class ContactCreate(BaseModel):
-    name: str = Field(..., min_length=1, max_length=120)
-    email: EmailStr
-    company: Optional[str] = Field(default="", max_length=160)
-    stage: Optional[str] = Field(default="", max_length=80)
-    message: str = Field(..., min_length=1, max_length=4000)
-
-
-class ContactMessage(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    name: str
-    email: str
-    company: str = ""
-    stage: str = ""
-    message: str
-    created_at: str = Field(default_factory=_now_iso)
-
-
-@api_router.get("/")
+# ──────────────────────────────────────────────────
+# Routes
+# ──────────────────────────────────────────────────
+@app.get("/")
 async def root():
     return {"message": "SYMSTRUO — Build in Silence."}
 
-
 @api_router.post("/contact", response_model=ContactMessage)
-async def create_contact(payload: ContactCreate):
-    doc = ContactMessage(**payload.model_dump())
-    await db.contact_messages.insert_one(doc.model_dump())
-    return doc
-
+async def create_contact(payload: ContactCreate, background_tasks: BackgroundTasks):
+    async with AsyncSessionLocal() as session:
+        doc = ContactMessageORM(
+            id        = str(uuid.uuid4()),
+            name      = payload.name,
+            email     = str(payload.email),
+            company   = payload.company or "",
+            stage     = payload.stage or "",
+            message   = payload.message,
+            created_at= datetime.now(timezone.utc),
+        )
+        session.add(doc)
+        await session.commit()
+        await session.refresh(doc)
+        
+        # Trigger email notification in the background
+        background_tasks.add_task(send_lead_email, payload)
+        
+        return doc
 
 @api_router.get("/contact", response_model=List[ContactMessage])
 async def list_contacts():
-    rows = await db.contact_messages.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
-    return [ContactMessage(**r) for r in rows]
-
+    # We still keep the list endpoint for testing or checking DB directly
+    async with AsyncSessionLocal() as session:
+        result = await session.execute(
+            select(ContactMessageORM).order_by(ContactMessageORM.created_at.desc())
+        )
+        return result.scalars().all()
 
 app.include_router(api_router)
-
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")

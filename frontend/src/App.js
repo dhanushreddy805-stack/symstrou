@@ -12,6 +12,7 @@ import { Starfield } from "@/components/Starfield";
 import { CircleCursor } from "@/components/CircleCursor";
 import { SERVICE_DETAILS, SERVICE_ORDER } from "@/data/serviceDetails";
 import { INSIGHTS } from "@/data/insights";
+import { SEO } from "@/components/SEO";
 
 // Home FAQ shows a curated subset (questions 1, 2, 4, 20, 12, 6).
 const HOME_FAQ = [0, 1, 3, 19, 11, 5];
@@ -549,6 +550,10 @@ const Page = ({ children }) => {
 
 const InsightsIndex = () => (
   <Page>
+    <SEO
+      title="Insights & Thought Leadership"
+      description="Essays, frameworks, and perspective on venture creation, building scalable businesses, and fundraising readiness."
+    />
     <section className="mx-auto max-w-[1500px] px-6 pt-40 pb-32 md:px-12 md:pt-52" data-testid="insights-page">
       <Reveal><span className="eyebrow">Insights</span></Reveal>
       <Reveal delay={0.05}>
@@ -579,6 +584,31 @@ const ArticlePage = () => {
   const next = INSIGHTS[(idx + 1) % INSIGHTS.length];
   return (
     <Page>
+      <SEO
+        title={a.title}
+        description={a.deck}
+        type="article"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": a.title,
+          "description": a.deck,
+          "mainEntityOfPage": `https://symstruo.com/insights/${a.slug}`,
+          "author": {
+            "@type": "Organization",
+            "name": "SYMSTRUO",
+            "url": "https://symstruo.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "SYMSTRUO",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://symstruo.com/symstruo-mark.png"
+            }
+          }
+        }}
+      />
       <article className="mx-auto max-w-3xl px-6 pt-40 pb-20 md:pt-52" data-testid="article-page">
         <Reveal>
           <button onClick={() => navigate("/insights")} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
@@ -623,6 +653,22 @@ const ArticlePage = () => {
 const REST_FAQ = FAQS.map((_, i) => i).filter((i) => !HOME_FAQ.includes(i));
 const FAQPage = () => (
   <Page>
+    <SEO
+      title="Frequently Asked Questions"
+      description="Frequently asked questions about working with SYMSTRUO: our methodology, deliverables, equity models, timelines, and confidentiality."
+      schema={{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": FAQS.map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.a,
+          },
+        })),
+      }}
+    />
     <section className="mx-auto max-w-[1500px] px-6 pt-40 pb-32 md:px-12 md:pt-52" data-testid="faq-page">
       <Reveal>
         <button onClick={() => window.history.back()} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
@@ -857,6 +903,25 @@ const ServiceDetail = () => {
 
   return (
     <div className="App grain">
+      <SEO
+        title={`${data.name} — Venture Services`}
+        description={data.headline + " " + data.intro}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": data.name,
+          "description": data.intro,
+          "provider": {
+            "@type": "Organization",
+            "name": "SYMSTRUO",
+            "url": "https://symstruo.com"
+          },
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock"
+          }
+        }}
+      />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80"><Starfield /></div>
       <Toaster position="bottom-right" theme="dark" />
       <CircleCursor />
@@ -977,6 +1042,10 @@ const Home = () => {
 
   return (
     <div className="App grain">
+      <SEO
+        title="SYMSTRUO — Venture Creation Company | Build in Silence"
+        description="SYMSTRUO is a global Venture Creation Company. We partner with founders to turn ideas into enduring businesses through venture strategy, business blueprints, brand architecture, growth systems, and investment readiness."
+      />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80">
         <Starfield />
       </div>

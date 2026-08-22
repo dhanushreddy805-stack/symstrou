@@ -1,0 +1,58 @@
+services:
+  # ── PostgreSQL Database ─────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: symstruo_db
+    environment:
+      POSTGRES_USER:     symstruo
+      POSTGRES_PASSWORD: symstruo_pass
+      POSTGRES_DB:       symstruo_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U symstruo -d symstruo_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── FastAPI Backend ─────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: symstruo_backend
+    environment:
+      DATABASE_URL:  postgresql://symstruo:symstruo_pass@db:5432/symstruo_db
+      CORS_ORIGINS:  http://localhost:3000
+      SMTP_HOST:     smtp.gmail.com
+      SMTP_PORT:     465
+      SMTP_USER:     ${SMTP_USER:-""}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-""}
+      ADMIN_EMAIL:   ${ADMIN_EMAIL:-""}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ── React Frontend ──────────────────────────────
+  frontend:
+    image: node:20-alpine
+    container_name: symstruo_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      REACT_APP_BACKEND_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    command: sh -c "yarn install && yarn start"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

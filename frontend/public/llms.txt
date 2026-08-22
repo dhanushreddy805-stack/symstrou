@@ -1,0 +1,31 @@
+# SYMSTRUO — Venture Creation Company
+
+> SYMSTRUO is a Venture Creation Company. We partner with founders, entrepreneurs, and institutions to turn ambitious ideas into enduring, scalable businesses. We provide business architecture, venture strategy, brand positioning, growth engines, and investment readiness.
+
+## Core Capabilities & Services
+- [Idea Lab](https://symstruo.com/services/idea-lab): Validating business concepts, market sizing, competitor analysis, customer persona mapping, and risk evaluation before capital deployment.
+- [Business Blueprint](https://symstruo.com/services/business-blueprint): Flagship service structuring business models, revenue architecture, pricing, operations, hiring plans, unit economics, and 90-day execution roadmaps.
+- [Brand Architecture](https://symstruo.com/services/brand-architecture): Strategic brand naming, storytelling, mission, vision, tone of voice, visual identity, and customer experience.
+- [Growth Engine](https://symstruo.com/services/growth-engine): Repeatable sales systems, CRM setup, standard operating procedures (SOPs), lead generation, LinkedIn authority, and founder branding.
+- [Investment Preparation](https://symstruo.com/services/investment-preparation): Investor pitch decks, institutional-grade financial models, valuation guidance, data room curation, due diligence preparation, and fundraising narratives.
+
+## Thought Leadership & Knowledge Base
+- [From Idea to Business](https://symstruo.com/insights/idea-to-business): What actually needs to happen before launching.
+- [Business Architecture](https://symstruo.com/insights/business-architecture): The foundational systems behind every scalable business.
+- [Branding as Strategy](https://symstruo.com/insights/branding-is-strategy): Why branding is a business decision rather than mere decoration.
+- [When to Raise Funding](https://symstruo.com/insights/when-to-raise-funding): Strategic timing and capital deployment considerations.
+- [What Investors Look For](https://symstruo.com/insights/what-investors-look-for): Key criteria institutional investors use to evaluate startups.
+- [Growth vs Scale](https://symstruo.com/insights/growth-vs-scale): The difference between adding capacity and building leverage.
+- [Build Before Validating](https://symstruo.com/insights/build-before-validating): Mitigating the most expensive mistake in venture building.
+- [Founder-Led to System-Led](https://symstruo.com/insights/founder-led-to-system-led): Transitioning from individual hustle to institutional reliability.
+
+## Frequently Asked Questions
+- [SYMSTRUO FAQ](https://symstruo.com/faq): Comprehensive answers regarding engagement structures, timelines, confidentiality, and our venture creation methodology.
+
+## Documentation & Full Knowledge Base
+- Complete Raw Text Reference: [llms-full.txt](https://symstruo.com/llms-full.txt)
+
+## Contact
+- Official Website: https://symstruo.com
+- Get in Touch: Submit an inquiry directly via https://symstruo.com#contact
+
