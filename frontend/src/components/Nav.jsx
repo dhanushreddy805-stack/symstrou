@@ -44,21 +44,27 @@ export const Nav = () => {
 
   const go = (link) => {
     setOpen(false);
-    if (link.path.startsWith("/#")) {
-      const id = link.path.replace("/#", "");
-      if (pathname !== "/") {
-        navigate(`/#${id}`);
-      } else {
-        scrollTo(id);
-      }
-    } else if (link.path === "/") {
-      if (pathname !== "/") {
-        navigate("/");
-      } else {
-        scrollTo("home");
-      }
+    const targetId = typeof link === "string" ? link : link.id || link.path?.replace("/", "");
+
+    if (targetId === "insights") {
+      navigate("/insights");
+      return;
+    }
+
+    if (targetId === "faq") {
+      navigate("/faq");
+      return;
+    }
+
+    // For Home and on-page sections (home, about, services, contact)
+    if (pathname !== "/") {
+      navigate("/", { state: { scrollTo: targetId === "home" ? null : targetId } });
     } else {
-      navigate(link.path);
+      if (targetId === "home" || !targetId) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        scrollTo(targetId);
+      }
     }
   };
 
@@ -96,7 +102,7 @@ export const Nav = () => {
           ))}
           <button
             data-testid="nav-cta"
-            onClick={() => go({ path: "/#contact" })}
+            onClick={() => go("contact")}
             className="btn-ghost btn-fill border border-[var(--line)] px-6 py-2.5 font-sans text-xs tracking-[0.22em] text-[var(--ivory)]"
           >
             <span>START BUILDING</span>
@@ -151,7 +157,7 @@ export const Nav = () => {
             {/* Mobile CTA & Quick Contacts */}
             <div className="space-y-6 pt-8 pb-4">
               <button
-                onClick={() => go({ path: "/#contact" })}
+                onClick={() => go("contact")}
                 className="btn-ghost btn-fill flex w-full items-center justify-center gap-3 border border-[var(--ivory)] py-4 font-sans text-xs tracking-[0.24em] text-[var(--ivory)]"
               >
                 <span>START BUILDING</span>

@@ -1068,7 +1068,8 @@ const ServiceDetail = () => {
 /* -------------------------------------------------------------------- App */
 const Home = () => {
   const [loaded, setLoaded] = useState(false);
-  const { hash } = useLocation();
+  const location = useLocation();
+  const { hash, state } = location;
   useLenis();
 
   useEffect(() => {
@@ -1077,11 +1078,16 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (hash) {
+    if (state?.scrollTo) {
+      setTimeout(() => {
+        const el = document.getElementById(state.scrollTo);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 150);
+    } else if (hash) {
       const id = hash.replace("#", "");
-      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 300);
+      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 200);
     }
-  }, [hash]);
+  }, [hash, state]);
 
   return (
     <div className="App grain">
