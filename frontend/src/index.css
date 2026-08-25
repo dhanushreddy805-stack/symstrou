@@ -95,10 +95,18 @@ body {
   background: transparent; border: none; border-bottom: 1px solid var(--line);
   color: var(--ivory); font-family: 'Outfit', sans-serif; font-weight: 300;
   padding: 14px 2px; width: 100%; outline: none; transition: border-color .4s;
+  font-size: 16px; /* Prevents auto-zoom on iOS Safari */
 }
 .field-input::placeholder { color: var(--grey-2); }
 .field-input:focus { border-color: var(--brass); }
-textarea.field-input { resize: none; }
+textarea.field-input { resize: none; font-size: 16px; }
+
+/* touch & mobile optimizations */
+@media (max-width: 768px) {
+  * { -webkit-tap-highlight-color: transparent; }
+  .field-input { font-size: 16px !important; }
+  .btn-ghost { min-height: 48px; }
+}
 
 /* circle cursor */
 .cursor-ring, .cursor-dot {
@@ -118,5 +126,5 @@ body.cursor-active .cursor-ring {
   body.has-cursor, body.has-cursor * { cursor: none !important; }
 }
 @media (hover: none), (pointer: coarse) {
-  .cursor-ring, .cursor-dot { display: none; }
+  .cursor-ring, .cursor-dot { display: none !important; }
 }

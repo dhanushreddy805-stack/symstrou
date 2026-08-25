@@ -12,11 +12,13 @@ export const Starfield = ({ density = 55 }) => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const isMobile = window.innerWidth < 768;
+      const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       W = canvas.clientWidth; H = canvas.clientHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(Math.floor((W * H) / 26000) + density, 150);
+      const baseDensity = isMobile ? 25 : density;
+      const count = isMobile ? Math.min(Math.floor((W * H) / 38000) + baseDensity, 65) : Math.min(Math.floor((W * H) / 26000) + density, 150);
       stars = Array.from({ length: count }).map(() => ({
         x: Math.random() * W,
         y: Math.random() * H,

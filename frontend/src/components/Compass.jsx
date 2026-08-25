@@ -45,8 +45,13 @@ export const Star = ({ size = 28, color = "var(--ivory)", className = "", style 
 // needleRotate: optional MotionValue for scroll-linked drift after the north-lock.
 export const Compass = ({ size = 460, needleRotate }) => (
   <div
-    className="relative select-none"
-    style={{ width: size, height: size }}
+    className="relative select-none max-w-full aspect-square mx-auto"
+    style={{
+      width: size,
+      height: size,
+      maxWidth: "min(430px, calc(100vw - 48px))",
+      maxHeight: "min(430px, calc(100vw - 48px))",
+    }}
     data-testid="hero-compass"
   >
     <svg viewBox="-260 -260 520 520" className="absolute inset-0 h-full w-full spin-slower">

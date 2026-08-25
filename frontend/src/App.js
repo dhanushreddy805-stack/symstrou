@@ -146,12 +146,12 @@ const Hero = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.15, duration: 1, ease: EASE }}
             className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
             <button data-testid="hero-start" onClick={() => scrollTo("contact")}
-              className="btn-ghost btn-fill group flex items-center justify-center gap-3 border border-[var(--ivory)] px-9 py-4 font-sans text-xs tracking-[0.24em]">
+              className="btn-ghost btn-fill group flex w-full items-center justify-center gap-3 border border-[var(--ivory)] px-9 py-4 font-sans text-xs tracking-[0.24em] sm:w-auto">
               <span>START BUILDING</span>
               <ArrowUpRight size={15} className="relative z-[1]" />
             </button>
             <button data-testid="hero-book" onClick={() => scrollTo("contact")}
-              className="link-underline flex items-center gap-3 px-2 py-4 font-sans text-xs tracking-[0.24em] text-[var(--ivory-dim)]">
+              className="link-underline flex items-center justify-center gap-3 px-2 py-4 font-sans text-xs tracking-[0.24em] text-[var(--ivory-dim)] sm:justify-start">
               BOOK STRATEGY CALL
             </button>
           </motion.div>
@@ -204,7 +204,7 @@ const Marquee = () => {
 
 /* ------------------------------------------------------------------ About */
 const About = () => (
-  <section id="about" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="about">
+  <section id="about" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="about">
     <Reveal><span className="eyebrow">About</span></Reveal>
     <div className="mt-12 grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
       <div className="lg:col-span-7">
@@ -273,7 +273,7 @@ const lineVariant = {
 };
 
 const Manifesto = () => (
-  <section id="manifesto" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-48" data-testid="manifesto">
+  <section id="manifesto" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-40" data-testid="manifesto">
     <Reveal>
       <div className="mb-20 flex items-center gap-4">
         <Star size={14} color="var(--brass)" />
@@ -408,7 +408,7 @@ const ServiceRow = ({ s }) => {
 };
 
 const Services = () => (
-  <section id="services" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="services">
+  <section id="services" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="services">
     <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
       <div>
         <Reveal><span className="eyebrow">Services</span></Reveal>
@@ -489,7 +489,7 @@ const FAQItem = ({ q, a, idx }) => {
 };
 
 const FAQ = () => (
-  <section id="faq" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="faq">
+  <section id="faq" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="faq">
     <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
       <div>
         <Reveal><span className="eyebrow">FAQ</span></Reveal>
@@ -536,7 +536,7 @@ const InsightRow = ({ a, i }) => (
 );
 
 const Insights = () => (
-  <section id="insights" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="insights">
+  <section id="insights" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="insights">
     <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
       <div>
         <Reveal><span className="eyebrow">Insights</span></Reveal>
@@ -578,7 +578,7 @@ const InsightsIndex = () => (
       title="Insights & Thought Leadership"
       description="Essays, frameworks, and perspective on venture creation, building scalable businesses, and fundraising readiness."
     />
-    <section className="mx-auto max-w-[1500px] px-6 pt-40 pb-32 md:px-12 md:pt-52" data-testid="insights-page">
+    <section className="mx-auto max-w-[1500px] px-6 pt-32 pb-20 md:px-12 md:pt-52 md:pb-32" data-testid="insights-page">
       <Reveal><span className="eyebrow">Insights</span></Reveal>
       <Reveal delay={0.05}>
         <h1 className="serif-display mt-6 max-w-4xl text-5xl md:text-7xl">Thinking, before building.</h1>
@@ -633,7 +633,7 @@ const ArticlePage = () => {
           }
         }}
       />
-      <article className="mx-auto max-w-3xl px-6 pt-40 pb-20 md:pt-52" data-testid="article-page">
+      <article className="mx-auto max-w-3xl px-6 pt-32 pb-16 md:pt-52 md:pb-20" data-testid="article-page">
         <Reveal>
           <button onClick={() => navigate("/insights")} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
             <ArrowRight size={13} className="rotate-180" /> ALL INSIGHTS
@@ -693,7 +693,7 @@ const FAQPage = () => (
         })),
       }}
     />
-    <section className="mx-auto max-w-[1500px] px-6 pt-40 pb-32 md:px-12 md:pt-52" data-testid="faq-page">
+    <section className="mx-auto max-w-[1500px] px-6 pt-32 pb-20 md:px-12 md:pt-52 md:pb-32" data-testid="faq-page">
       <Reveal>
         <button onClick={() => window.history.back()} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
           <ArrowRight size={13} className="rotate-180" /> BACK
@@ -726,7 +726,7 @@ const Process = () => {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start center", "end center"] });
   const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   return (
-    <section id="process" ref={ref} className="relative mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="process">
+    <section id="process" ref={ref} className="relative mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="process">
       <Reveal><span className="eyebrow">Process</span></Reveal>
       <Reveal delay={0.05}>
         <h2 className="serif-display mt-6 max-w-3xl text-5xl md:text-7xl">The journey from idea to investment.</h2>
@@ -762,7 +762,7 @@ const CTA = () => (
   <section className="relative overflow-hidden" data-testid="cta">
     <img src={IMG.cta} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale" />
     <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, var(--ink), rgba(10,10,11,0.75))" }} />
-    <div className="relative mx-auto max-w-[1300px] px-6 py-40 text-center md:px-12 md:py-56">
+    <div className="relative mx-auto max-w-[1300px] px-6 py-28 text-center md:px-12 md:py-48">
       <Reveal><Star size={30} color="var(--brass)" className="mx-auto mb-10" /></Reveal>
       <Reveal delay={0.05}>
         <h2 className="serif-display mx-auto max-w-4xl text-5xl md:text-7xl lg:text-[5.5rem]">
@@ -808,7 +808,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="mx-auto max-w-[1500px] px-6 py-32 md:px-12 md:py-44" data-testid="contact">
+    <section id="contact" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="contact">
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
         <div className="lg:col-span-5">
           <Reveal><span className="eyebrow">Contact</span></Reveal>
@@ -971,7 +971,7 @@ const ServiceDetail = () => {
       <Nav />
       <main className="relative z-10">
         {/* header */}
-        <section className="mx-auto max-w-[1500px] px-6 pt-40 pb-16 md:px-12 md:pt-52 md:pb-24" data-testid="service-detail">
+        <section className="mx-auto max-w-[1500px] px-6 pt-32 pb-14 md:px-12 md:pt-52 md:pb-24" data-testid="service-detail">
           <Reveal>
             <button onClick={() => navigate("/#services")} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
               <ArrowRight size={13} className="rotate-180" /> ALL SERVICES
