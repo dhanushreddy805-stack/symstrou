@@ -822,7 +822,7 @@ const Contact = () => {
             </p>
           </Reveal>
           <div className="mt-14 space-y-8">
-            {[["Email", "dhanush@symstruo.com"], ["Website", "symstruo.com"], ["Response", "Within 24 hours"]].map(([k, v]) => (
+            {[["Location", "Bengaluru, India"], ["Email", "dhanush@symstruo.com"], ["Response", "Within 24 hours"]].map(([k, v]) => (
               <Reveal key={k} delay={0.05}>
                 <div className="flex items-center justify-between border-b border-[var(--line)] pb-4">
                   <span className="font-sans text-xs tracking-[0.24em] text-[var(--grey)]">{k.toUpperCase()}</span>
@@ -867,7 +867,7 @@ const Footer = () => (
             <Wordmark height={22} />
           </div>
           <p className="mt-6 font-serif text-2xl italic text-[var(--brass)]">Direction · Clarity · Conviction · Precision</p>
-          <p className="mt-4 font-sans text-xs tracking-[0.24em] text-[var(--grey-2)]">SYMSTRUO PRIVATE LIMITED</p>
+          <p className="mt-4 font-sans text-xs tracking-[0.24em] text-[var(--grey-2)]">SYMSTRUO PRIVATE LIMITED · BENGALURU, INDIA</p>
         </div>
         <div className="md:col-span-3">
           <p className="eyebrow mb-6">The Journey</p>
@@ -881,6 +881,11 @@ const Footer = () => (
             <li>
               <a href="https://www.linkedin.com/company/symstruo-private-limited/" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
                 Company LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/symstruo" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
+                Instagram (@symstruo)
               </a>
             </li>
             <li>
