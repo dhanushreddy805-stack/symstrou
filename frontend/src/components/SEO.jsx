@@ -11,7 +11,7 @@ export const SEO = ({
 }) => {
   const location = useLocation();
   const fullCanonical = canonical || `https://symstruo.com${location.pathname}`;
-  const pageTitle = title ? `${title} | SYMSTRUO` : "SYMSTRUO — Venture Creation Company | Build in Silence";
+  const pageTitle = title ? `${title} | SYMSTRUO` : "SYMSTRUO — Venture Creation Company | Direction · Clarity · Conviction";
   const metaDescription = description || "SYMSTRUO is a global Venture Creation Company. We partner with founders to turn ideas into enduring businesses through venture strategy, business blueprints, brand architecture, growth systems, and investment readiness.";
   const metaKeywords = keywords || "SYMSTRUO, Venture Creation Company, Venture Studio, Business Architecture, Startup Growth Engine, Pitch Deck Preparation";
 

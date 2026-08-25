@@ -178,7 +178,7 @@ const Hero = () => {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1 }}
         className="absolute bottom-8 left-0 flex w-full items-center justify-between px-6 font-sans text-[0.65rem] tracking-[0.35em] text-[var(--grey-2)] md:px-12">
         <span className="text-[var(--brass)]">+89° 15′</span>
-        <span>BUILD IN SILENCE</span>
+        <span>DIRECTION · CLARITY</span>
         <span className="hidden sm:block">TRUE NORTH</span>
       </motion.div>
     </section>
@@ -216,16 +216,25 @@ const About = () => (
           <Reveal delay={0.15}><p>From idea validation and business architecture to brand positioning, growth systems and investment readiness, we partner with founders through every stage of building.</p></Reveal>
           <Reveal delay={0.2}><p className="text-[var(--ivory)]">We believe every great company deserves the right direction before execution.</p></Reveal>
           <Reveal delay={0.25}>
-            <p className="font-serif text-3xl italic text-[var(--ivory)]">Our philosophy is simple. <span className="text-[var(--brass)]">Build in Silence.</span></p>
+            <p className="font-serif text-3xl italic text-[var(--ivory)]">Our philosophy is simple. <span className="text-[var(--brass)]">Direction before execution.</span></p>
           </Reveal>
         </div>
         <Reveal delay={0.3}>
-          <div className="mt-16 flex items-center gap-5 border-t border-[var(--line)] pt-8">
+          <div className="mt-16 flex items-center justify-between border-t border-[var(--line)] pt-8">
             <div>
               <p className="eyebrow mb-2">Founder</p>
-              <p className="font-serif text-3xl text-[var(--ivory)]">Dhanush</p>
+              <p className="font-serif text-3xl text-[var(--ivory)]">Dhanush B.</p>
               <p className="mt-1 font-sans text-xs tracking-[0.24em] text-[var(--grey)]">FOUNDER &amp; CEO</p>
             </div>
+            <a
+              href="https://www.linkedin.com/in/dhanush-b-30792222a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-[var(--line)] px-4 py-2 font-sans text-[0.65rem] tracking-[0.24em] text-[var(--brass)] transition-all hover:border-[var(--brass)] hover:text-[var(--ivory)]"
+            >
+              <span>LINKEDIN</span>
+              <ArrowUpRight size={13} />
+            </a>
           </div>
         </Reveal>
       </div>
@@ -270,7 +279,7 @@ const Manifesto = () => (
         <Star size={14} color="var(--brass)" />
         <span className="eyebrow">The Manifesto</span>
         <span className="h-px flex-1 bg-[var(--line)]" />
-        <span className="eyebrow">Build in Silence</span>
+        <span className="eyebrow">The Philosophy</span>
       </div>
     </Reveal>
 
@@ -318,7 +327,7 @@ const Manifesto = () => (
       <Reveal delay={0.1}>
         <p className="mt-20 max-w-2xl font-serif text-2xl italic leading-snug text-[var(--ivory-dim)] md:text-3xl">
           We don't build for applause.
-          <span className="text-[var(--brass)]"> We build in silence.</span>
+          <span className="text-[var(--brass)]"> We build for endurance.</span>
         </p>
       </Reveal>
     </div>
@@ -761,7 +770,7 @@ const CTA = () => (
         </h2>
       </Reveal>
       <Reveal delay={0.1}>
-        <p className="mt-10 font-serif text-3xl italic text-[var(--brass)]">Build in Silence.</p>
+        <p className="mt-10 font-serif text-3xl italic text-[var(--brass)]">Direction · Clarity · Conviction · Precision</p>
       </Reveal>
       <Reveal delay={0.15}>
         <button data-testid="cta-start" onClick={() => scrollTo("contact")}
@@ -857,7 +866,7 @@ const Footer = () => (
             <Mark size={30} />
             <Wordmark height={22} />
           </div>
-          <p className="mt-6 font-serif text-2xl italic text-[var(--brass)]">Build in Silence.</p>
+          <p className="mt-6 font-serif text-2xl italic text-[var(--brass)]">Direction · Clarity · Conviction · Precision</p>
           <p className="mt-4 font-sans text-xs tracking-[0.24em] text-[var(--grey-2)]">SYMSTRUO PRIVATE LIMITED</p>
         </div>
         <div className="md:col-span-3">
@@ -867,10 +876,23 @@ const Footer = () => (
           </ul>
         </div>
         <div className="md:col-span-3">
-          <p className="eyebrow mb-6">Reach</p>
+          <p className="eyebrow mb-6">Connect</p>
           <ul className="space-y-3 font-sans text-sm text-[var(--ivory-dim)]">
-            <li><span className="link-underline inline-block">dhanush@symstruo.com</span></li>
-            <li><span className="link-underline inline-block">symstruo.com</span></li>
+            <li>
+              <a href="https://www.linkedin.com/company/symstruo-private-limited/" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
+                Company LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/dhanush-b-30792222a/" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
+                Founder LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="mailto:dhanush@symstruo.com" className="link-underline inline-block">
+                dhanush@symstruo.com
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -1059,7 +1081,7 @@ const Home = () => {
   return (
     <div className="App grain">
       <SEO
-        title="SYMSTRUO — Venture Creation Company | Build in Silence"
+        title="SYMSTRUO — Venture Creation Company | Direction · Clarity · Conviction"
         description="SYMSTRUO is a global Venture Creation Company. We partner with founders to turn ideas into enduring businesses through venture strategy, business blueprints, brand architecture, growth systems, and investment readiness."
       />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80">

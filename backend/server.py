@@ -131,7 +131,7 @@ async def shutdown():
 # ──────────────────────────────────────────────────
 @app.api_route("/", methods=["GET", "HEAD"])
 async def root():
-    return {"message": "SYMSTRUO — Build in Silence."}
+    return {"message": "SYMSTRUO — Venture Creation Company."}
 
 @api_router.post("/contact", response_model=ContactMessage)
 async def create_contact(payload: ContactCreate, background_tasks: BackgroundTasks):
