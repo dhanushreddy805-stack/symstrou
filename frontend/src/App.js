@@ -889,6 +889,11 @@ const Footer = () => (
               </a>
             </li>
             <li>
+              <a href="https://x.com/symstruo?s=11" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
+                X (Twitter)
+              </a>
+            </li>
+            <li>
               <a href="https://www.linkedin.com/in/dhanush-b-30792222a/" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
                 Founder LinkedIn
               </a>

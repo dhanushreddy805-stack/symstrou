@@ -185,6 +185,14 @@ export const Nav = () => {
                       >
                         Instagram
                       </a>
+                      <a
+                        href="https://x.com/symstruo?s=11"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-[var(--brass)] transition-colors"
+                      >
+                        X (Twitter)
+                      </a>
                     </div>
                   </div>
                   <div>
