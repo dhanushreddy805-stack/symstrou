@@ -1091,7 +1091,7 @@ const Home = () => {
   }, [hash, state]);
 
   return (
-    <div className="App grain">
+    <div className="App grain overflow-x-hidden">
       <SEO
         title="SYMSTRUO — Venture Creation Company | Direction · Clarity · Conviction"
         description="SYMSTRUO is a global Venture Creation Company. We partner with founders to turn ideas into enduring businesses through venture strategy, business blueprints, brand architecture, growth systems, and investment readiness."
