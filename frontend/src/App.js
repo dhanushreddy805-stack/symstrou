@@ -3,7 +3,7 @@ import "@/App.css";
 import axios from "axios";
 import Lenis from "lenis";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, ArrowRight, Plus } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Plus, Linkedin, Instagram, Twitter } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import { BrowserRouter, Routes, Route, Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { Nav } from "@/components/Nav";
@@ -879,24 +879,20 @@ const Footer = () => (
           <p className="eyebrow mb-6">Connect</p>
           <ul className="space-y-3 font-sans text-sm text-[var(--ivory-dim)]">
             <li>
-              <a href="https://www.linkedin.com/company/symstruo-private-limited/" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
-                Company LinkedIn
-              </a>
-            </li>
-            <li>
-              <a href="https://www.instagram.com/symstruo" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
-                Instagram (@symstruo)
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/symstruo?s=11" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
-                X (Twitter)
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/dhanush-b-30792222a/" target="_blank" rel="noopener noreferrer" className="link-underline inline-block">
-                Founder LinkedIn
-              </a>
+              <div className="flex items-center gap-4">
+                <a href="https://www.linkedin.com/company/symstruo-private-limited/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--brass)] transition-colors" aria-label="Company LinkedIn">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a href="https://www.linkedin.com/in/dhanush-b-30792222a/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--brass)] transition-colors" aria-label="Founder LinkedIn">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a href="https://www.instagram.com/symstruo" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--brass)] transition-colors" aria-label="Instagram">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="https://x.com/symstruo?s=11" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--brass)] transition-colors" aria-label="X (Twitter)">
+                  <Twitter className="w-5 h-5" />
+                </a>
+              </div>
             </li>
             <li>
               <a href="mailto:dhanush@symstruo.com" className="link-underline inline-block">

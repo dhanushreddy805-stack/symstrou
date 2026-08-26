@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Linkedin, Instagram, Twitter } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Mark, Wordmark } from "./Compass";
 
@@ -168,30 +168,33 @@ export const Nav = () => {
                 <div className="grid grid-cols-2 gap-4 text-xs font-sans">
                   <div>
                     <p className="eyebrow mb-2">Connect</p>
-                    <div className="flex flex-col space-y-2 text-[var(--ivory-dim)]">
+                    <div className="flex items-center gap-4 text-[var(--ivory-dim)]">
                       <a
                         href="https://www.linkedin.com/company/symstruo-private-limited/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-[var(--brass)] transition-colors"
+                        aria-label="LinkedIn"
                       >
-                        LinkedIn
+                        <Linkedin className="w-5 h-5" />
                       </a>
                       <a
                         href="https://www.instagram.com/symstruo"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-[var(--brass)] transition-colors"
+                        aria-label="Instagram"
                       >
-                        Instagram
+                        <Instagram className="w-5 h-5" />
                       </a>
                       <a
                         href="https://x.com/symstruo?s=11"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-[var(--brass)] transition-colors"
+                        aria-label="X (Twitter)"
                       >
-                        X (Twitter)
+                        <Twitter className="w-5 h-5" />
                       </a>
                     </div>
                   </div>
