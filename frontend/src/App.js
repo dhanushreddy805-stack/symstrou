@@ -883,9 +883,7 @@ const Footer = () => (
                 <a href="https://www.linkedin.com/company/symstruo-private-limited/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--brass)] transition-colors" aria-label="Company LinkedIn">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="https://www.linkedin.com/in/dhanush-b-30792222a/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--brass)] transition-colors" aria-label="Founder LinkedIn">
-                  <Linkedin className="w-5 h-5" />
-                </a>
+
                 <a href="https://www.instagram.com/symstruo" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--brass)] transition-colors" aria-label="Instagram">
                   <Instagram className="w-5 h-5" />
                 </a>
