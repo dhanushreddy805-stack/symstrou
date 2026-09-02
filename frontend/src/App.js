@@ -628,7 +628,7 @@ const ArticlePage = () => {
             "name": "SYMSTRUO",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://symstruo.com/symstruo-mark.png"
+              "url": "https://symstruo.com/symstruo-brand-mark.png"
             }
           }
         }}
@@ -870,9 +870,22 @@ const Footer = () => (
           <p className="mt-4 font-sans text-xs tracking-[0.24em] text-[var(--grey-2)]">SYMSTRUO PRIVATE LIMITED · BENGALURU, INDIA</p>
         </div>
         <div className="md:col-span-3">
-          <p className="eyebrow mb-6">The Journey</p>
+          <p className="eyebrow mb-6">Site</p>
           <ul className="space-y-3 font-sans text-sm text-[var(--ivory-dim)]">
-            {["Ideas", "Direction", "Execution", "Legacy"].map((x) => <li key={x}>{x}</li>)}
+            {[
+              ["Home", "/"],
+              ["About SYMSTRUO", "/#about"],
+              ["Services", "/#services"],
+              ["Insights", "/insights"],
+              ["FAQ", "/faq"],
+              ["Contact", "/#contact"],
+            ].map(([label, href]) => (
+              <li key={href}>
+                <Link to={href} className="link-underline inline-block hover:text-[var(--brass)] transition-colors">
+                  {label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="md:col-span-3">

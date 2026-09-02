@@ -1,11 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// SYMSTRUO logo mark — the pinwheel star.
+// SYMSTRUO brand mark.
 export const Mark = ({ size = 40, className = "", style = {}, ...rest }) => (
   <img
-    src="/symstruo-mark.png"
-    alt="SYMSTRUO"
+    src="/symstruo-brand-mark.png"
+    alt="SYMSTRUO brand mark"
     className={className}
     style={{ width: size, height: "auto", objectFit: "contain", ...style }}
     {...rest}

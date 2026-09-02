@@ -5,12 +5,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Mark, Wordmark } from "./Compass";
 
 const LINKS = [
-  { label: "Home", id: "home", path: "/" },
-  { label: "About", id: "about", path: "/about" },
-  { label: "Services", id: "services", path: "/services" },
-  { label: "Insights", id: "insights", path: "/insights" },
-  { label: "FAQ", id: "faq", path: "/faq" },
-  { label: "Contact", id: "contact", path: "/contact" },
+  { label: "Home", id: "home", href: "/" },
+  { label: "About", id: "about", href: "/#about" },
+  { label: "Services", id: "services", href: "/#services" },
+  { label: "Insights", id: "insights", href: "/insights" },
+  { label: "FAQ", id: "faq", href: "/faq" },
+  { label: "Contact", id: "contact", href: "/#contact" },
 ];
 
 const scrollTo = (id) => {
@@ -44,7 +44,7 @@ export const Nav = () => {
 
   const go = (link) => {
     setOpen(false);
-    const targetId = typeof link === "string" ? link : link.id || link.path?.replace("/", "");
+    const targetId = typeof link === "string" ? link : link.id || link.href?.replace("/#", "").replace("/", "");
 
     if (targetId === "insights") {
       navigate("/insights");
@@ -79,26 +79,34 @@ export const Nav = () => {
       }}
     >
       <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-4 md:px-12 md:py-5">
-        <button
+        <a
+          href="/"
           data-testid="nav-logo"
-          onClick={() => go({ path: "/" })}
+          onClick={(e) => {
+            e.preventDefault();
+            go({ href: "/" });
+          }}
           className="flex items-center gap-3 active:scale-95 transition-transform"
         >
           <Mark size={24} />
           <Wordmark height={14} className="mt-[1px]" />
-        </button>
+        </a>
 
         {/* Desktop Nav */}
         <div className="hidden items-center gap-9 lg:gap-11 md:flex">
           {LINKS.map((l) => (
-            <button
+            <a
               key={l.id}
+              href={l.href}
               data-testid={`nav-${l.id}`}
-              onClick={() => go(l)}
+              onClick={(e) => {
+                e.preventDefault();
+                go(l);
+              }}
               className="link-underline font-sans text-xs tracking-[0.22em] text-[var(--ivory-dim)] transition-colors hover:text-[var(--ivory)]"
             >
               {l.label.toUpperCase()}
-            </button>
+            </a>
           ))}
           <button
             data-testid="nav-cta"
@@ -137,20 +145,24 @@ export const Nav = () => {
             <div className="flex flex-col space-y-4 pt-2">
               <span className="eyebrow mb-2">Navigation</span>
               {LINKS.map((l, i) => (
-                <motion.button
+                <motion.a
                   key={l.id}
+                  href={l.href}
                   data-testid={`nav-m-${l.id}`}
                   initial={{ opacity: 0, x: -15 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 + 0.1, duration: 0.4 }}
-                  onClick={() => go(l)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    go(l);
+                  }}
                   className="flex items-center justify-between py-2 text-left font-serif text-3xl text-[var(--ivory)] active:text-[var(--brass)] transition-colors border-b border-[rgba(242,238,228,0.04)] pb-3"
                 >
                   <span>{l.label}</span>
                   <span className="font-sans text-xs tracking-[0.2em] text-[var(--brass)] opacity-70">
                     0{i + 1}
                   </span>
-                </motion.button>
+                </motion.a>
               ))}
             </div>
 
