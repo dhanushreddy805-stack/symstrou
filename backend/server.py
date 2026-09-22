@@ -306,75 +306,75 @@ def send_lead_notification_emails(lead: ContactCreate, lead_id: str, created_at:
         logging.warning("SMTP credentials not set (SMTP_USER or SMTP_PASSWORD). Skipping email delivery.")
         return
 
+    from email.utils import formatdate, make_msgid
+
     created_at_str = created_at.strftime("%b %d, %Y • %H:%M UTC")
 
-    # 1. Send Admin Notification
-    try:
-        admin_msg = MIMEMultipart("alternative")
-        admin_msg["From"] = f"SYMSTRUO Inquiries <{SMTP_USER}>"
-        admin_msg["To"] = ADMIN_EMAIL
-        admin_msg["Subject"] = f"🚀 New Lead: {lead.name} — SYMSTRUO"
+    # Parse admin recipients (supports comma-separated emails)
+    admin_targets = [e.strip() for e in ADMIN_EMAIL.split(",") if e.strip()]
+    if not admin_targets:
+        admin_targets = [SMTP_USER]
 
-        admin_plain = f"""New Venture Inquiry:
+    # 1. Build Admin Notification Message
+    admin_msg = MIMEMultipart("alternative")
+    admin_msg["From"] = f"SYMSTRUO Inquiries <{SMTP_USER}>"
+    admin_msg["To"] = ", ".join(admin_targets)
+    admin_msg["Reply-To"] = str(lead.email)
+    admin_msg["Subject"] = f"[New Lead] {lead.name} — SYMSTRUO"
+    admin_msg["Date"] = formatdate(localtime=True)
+    admin_msg["Message-ID"] = make_msgid(domain="symstruo.com")
+
+    admin_plain = f"""New Venture Inquiry:
 Founder Name: {lead.name}
 Contact Email: {lead.email}
 Company: {lead.company or 'N/A'}
 Stage: {lead.stage or 'N/A'}
 Message: {lead.message}
 """
-        admin_html = build_admin_lead_email_html(lead, lead_id, created_at_str)
+    admin_html = build_admin_lead_email_html(lead, lead_id, created_at_str)
+    admin_msg.attach(MIMEText(admin_plain, "plain"))
+    admin_msg.attach(MIMEText(admin_html, "html"))
 
-        admin_msg.attach(MIMEText(admin_plain, "plain"))
-        admin_msg.attach(MIMEText(admin_html, "html"))
+    # 2. Build Founder Auto-Reply Confirmation Message
+    founder_msg = MIMEMultipart("alternative")
+    founder_msg["From"] = f"SYMSTRUO <{SMTP_USER}>"
+    founder_msg["To"] = str(lead.email)
+    founder_msg["Reply-To"] = SMTP_USER
+    founder_msg["Subject"] = "Transmission Received — SYMSTRUO"
+    founder_msg["Date"] = formatdate(localtime=True)
+    founder_msg["Message-ID"] = make_msgid(domain="symstruo.com")
 
-        # Connect & dispatch
-        if SMTP_PORT == 465:
-            with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=15) as server:
-                server.login(SMTP_USER, SMTP_PASSWORD)
-                server.send_message(admin_msg)
-        else:
-            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=15) as server:
-                server.starttls()
-                server.login(SMTP_USER, SMTP_PASSWORD)
-                server.send_message(admin_msg)
-
-        logging.info(f"Admin lead email successfully delivered to {ADMIN_EMAIL}")
-    except Exception as e:
-        logging.error(f"Failed to dispatch admin lead email: {e}", exc_info=True)
-
-    # 2. Send Founder Auto-Reply Confirmation
-    try:
-        founder_msg = MIMEMultipart("alternative")
-        founder_msg["From"] = f"SYMSTRUO <{SMTP_USER}>"
-        founder_msg["To"] = str(lead.email)
-        founder_msg["Subject"] = "Transmission Received — SYMSTRUO"
-
-        founder_plain = f"""Hello {lead.name},
+    founder_plain = f"""Hello {lead.name},
 
 Thank you for sharing your vision with SYMSTRUO. We build in silence and evaluate every inquiry with precision. Our partners will review your note and connect with you within 24 hours.
 
 SYMSTRUO • Venture Creation Company
 https://symstruo.com
 """
-        founder_html = build_founder_confirmation_email_html(lead)
+    founder_html = build_founder_confirmation_email_html(lead)
+    founder_msg.attach(MIMEText(founder_plain, "plain"))
+    founder_msg.attach(MIMEText(founder_html, "html"))
 
-        founder_msg.attach(MIMEText(founder_plain, "plain"))
-        founder_msg.attach(MIMEText(founder_html, "html"))
-
-        # Connect & dispatch
+    # 3. Connect & Dispatch Both via a Single Secure SMTP Connection
+    try:
+        logging.info(f"Connecting to SMTP server {SMTP_HOST}:{SMTP_PORT}...")
         if SMTP_PORT == 465:
             with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=15) as server:
                 server.login(SMTP_USER, SMTP_PASSWORD)
-                server.send_message(founder_msg)
+                server.sendmail(SMTP_USER, admin_targets, admin_msg.as_string())
+                logging.info(f"Admin lead email successfully delivered to {admin_targets}")
+                server.sendmail(SMTP_USER, [str(lead.email)], founder_msg.as_string())
+                logging.info(f"Confirmation auto-reply successfully sent to {lead.email}")
         else:
             with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=15) as server:
                 server.starttls()
                 server.login(SMTP_USER, SMTP_PASSWORD)
-                server.send_message(founder_msg)
-
-        logging.info(f"Confirmation auto-reply successfully sent to {lead.email}")
+                server.sendmail(SMTP_USER, admin_targets, admin_msg.as_string())
+                logging.info(f"Admin lead email successfully delivered to {admin_targets}")
+                server.sendmail(SMTP_USER, [str(lead.email)], founder_msg.as_string())
+                logging.info(f"Confirmation auto-reply successfully sent to {lead.email}")
     except Exception as e:
-        logging.error(f"Failed to dispatch confirmation email to {lead.email}: {e}", exc_info=True)
+        logging.error(f"SMTP delivery error: {e}", exc_info=True)
 
 # ──────────────────────────────────────────────────
 # FastAPI App
