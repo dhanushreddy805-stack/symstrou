@@ -170,7 +170,7 @@ const FAQItem = ({ q, a, idx }) => {
         aria-expanded={open}
       >
         <div className="flex items-start gap-5 md:gap-8">
-          <span className="pt-1.5 font-serif text-sm text-[var(--grey-2)]">{String(idx + 1).padStart(2, "0")}</span>
+          <span className="pt-1.5 font-mono text-xs text-[var(--brass)] opacity-80">{String(idx + 1).padStart(2, "0")}</span>
           <span className={`font-serif text-xl leading-tight transition-colors duration-300 md:text-2xl ${open ? "text-[var(--ivory)]" : "text-[var(--ivory-dim)] group-hover:text-[var(--ivory)]"}`}>
             {q}
           </span>
@@ -230,7 +230,7 @@ const Page = ({ children }) => {
   return (
     <div className="App grain">
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80"><Starfield /></div>
-      <Toaster position="bottom-right" theme="dark" />
+      <Toaster position="top-right" offset={96} theme="dark" />
       <CircleCursor />
       <ScrollCompass />
       <Nav />
@@ -516,7 +516,7 @@ const Footer = () => (
         </div>
       </div>
       <div aria-hidden="true" data-testid="footer-mega"
-        className="footer-mega mt-24 select-none overflow-hidden whitespace-nowrap text-center font-serif text-[21vw] leading-[0.8] tracking-[-0.02em] lg:text-[17rem]">
+        className="footer-mega mt-24 select-none overflow-hidden whitespace-nowrap text-center font-serif text-[17vw] leading-[0.8] tracking-[-0.02em] md:text-[16vw] lg:text-[17rem]">
         SYMSTRUO
       </div>
       <div className="mt-10 flex flex-col justify-between gap-4 border-t border-[var(--line)] pt-8 text-[0.7rem] tracking-[0.24em] text-[var(--grey-2)] md:flex-row">
@@ -584,7 +584,7 @@ const ServiceDetail = () => {
         }}
       />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80"><Starfield /></div>
-      <Toaster position="bottom-right" theme="dark" />
+      <Toaster position="top-right" offset={96} theme="dark" />
       <CircleCursor />
       <ScrollCompass />
       <Nav />
@@ -722,7 +722,7 @@ const Home = () => {
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80">
         <Starfield />
       </div>
-      <Toaster position="bottom-right" theme="dark" />
+      <Toaster position="top-right" offset={96} theme="dark" />
       {loaded && <CircleCursor />}
       <Loader done={loaded} />
       <ScrollCompass />

@@ -43,7 +43,7 @@ export const Hero = ({ ready = true, onStart }) => {
               <span className="italic text-[var(--grey)]"><Letters text="Before" show={ready} delay={0.5} /></span>
               <motion.span className="hidden h-px flex-1 origin-left bg-[var(--brass)] sm:block" initial={{ scaleX: 0 }}
                 animate={ready ? { scaleX: 1 } : {}} transition={{ duration: 1.4, delay: 0.9, ease: EASE }} />
-              <motion.span className="hidden font-mono text-[0.6rem] tracking-[0.3em] text-[var(--brass)] sm:block"
+              <motion.span aria-hidden="true" className="hidden font-mono text-[0.6rem] tracking-[0.3em] text-[var(--brass)] sm:block"
                 initial={{ opacity: 0 }} animate={ready ? { opacity: 1 } : {}} transition={{ delay: 1.6 }}>
                 {String(BEARINGS[active]).padStart(3, "0")}°
               </motion.span>
@@ -100,7 +100,7 @@ export const Hero = ({ ready = true, onStart }) => {
       </div>
 
       <motion.div initial={{ opacity: 0 }} animate={ready ? { opacity: 1 } : {}} transition={{ delay: 1.9, duration: 1 }}
-        className="absolute bottom-8 left-0 flex w-full items-center justify-between px-6 font-sans text-[0.65rem] tracking-[0.35em] text-[var(--grey-2)] md:px-12">
+        className="absolute bottom-8 left-0 flex w-full items-center justify-between px-6 font-sans text-[0.65rem] tracking-[0.35em] text-[var(--grey-2)] md:px-12 lg:pr-48">
         <span className="text-[var(--brass)]">+89° 15′</span>
         <span className="flex items-center gap-4">DIRECTION · CLARITY <span className="scroll-cue hidden sm:block" /></span>
         <span className="hidden sm:block">TRUE NORTH</span>

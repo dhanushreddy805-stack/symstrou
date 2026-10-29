@@ -14,7 +14,7 @@ const Word = ({ children, progress, range, italic }) => {
   const opacity = useTransform(progress, range, [0.1, 1]);
   const y = useTransform(progress, range, [14, 0]);
   return (
-    <motion.span style={{ opacity, y }} className={`mr-[0.24em] inline-block ${italic ? "italic text-[var(--grey)]" : ""}`}>
+    <motion.span style={{ opacity, y }} className={`inline-block ${italic ? "italic text-[var(--grey)]" : ""}`}>
       {children}
     </motion.span>
   );
@@ -30,7 +30,7 @@ const Statement = ({ m, idx }) => {
   return (
     <div ref={ref} data-testid={`manifesto-${m.n}`} className={`relative flex ${idx % 2 ? "md:justify-end" : ""}`}>
       <motion.span style={{ y: numY }} aria-hidden="true"
-        className={`outline-numeral pointer-events-none absolute -top-16 select-none font-serif text-[46vw] leading-none md:-top-28 md:text-[22rem] ${idx % 2 ? "right-0 md:right-auto md:left-[8%]" : "right-0 md:right-[6%]"}`}>
+        className={`outline-numeral pointer-events-none absolute -top-16 select-none font-serif text-[46vw] leading-none opacity-50 md:-top-28 md:text-[22rem] md:opacity-100 ${idx % 2 ? "right-0 md:right-auto md:left-[8%]" : "right-0 md:right-[6%]"}`}>
         {m.n}
       </motion.span>
       <div className="relative max-w-5xl">
@@ -38,12 +38,12 @@ const Statement = ({ m, idx }) => {
           <span className="font-mono text-[0.65rem] tracking-[0.3em] text-[var(--brass)]">{m.n} / 03</span>
           <span className="h-px w-16 bg-[var(--line)]" />
         </div>
-        <h2 className="serif-display text-[11vw] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.4rem]" aria-label={m.text.join(" ")}>
+        <h2 className="serif-display text-[11vw] leading-[1.02] sm:text-6xl lg:text-7xl xl:text-[5.4rem]">
           {m.text.map((line, li) => (
-            <span key={li} className="block" aria-hidden="true">
+            <span key={li} className="block">
               {line.split(" ").map((w) => {
                 k += 1;
-                return <Word key={k} progress={scrollYProgress} range={[k / total, (k + 1) / total]} italic={li === m.text.length - 1}>{w}</Word>;
+                return <React.Fragment key={k}><Word progress={scrollYProgress} range={[k / total, (k + 1) / total]} italic={li === m.text.length - 1}>{w}</Word>{" "}</React.Fragment>;
               })}
             </span>
           ))}

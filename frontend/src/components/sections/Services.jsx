@@ -22,7 +22,7 @@ const Items = ({ s }) => (
 
 const MoreLink = ({ s }) => (
   <Link to={`/services/${s.slug}`} data-testid={`service-more-${s.no}`} data-cursor="EXPLORE"
-    className="link-underline inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--ivory)]">
+    className="link-underline inline-flex shrink-0 items-center gap-2 whitespace-nowrap font-sans text-[0.7rem] tracking-[0.24em] text-[var(--ivory)]">
     KNOW MORE <ArrowUpRight size={13} />
   </Link>
 );
