@@ -34,6 +34,9 @@ body {
 .font-serif { font-family: 'Cormorant Garamond', serif; }
 .font-sans { font-family: 'Outfit', sans-serif; }
 
+h1, h2, h3, h4, .serif-display { text-wrap: balance; }
+p, li, blockquote, figcaption, dd { text-wrap: pretty; hyphens: none; overflow-wrap: break-word; }
+
 ::selection { background: var(--brass); color: var(--ink); }
 
 ::-webkit-scrollbar { width: 9px; }

@@ -57,6 +57,7 @@ export const Nav = () => {
     }
 
     // For Home and on-page sections (home, about, services, contact)
+    if (targetId === "about") window.dispatchEvent(new Event("symstruo:open-about"));
     if (pathname !== "/") {
       navigate("/", { state: { scrollTo: targetId === "home" ? null : targetId } });
     } else {
