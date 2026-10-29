@@ -2,7 +2,7 @@ import React from "react";
 import { motion, useScroll, useVelocity, useSpring, useTransform } from "framer-motion";
 import { Star } from "../Compass";
 
-const WORDS = ["Direction", "Validation", "Blueprint", "Execution", "Growth", "Investment"];
+const WORDS = ["Direction", "Validation", "Built-in NDA", "Execution", "Growth", "Investment"];
 
 // Two counter-moving ribbons that skew with scroll velocity.
 export const Marquee = () => {

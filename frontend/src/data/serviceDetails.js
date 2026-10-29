@@ -30,7 +30,7 @@ export const SERVICE_DETAILS = {
   "business-blueprint": {
     no: "02",
     name: "BUSINESS BLUEPRINT",
-    flag: "Flagship",
+    flag: "",
     headline: "Build the architecture behind the business.",
     intro:
       "Once an opportunity has been validated, the next question is: How should the business actually work? BUSINESS BLUEPRINT is the flagship SYMSTRUO service. It transforms the opportunity into a structured business model and creates the roadmap required to build, launch, operate, and grow the company.",

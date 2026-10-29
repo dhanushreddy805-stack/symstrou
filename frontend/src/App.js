@@ -3,7 +3,7 @@ import "@/App.css";
 import axios from "axios";
 import Lenis from "lenis";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ArrowRight, Plus, Linkedin, Instagram, Twitter } from "lucide-react";
+import { ArrowUpRight, ArrowRight, Plus, Linkedin, Instagram, Twitter, ShieldCheck } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import { BrowserRouter, Routes, Route, Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { Nav } from "@/components/Nav";
@@ -121,7 +121,7 @@ const SERVICES = [
   { slug: "idea-lab", no: "01", name: "IDEA LAB", flag: "", desc: "For founders with ideas but no clear direction.",
     items: ["Idea Validation", "Market Research", "Competitor Analysis", "Customer Persona", "Opportunity Score", "Risk Analysis", "Revenue Possibilities"],
     outcome: "Should I build this business?" },
-  { slug: "business-blueprint", no: "02", name: "BUSINESS BLUEPRINT", flag: "Flagship", desc: "Complete business architecture designed for execution.",
+  { slug: "business-blueprint", no: "02", name: "BUSINESS BLUEPRINT", flag: "", desc: "Complete business architecture designed for execution.",
     items: ["Business Model", "Revenue Streams", "Pricing Strategy", "Brand Positioning", "Operations Blueprint", "Hiring Plan", "Financial Projection", "Go-To-Market Strategy", "90 Day Execution Roadmap", "Investor Readiness"],
     outcome: "Complete roadmap to build the business." },
   { slug: "brand-architecture", no: "03", name: "BRAND ARCHITECTURE", flag: "", desc: "Positioning and identity engineered for permanence.",
@@ -450,6 +450,10 @@ const Contact = () => {
                 <span>{busy ? "SENDING…" : "SEND MESSAGE"}</span>
                 <ArrowRight size={15} className="relative z-[1]" />
               </button>
+              <p data-testid="contact-nda-note" className="flex items-center gap-3 font-sans text-xs leading-relaxed text-[var(--grey)]">
+                <ShieldCheck size={15} className="shrink-0 text-[var(--brass)]" />
+                Every idea you share is protected by our built-in NDA — your information stays confidential.
+              </p>
             </form>
           </Reveal>
         </div>
