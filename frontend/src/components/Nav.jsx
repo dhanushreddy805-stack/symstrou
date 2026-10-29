@@ -6,7 +6,7 @@ import { Mark, Wordmark } from "./Compass";
 
 const LINKS = [
   { label: "Home", id: "home", href: "/" },
-  { label: "About", id: "about", href: "/#about" },
+  { label: "About", id: "about", href: "/about" },
   { label: "Services", id: "services", href: "/#services" },
   { label: "Insights", id: "insights", href: "/insights" },
   { label: "FAQ", id: "faq", href: "/faq" },
@@ -51,17 +51,21 @@ export const Nav = () => {
       return;
     }
 
+    if (targetId === "about") {
+      navigate("/about");
+      return;
+    }
+
     if (targetId === "faq") {
       navigate("/faq");
       return;
     }
 
-    // For Home and on-page sections (home, about, services, contact)
-    if (targetId === "about") window.dispatchEvent(new Event("symstruo:open-about"));
+    // For Home and on-page sections (home, services, contact)
     if (pathname !== "/") {
       navigate("/", { state: { scrollTo: targetId === "home" ? null : targetId } });
     } else {
-      const delay = open ? 400 : targetId === "about" ? 120 : 0;
+      const delay = open ? 400 : 0;
       setTimeout(() => {
         if (targetId === "home" || !targetId) {
           window.scrollTo({ top: 0, behavior: "smooth" });

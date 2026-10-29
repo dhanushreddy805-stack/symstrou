@@ -204,96 +204,66 @@ const Marquee = () => {
 };
 
 /* ------------------------------------------------------------------ About */
-const OPEN_ABOUT = "symstruo:open-about";
-
-const About = () => {
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const onOpen = () => setOpen(true);
-    window.addEventListener(OPEN_ABOUT, onOpen);
-    return () => window.removeEventListener(OPEN_ABOUT, onOpen);
-  }, []);
-  return (
-  <section id="about" className={`mx-auto max-w-[1500px] px-6 pt-20 md:px-12 md:pt-28 ${open ? "pb-20 md:pb-28" : "pb-4 md:pb-8"}`} data-testid="about">
-    <Reveal><span className="eyebrow">About</span></Reveal>
-    <Reveal delay={0.05}>
-      <button
-        type="button"
-        data-testid="about-toggle"
-        aria-expanded={open}
-        aria-controls="about-details"
-        onClick={() => setOpen((v) => !v)}
-        className="group mt-10 flex w-full items-center justify-between gap-6 border-b border-[var(--line)] pb-8 text-left"
-      >
-        <h2 className="serif-display text-5xl md:text-6xl lg:text-7xl">About SYMSTRUO</h2>
-        <span className="flex shrink-0 items-center gap-4">
-          <span className="hidden font-sans text-[0.65rem] tracking-[0.3em] text-[var(--grey)] transition-colors group-hover:text-[var(--brass)] sm:block">
-            {open ? "CLOSE" : "READ MORE"}
-          </span>
-          <span className="grid h-12 w-12 place-items-center rounded-full border border-[var(--line)] text-[var(--brass)] transition-colors group-hover:border-[var(--brass)]">
-            <Plus size={18} className={`transition-transform duration-500 ${open ? "rotate-45" : ""}`} />
-          </span>
-        </span>
-      </button>
-    </Reveal>
-    <AnimatePresence initial={false}>
-      {open && (
-        <motion.div
-          id="about-details"
-          data-testid="about-details"
-          key="about-details"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="overflow-hidden"
-        >
-    <div className="grid grid-cols-1 gap-16 pt-12 lg:grid-cols-12 lg:gap-20">
-      <div className="lg:col-span-7">
-        <div className="max-w-2xl space-y-8 font-sans text-lg font-light leading-relaxed text-[var(--ivory-dim)]">
-          <p>SYMSTRUO is a Venture Creation Company dedicated to helping founders transform ambitious ideas into scalable, execution-ready businesses.</p>
-          <p>From idea validation and business architecture to brand positioning, growth systems and investment readiness, we partner with founders through every stage of building.</p>
-          <p className="text-[var(--ivory)]">We believe every great company deserves the right direction before execution.</p>
-          <p className="font-serif text-3xl italic text-[var(--ivory)]">Our philosophy is simple. <span className="text-[var(--brass)]">Direction before execution.</span></p>
+const AboutPage = () => (
+  <Page>
+    <SEO
+      title="About SYMSTRUO"
+      description="SYMSTRUO is a Venture Creation Company helping founders turn ambitious ideas into scalable, execution-ready businesses. Direction before execution."
+    />
+    <section className="mx-auto max-w-[1500px] px-6 pt-32 pb-20 md:px-12 md:pt-52 md:pb-32" data-testid="about-page">
+      <Reveal>
+        <button data-testid="about-back" onClick={() => window.history.back()} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
+          <ArrowRight size={13} className="rotate-180" /> BACK
+        </button>
+      </Reveal>
+      <Reveal><span className="eyebrow">About</span></Reveal>
+      <Reveal delay={0.05}>
+        <h1 className="serif-display mt-8 border-b border-[var(--line)] pb-10 text-5xl md:text-7xl lg:text-8xl">About SYMSTRUO</h1>
+      </Reveal>
+      <div className="grid grid-cols-1 gap-16 pt-14 lg:grid-cols-12 lg:gap-20">
+        <div className="lg:col-span-7">
+          <div className="max-w-2xl space-y-8 font-sans text-lg font-light leading-relaxed text-[var(--ivory-dim)]">
+            <Reveal delay={0.1}><p>SYMSTRUO is a Venture Creation Company dedicated to helping founders transform ambitious ideas into scalable, execution-ready businesses.</p></Reveal>
+            <Reveal delay={0.15}><p>From idea validation and business architecture to brand positioning, growth systems and investment readiness, we partner with founders through every stage of building.</p></Reveal>
+            <Reveal delay={0.2}><p className="text-[var(--ivory)]">We believe every great company deserves the right direction before execution.</p></Reveal>
+            <Reveal delay={0.25}><p className="font-serif text-3xl italic text-[var(--ivory)]">Our philosophy is simple. <span className="text-[var(--brass)]">Direction before execution.</span></p></Reveal>
+          </div>
+          <Reveal delay={0.3}>
+            <div className="mt-16 flex items-center justify-between border-t border-[var(--line)] pt-8">
+              <div>
+                <p className="eyebrow mb-2">Founder</p>
+                <p className="font-serif text-3xl text-[var(--ivory)]">Dhanush B.</p>
+                <p className="mt-1 font-sans text-xs tracking-[0.24em] text-[var(--grey)]">FOUNDER &amp; CEO</p>
+              </div>
+              <a
+                href="https://www.linkedin.com/in/dhanush-b-30792222a/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="about-linkedin"
+                className="inline-flex items-center gap-2 border border-[var(--line)] px-4 py-2 font-sans text-[0.65rem] tracking-[0.24em] text-[var(--brass)] transition-all hover:border-[var(--brass)] hover:text-[var(--ivory)]"
+              >
+                <span>LINKEDIN</span>
+                <ArrowUpRight size={13} />
+              </a>
+            </div>
+          </Reveal>
         </div>
-          <div className="mt-16 flex items-center justify-between border-t border-[var(--line)] pt-8">
-            <div>
-              <p className="eyebrow mb-2">Founder</p>
-              <p className="font-serif text-3xl text-[var(--ivory)]">Dhanush B.</p>
-              <p className="mt-1 font-sans text-xs tracking-[0.24em] text-[var(--grey)]">FOUNDER &amp; CEO</p>
+        <div className="lg:col-span-5">
+          <Reveal delay={0.15}>
+            <div className="relative overflow-hidden">
+              <img src={IMG.about} alt="Architectural precision" className="h-[420px] w-full object-cover grayscale md:h-[520px]" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(10,10,11,0.1), rgba(10,10,11,0.55))" }} />
+              <div className="absolute bottom-6 left-6 flex items-center gap-3">
+                <Star size={14} color="var(--brass)" />
+                <span className="font-sans text-[0.65rem] tracking-[0.3em] text-[var(--ivory)]">ARCHITECTURE OF INTENT</span>
+              </div>
             </div>
-            <a
-              href="https://www.linkedin.com/in/dhanush-b-30792222a/"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="about-linkedin"
-              className="inline-flex items-center gap-2 border border-[var(--line)] px-4 py-2 font-sans text-[0.65rem] tracking-[0.24em] text-[var(--brass)] transition-all hover:border-[var(--brass)] hover:text-[var(--ivory)]"
-            >
-              <span>LINKEDIN</span>
-              <ArrowUpRight size={13} />
-            </a>
-          </div>
+          </Reveal>
+        </div>
       </div>
-      <div className="lg:col-span-5">
-          <div className="relative overflow-hidden">
-            <img
-              src={IMG.about} alt="Architectural precision" loading="lazy"
-              className="h-[420px] w-full object-cover grayscale md:h-[520px]"
-            />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(10,10,11,0.1), rgba(10,10,11,0.55))" }} />
-            <div className="absolute bottom-6 left-6 flex items-center gap-3">
-              <Star size={14} color="var(--brass)" />
-              <span className="font-sans text-[0.65rem] tracking-[0.3em] text-[var(--ivory)]">ARCHITECTURE OF INTENT</span>
-            </div>
-          </div>
-      </div>
-    </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </section>
-  );
-};
+    </section>
+  </Page>
+);
 
 /* -------------------------------------------------------------- Manifesto */
 const MANIFESTO = [
@@ -914,7 +884,7 @@ const Footer = () => (
           <ul className="space-y-3 font-sans text-sm text-[var(--ivory-dim)]">
             {[
               ["Home", "/"],
-              ["About SYMSTRUO", "/#about"],
+              ["About SYMSTRUO", "/about"],
               ["Services", "/#services"],
               ["Insights", "/insights"],
               ["FAQ", "/faq"],
@@ -1130,8 +1100,6 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const target = state?.scrollTo || (hash ? hash.replace("#", "") : null);
-    if (target === "about") window.dispatchEvent(new Event(OPEN_ABOUT));
     if (state?.scrollTo) {
       setTimeout(() => {
         const el = document.getElementById(state.scrollTo);
@@ -1159,7 +1127,6 @@ const Home = () => {
       <main className="relative z-10">
         <Hero />
         <Marquee />
-        <About />
         <Manifesto />
         <Services />
         <Insights />
@@ -1181,6 +1148,7 @@ function App() {
         <Route path="/insights" element={<InsightsIndex />} />
         <Route path="/insights/:slug" element={<ArticlePage />} />
         <Route path="/faq" element={<FAQPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </BrowserRouter>
   );

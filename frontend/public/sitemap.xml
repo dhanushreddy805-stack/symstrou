@@ -20,6 +20,13 @@
   </url>
 
   <url>
+    <loc>https://symstruo.com/about</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://symstruo.com/faq</loc>
     <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>

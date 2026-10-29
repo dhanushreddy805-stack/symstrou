@@ -8,7 +8,7 @@ React (CRA/craco) frontend + FastAPI backend + local PostgreSQL (SQLAlchemy asyn
 - Local PostgreSQL 15, data in /root/pgdata; start with /app/scripts/start_postgres.sh (re-installs if pod restarted)
 - SMTP_USER/SMTP_PASSWORD saved as secrets; real admin + auto-reply emails verified
 - Testing: backend 8/8 pass, frontend pages/contact form OK
-- DONE: About section collapsed by default (toggle + nav About opens it); site-wide text-wrap balance/pretty; mobile nav scroll delay fix
+- DONE: About removed from homepage; now its own page at /about (nav + footer links, sitemap updated); site-wide text-wrap balance/pretty; mobile nav scroll delay fix
 ## Known issues / backlog
 - P0: GET /api/contact is public (exposes leads)
 - DONE: removed hardcoded prod backend fallback; form shows clear error if REACT_APP_BACKEND_URL missing
