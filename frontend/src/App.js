@@ -1,13 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "@/App.css";
 import axios from "axios";
 import Lenis from "lenis";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ArrowRight, Plus, Linkedin, Instagram, Twitter } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import { BrowserRouter, Routes, Route, Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { Nav } from "@/components/Nav";
-import { Compass, Star, Mark, Wordmark } from "@/components/Compass";
+import { Star, Mark, Wordmark } from "@/components/Compass";
+import { Reveal, EASE } from "@/components/fx/Reveal";
+import { ScrollCompass } from "@/components/fx/ScrollCompass";
+import { Loader } from "@/components/sections/Loader";
+import { Hero } from "@/components/sections/Hero";
+import { Marquee } from "@/components/sections/Marquee";
+import { Manifesto } from "@/components/sections/Manifesto";
+import { Services } from "@/components/sections/Services";
+import { InsightsRail, InsightCard } from "@/components/sections/Insights";
+import { CTA } from "@/components/sections/CTA";
+import { Beacon } from "@/components/sections/Beacon";
+import { Blueprint } from "@/components/sections/Blueprints";
 import { Starfield } from "@/components/Starfield";
 import { CircleCursor } from "@/components/CircleCursor";
 import { SERVICE_DETAILS, SERVICE_ORDER } from "@/data/serviceDetails";
@@ -41,167 +52,7 @@ const IMG = {
   cta: "https://images.unsplash.com/photo-1615141328086-72a5a01b1b25?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600",
 };
 
-const EASE = [0.16, 1, 0.3, 1];
-
 const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-
-const Reveal = ({ children, delay = 0, y = 30, className = "" }) => (
-  <motion.div
-    className={className}
-    initial={{ opacity: 0, y }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-70px" }}
-    transition={{ duration: 1.05, delay, ease: EASE }}
-  >
-    {children}
-  </motion.div>
-);
-
-/* ------------------------------------------------------------------ Loader */
-const Loader = ({ done }) => (
-  <AnimatePresence>
-    {!done && (
-      <motion.div
-        data-testid="loader"
-        className="fixed inset-0 z-[100] grid place-items-center bg-[var(--ink)]"
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.9, ease: EASE }}
-      >
-        <div className="flex flex-col items-center gap-8">
-          <motion.div
-            initial={{ scale: 0.6, opacity: 0, rotate: -25 }}
-            animate={{ scale: 1, opacity: 1, rotate: 0 }}
-            transition={{ duration: 1.2, ease: EASE }}
-          >
-            <Mark size={62} />
-          </motion.div>
-          <div className="overflow-hidden">
-            <motion.div
-              initial={{ y: 30 }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: EASE }}
-            >
-              <Wordmark height={13} />
-            </motion.div>
-          </div>
-          <div className="h-px w-40 overflow-hidden bg-[var(--line)]">
-            <motion.div
-              className="h-full bg-[var(--brass)]"
-              initial={{ x: "-100%" }}
-              animate={{ x: "0%" }}
-              transition={{ duration: 1.5, ease: EASE }}
-            />
-          </div>
-        </div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-);
-
-/* -------------------------------------------------------------------- Hero */
-const MaskLine = ({ children, delay }) => (
-  <span className="reveal-mask">
-    <motion.span
-      className="block"
-      initial={{ y: "110%" }}
-      animate={{ y: "0%" }}
-      transition={{ duration: 1.1, delay, ease: EASE }}
-    >
-      {children}
-    </motion.span>
-  </span>
-);
-
-const Hero = () => {
-  const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const needleRotate = useTransform(scrollYProgress, [0, 1], [0, 24]);
-  const labels = ["Direction", "Validation", "Blueprint", "Growth", "Legacy"];
-  return (
-    <section id="home" ref={heroRef} className="relative min-h-screen w-full overflow-hidden pt-28" data-testid="hero">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[120vh] w-[120vh] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40"
-        style={{ background: "radial-gradient(circle, rgba(184,148,95,0.08) 0%, rgba(10,10,11,0) 60%)" }} />
-      <div className="mx-auto grid max-w-[1500px] grid-cols-1 items-center gap-16 px-6 pb-24 md:px-12 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-7">
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 1 }}
-            className="mb-8 flex items-center gap-4">
-            <span className="h-px w-10 bg-[var(--brass)]" />
-            <span className="eyebrow">Venture Creation Company</span>
-          </motion.div>
-
-          <h1 className="serif-display text-[15vw] leading-[0.9] sm:text-7xl lg:text-8xl xl:text-[8.5rem]">
-            <MaskLine delay={0.35}>Direction</MaskLine>{" "}
-            <MaskLine delay={0.48}>
-              <span className="italic text-[var(--grey)]">Before</span>
-            </MaskLine>
-            <br />
-            <MaskLine delay={0.6}>Execution.</MaskLine>
-          </h1>
-
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.95, duration: 1, ease: EASE }}
-            className="mt-10 max-w-xl font-sans text-base leading-relaxed text-[var(--ivory-dim)] md:text-lg">
-            We help founders transform ideas into enduring businesses through strategic
-            direction, execution-ready blueprints, growth systems and investment readiness.
-          </motion.p>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.15, duration: 1, ease: EASE }}
-            className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <button data-testid="hero-start" onClick={() => scrollTo("contact")}
-              className="btn-ghost btn-fill group flex w-full items-center justify-center gap-3 border border-[var(--ivory)] px-9 py-4 font-sans text-xs tracking-[0.24em] sm:w-auto">
-              <span>START BUILDING</span>
-              <ArrowUpRight size={15} className="relative z-[1]" />
-            </button>
-            <button data-testid="hero-book" onClick={() => scrollTo("contact")}
-              className="link-underline flex items-center justify-center gap-3 px-2 py-4 font-sans text-xs tracking-[0.24em] text-[var(--ivory-dim)] sm:justify-start">
-              BOOK STRATEGY CALL
-            </button>
-          </motion.div>
-        </div>
-
-        <div className="relative flex items-center justify-center lg:col-span-5">
-          <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 1.6, ease: EASE }}>
-            <Compass size={430} needleRotate={needleRotate} />
-          </motion.div>
-          <div className="absolute top-1/2 right-0 hidden -translate-y-1/2 flex-col gap-5 lg:flex lg:-right-4 xl:-right-14">
-            {labels.map((l, i) => (
-              <motion.div key={l} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2 + i * 0.12, duration: 0.9, ease: EASE }}
-                className="flex items-center gap-3">
-                <span className="h-px w-10 bg-[var(--line)]" />
-                <span className="font-sans text-[0.7rem] tracking-[0.3em] text-[var(--grey)]">{l.toUpperCase()}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.6, duration: 1 }}
-        className="absolute bottom-8 left-0 flex w-full items-center justify-between px-6 font-sans text-[0.65rem] tracking-[0.35em] text-[var(--grey-2)] md:px-12">
-        <span className="text-[var(--brass)]">+89° 15′</span>
-        <span>DIRECTION · CLARITY</span>
-        <span className="hidden sm:block">TRUE NORTH</span>
-      </motion.div>
-    </section>
-  );
-};
-
-/* ---------------------------------------------------------------- Marquee */
-const Marquee = () => {
-  const words = ["Direction", "Validation", "Blueprint", "Execution", "Growth", "Investment"];
-  const set = [...words, ...words];
-  return (
-    <div className="border-y border-[var(--line)] py-8" data-testid="marquee">
-      <div className="marquee-track">
-        {set.map((w, i) => (
-          <span key={i} className="mx-8 inline-flex items-center gap-8 font-serif text-4xl italic text-[var(--ivory-dim)] md:text-6xl">
-            {w} <Star size={16} color="var(--brass)" />
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 /* ------------------------------------------------------------------ About */
 const AboutPage = () => (
@@ -265,81 +116,6 @@ const AboutPage = () => (
   </Page>
 );
 
-/* -------------------------------------------------------------- Manifesto */
-const MANIFESTO = [
-  { n: "01", text: ["Every successful company", "begins with the", "right direction."] },
-  { n: "02", text: ["Execution without", "direction is", "expensive."] },
-  { n: "03", text: ["We don't sell consulting.", "We create", "businesses."] },
-];
-const VALUES = ["Direction", "Clarity", "Conviction", "Precision", "Purpose", "Long-term Thinking"];
-
-const lineVariant = {
-  hidden: { y: "112%" },
-  show: { y: "0%", transition: { duration: 1, ease: EASE } },
-};
-
-const Manifesto = () => (
-  <section id="manifesto" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-40" data-testid="manifesto">
-    <Reveal>
-      <div className="mb-20 flex items-center gap-4">
-        <Star size={14} color="var(--brass)" />
-        <span className="eyebrow">The Manifesto</span>
-        <span className="h-px flex-1 bg-[var(--line)]" />
-        <span className="eyebrow">The Philosophy</span>
-      </div>
-    </Reveal>
-
-    <div className="space-y-24 md:space-y-36">
-      {MANIFESTO.map((m, idx) => (
-        <div key={m.n} className={`flex flex-col gap-6 md:flex-row md:items-start md:gap-16 ${idx % 2 ? "md:justify-end" : ""}`}>
-          <Reveal>
-            <span className="font-serif text-xl text-[var(--brass)]">{m.n}</span>
-          </Reveal>
-          <motion.h2
-            className="serif-display text-4xl leading-[1.02] sm:text-5xl lg:text-6xl xl:text-[4rem]"
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ staggerChildren: 0.09 }}
-          >
-            {m.text.map((line, i) => (
-              <span key={i} className="block overflow-hidden pb-[0.08em]">
-                <motion.span className="block" variants={lineVariant}>
-                  {i === m.text.length - 1
-                    ? <span className="italic text-[var(--grey)]">{line}</span>
-                    : line}
-                </motion.span>
-              </span>
-            ))}
-          </motion.h2>
-        </div>
-      ))}
-    </div>
-
-    <div className="mt-32 border-t border-[var(--line)] pt-16">
-      <Reveal>
-        <p className="eyebrow mb-10">The compass points to six things</p>
-      </Reveal>
-      <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
-        {VALUES.map((v, i) => (
-          <Reveal key={v} delay={i * 0.05}>
-            <span className="flex items-center gap-4 font-serif text-2xl text-[var(--ivory)] md:text-3xl">
-              {v}
-              {i < VALUES.length - 1 && <Star size={11} color="var(--brass)" className="opacity-70" />}
-            </span>
-          </Reveal>
-        ))}
-      </div>
-      <Reveal delay={0.1}>
-        <p className="mt-20 max-w-2xl font-serif text-2xl italic leading-snug text-[var(--ivory-dim)] md:text-3xl">
-          We don't build for applause.
-          <span className="text-[var(--brass)]"> We build for endurance.</span>
-        </p>
-      </Reveal>
-    </div>
-  </section>
-);
-
 /* --------------------------------------------------------------- Services */
 const SERVICES = [
   { slug: "idea-lab", no: "01", name: "IDEA LAB", flag: "", desc: "For founders with ideas but no clear direction.",
@@ -358,82 +134,6 @@ const SERVICES = [
     items: ["Pitch Deck", "Financial Model", "Valuation Guidance", "Investor Strategy", "Data Room", "Due Diligence", "Fundraising Narrative"],
     outcome: "Investor-ready startup." },
 ];
-
-const ServiceRow = ({ s }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <Reveal>
-      <div
-        data-testid={`service-${s.no}`}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        className="group grid cursor-default grid-cols-1 gap-8 border-t border-[var(--line)] py-12 transition-colors duration-500 hover:bg-[rgba(184,148,95,0.03)] md:grid-cols-12 md:py-16"
-      >
-        <div className="flex items-start gap-6 pr-4 md:col-span-4">
-          <span className="font-serif text-2xl text-[var(--grey-2)]">{s.no}</span>
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <h3 className="font-serif text-3xl leading-[0.96] text-[var(--ivory)] md:text-4xl lg:text-[2.6rem]">{s.name}</h3>
-              {s.flag && (
-                <span className="border border-[var(--brass)] px-3 py-1 font-sans text-[0.6rem] tracking-[0.24em] text-[var(--brass)]">
-                  {s.flag.toUpperCase()}
-                </span>
-              )}
-            </div>
-            <p className="mt-4 max-w-xs font-sans text-sm leading-relaxed text-[var(--grey)]">{s.desc}</p>
-          </div>
-        </div>
-
-        <div className="md:col-span-6">
-          <div className="grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-2">
-            {s.items.map((it) => (
-              <span key={it} className="flex items-center gap-3 whitespace-nowrap font-sans text-sm leading-relaxed text-[var(--ivory-dim)] transition-colors duration-500 group-hover:text-[var(--ivory)]">
-                <span className="h-1 w-1 shrink-0 rounded-full bg-[var(--brass)] opacity-60" />
-                {it}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-col items-start justify-between gap-5 md:col-span-2 md:items-end">
-          <div className="text-left md:text-right">
-            <p className="eyebrow mb-2">Outcome</p>
-            <p className="font-serif text-lg italic text-[var(--brass)]">{s.outcome}</p>
-          </div>
-          <Link
-            to={`/services/${s.slug}`}
-            data-testid={`service-more-${s.no}`}
-            className="link-underline inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--ivory)]"
-          >
-            KNOW MORE <ArrowUpRight size={13} />
-          </Link>
-        </div>
-      </div>
-    </Reveal>
-  );
-};
-
-const Services = () => (
-  <section id="services" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="services">
-    <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-      <div>
-        <Reveal><span className="eyebrow">Services</span></Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="serif-display mt-6 text-5xl md:text-7xl">The Service Ecosystem</h2>
-        </Reveal>
-      </div>
-      <Reveal delay={0.1}>
-        <p className="max-w-sm font-sans text-sm leading-relaxed text-[var(--grey)]">
-          Five deliberate stages. One continuous journey — from the first question to
-          the moment capital says yes.
-        </p>
-      </Reveal>
-    </div>
-    <div className="border-b border-[var(--line)]">
-      {SERVICES.map((s) => <ServiceRow key={s.no} s={s} />)}
-    </div>
-  </section>
-);
 
 /* -------------------------------------------------------------------- FAQ */
 const FAQS = [
@@ -523,45 +223,6 @@ const FAQ = () => (
   </section>
 );
 
-/* --------------------------------------------------------------- Insights */
-const InsightRow = ({ a, i }) => (
-  <Reveal>
-    <Link
-      to={`/insights/${a.slug}`}
-      data-testid={`insight-${i}`}
-      className="group grid grid-cols-1 gap-3 border-t border-[var(--line)] py-9 transition-colors duration-500 hover:bg-[rgba(184,148,95,0.03)] md:grid-cols-12 md:items-center md:gap-6 md:py-11"
-    >
-      <span className="font-serif text-sm text-[var(--grey-2)] md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
-      <span className="eyebrow md:col-span-2">{a.kicker}</span>
-      <h3 className="font-serif text-2xl leading-tight text-[var(--ivory-dim)] transition-colors group-hover:text-[var(--ivory)] md:col-span-8 md:text-3xl">{a.title}</h3>
-      <div className="flex md:col-span-1 md:justify-end">
-        <ArrowUpRight size={20} className="text-[var(--brass)] transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1" />
-      </div>
-    </Link>
-  </Reveal>
-);
-
-const Insights = () => (
-  <section id="insights" className="mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="insights">
-    <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-      <div>
-        <Reveal><span className="eyebrow">Insights</span></Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="serif-display mt-6 text-5xl md:text-7xl">Thinking, before building.</h2>
-        </Reveal>
-      </div>
-      <Reveal delay={0.1}>
-        <p className="max-w-sm font-sans text-sm leading-relaxed text-[var(--grey)]">
-          Perspectives on how enduring businesses are designed, positioned, funded and scaled.
-        </p>
-      </Reveal>
-    </div>
-    <div className="border-b border-[var(--line)]">
-      {INSIGHTS.map((a, i) => <InsightRow key={a.slug} a={a} i={i} />)}
-    </div>
-  </section>
-);
-
 /* ----------------------------------------------------------- Page shell */
 const Page = ({ children }) => {
   useLenis();
@@ -571,6 +232,7 @@ const Page = ({ children }) => {
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80"><Starfield /></div>
       <Toaster position="bottom-right" theme="dark" />
       <CircleCursor />
+      <ScrollCompass />
       <Nav />
       <main className="relative z-10">{children}</main>
       <Footer />
@@ -589,8 +251,10 @@ const InsightsIndex = () => (
       <Reveal delay={0.05}>
         <h1 className="serif-display mt-6 max-w-4xl text-5xl md:text-7xl">Thinking, before building.</h1>
       </Reveal>
-      <div className="mt-16 border-b border-[var(--line)]">
-        {INSIGHTS.map((a, i) => <InsightRow key={a.slug} a={a} i={i} />)}
+      <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {INSIGHTS.map((a, i) => (
+          <Reveal key={a.slug} delay={(i % 3) * 0.06}><InsightCard a={a} i={i} className="h-full min-h-[420px]" /></Reveal>
+        ))}
       </div>
     </section>
   </Page>
@@ -716,79 +380,6 @@ const FAQPage = () => (
   </Page>
 );
 
-/* ---------------------------------------------------------------- Process */
-const STEPS = ["Direction", "Validation", "Blueprint", "Execution", "Growth", "Investment"];
-const STEP_DESC = [
-  "We find true north before a single resource is spent.",
-  "Every assumption is stress-tested against the market.",
-  "The complete architecture of the business, drawn to build.",
-  "Direction becomes motion — sequenced and deliberate.",
-  "Traction is engineered into a repeatable system.",
-  "The company is prepared to stand before capital.",
-];
-
-const Process = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start center", "end center"] });
-  const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  return (
-    <section id="process" ref={ref} className="relative mx-auto max-w-[1500px] px-6 py-20 md:px-12 md:py-36" data-testid="process">
-      <Reveal><span className="eyebrow">Process</span></Reveal>
-      <Reveal delay={0.05}>
-        <h2 className="serif-display mt-6 max-w-3xl text-5xl md:text-7xl">The journey from idea to investment.</h2>
-      </Reveal>
-      <div className="relative mt-24">
-        <div className="absolute left-[7px] top-0 h-full w-px bg-[var(--line)] md:left-1/2" />
-        <motion.div style={{ height }} className="absolute left-[7px] top-0 w-px bg-[var(--brass)] md:left-1/2" />
-        <div className="space-y-20 md:space-y-0">
-          {STEPS.map((step, i) => (
-            <Reveal key={step} delay={0.03 * i}>
-              <div className={`relative flex items-center gap-8 md:min-h-[180px] md:gap-0 ${i % 2 ? "md:flex-row-reverse" : ""}`}>
-                <div className="absolute left-0 h-4 w-4 -translate-x-[3.5px] rounded-full border border-[var(--brass)] bg-[var(--ink)] md:left-1/2 md:-translate-x-1/2" />
-                <div className={`w-full pl-12 md:w-1/2 md:pl-0 ${i % 2 ? "md:pl-16 md:text-left" : "md:pr-16 md:text-right"}`}>
-                  <div className={`flex items-baseline gap-4 ${i % 2 ? "" : "md:justify-end"}`}>
-                    <span className="font-serif text-lg text-[var(--grey-2)]">0{i + 1}</span>
-                    <h3 className="font-serif text-4xl text-[var(--ivory)] md:text-5xl">{step}</h3>
-                  </div>
-                  <p className={`mt-3 max-w-xs font-sans text-sm leading-relaxed text-[var(--grey)] ${i % 2 ? "" : "md:ml-auto"}`}>
-                    {STEP_DESC[i]}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-/* -------------------------------------------------------------------- CTA */
-const CTA = () => (
-  <section className="relative overflow-hidden" data-testid="cta">
-    <img src={IMG.cta} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale" />
-    <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, var(--ink), rgba(10,10,11,0.75))" }} />
-    <div className="relative mx-auto max-w-[1300px] px-6 py-28 text-center md:px-12 md:py-48">
-      <Reveal><Star size={30} color="var(--brass)" className="mx-auto mb-10" /></Reveal>
-      <Reveal delay={0.05}>
-        <h2 className="serif-display mx-auto max-w-4xl text-5xl md:text-7xl lg:text-[5.5rem]">
-          Every great company begins with the right direction.
-        </h2>
-      </Reveal>
-      <Reveal delay={0.1}>
-        <p className="mt-10 font-serif text-3xl italic text-[var(--brass)]">Direction · Clarity · Conviction · Precision</p>
-      </Reveal>
-      <Reveal delay={0.15}>
-        <button data-testid="cta-start" onClick={() => scrollTo("contact")}
-          className="btn-ghost btn-fill mt-12 inline-flex items-center gap-3 border border-[var(--ivory)] px-10 py-4 font-sans text-xs tracking-[0.24em]">
-          <span>START BUILDING</span>
-          <ArrowUpRight size={15} className="relative z-[1]" />
-        </button>
-      </Reveal>
-    </div>
-  </section>
-);
-
 /* ---------------------------------------------------------------- Contact */
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", company: "", stage: "", message: "" });
@@ -841,6 +432,7 @@ const Contact = () => {
               </Reveal>
             ))}
           </div>
+          <Reveal delay={0.1}><Beacon /></Reveal>
         </div>
 
         <div className="lg:col-span-7">
@@ -923,7 +515,11 @@ const Footer = () => (
           </ul>
         </div>
       </div>
-      <div className="mt-20 flex flex-col justify-between gap-4 border-t border-[var(--line)] pt-8 text-[0.7rem] tracking-[0.24em] text-[var(--grey-2)] md:flex-row">
+      <div aria-hidden="true" data-testid="footer-mega"
+        className="footer-mega mt-24 select-none overflow-hidden whitespace-nowrap text-center font-serif text-[21vw] leading-[0.8] tracking-[-0.02em] lg:text-[17rem]">
+        SYMSTRUO
+      </div>
+      <div className="mt-10 flex flex-col justify-between gap-4 border-t border-[var(--line)] pt-8 text-[0.7rem] tracking-[0.24em] text-[var(--grey-2)] md:flex-row">
         <span>© {new Date().getFullYear()} SYMSTRUO PRIVATE LIMITED</span>
         <span className="text-[var(--brass)]">+89° 15′ · TRUE NORTH</span>
         <span>DIRECTION · CLARITY · CONVICTION · PRECISION</span>
@@ -990,6 +586,7 @@ const ServiceDetail = () => {
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80"><Starfield /></div>
       <Toaster position="bottom-right" theme="dark" />
       <CircleCursor />
+      <ScrollCompass />
       <Nav />
       <main className="relative z-10">
         {/* header */}
@@ -1015,6 +612,11 @@ const ServiceDetail = () => {
               </Reveal>
             </div>
             <div className="lg:col-span-4 lg:pt-10">
+              <Reveal delay={0.18}>
+                <div className="mb-8 border border-[var(--line)] bg-[rgba(16,16,17,0.6)] p-4">
+                  <Blueprint slug={slug} label={`FIG. ${data.no}`} className="h-[200px]" />
+                </div>
+              </Reveal>
               <Reveal delay={0.2}>
                 <p className="font-sans text-base leading-relaxed text-[var(--grey)]">{data.intro}</p>
               </Reveal>
@@ -1112,7 +714,7 @@ const Home = () => {
   }, [hash, state]);
 
   return (
-    <div className="App grain overflow-x-hidden">
+    <div className="App grain" style={{ overflowX: "clip" }}>
       <SEO
         title="SYMSTRUO — Venture Creation Company | Direction · Clarity · Conviction"
         description="SYMSTRUO is a global Venture Creation Company. We partner with founders to turn ideas into enduring businesses through venture strategy, business blueprints, brand architecture, growth systems, and investment readiness."
@@ -1123,15 +725,16 @@ const Home = () => {
       <Toaster position="bottom-right" theme="dark" />
       {loaded && <CircleCursor />}
       <Loader done={loaded} />
+      <ScrollCompass />
       <Nav />
       <main className="relative z-10">
-        <Hero />
+        <Hero ready={loaded} onStart={() => scrollTo("contact")} />
         <Marquee />
         <Manifesto />
-        <Services />
-        <Insights />
+        <Services services={SERVICES} />
+        <InsightsRail />
         <FAQ />
-        <CTA />
+        <CTA onStart={() => scrollTo("contact")} />
         <Contact />
       </main>
       <Footer />

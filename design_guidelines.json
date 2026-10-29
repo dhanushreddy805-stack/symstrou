@@ -1,101 +1,118 @@
 {
-  "theme_strategy": "Luxury Dark (Primary) with extreme contrast and architectural precision",
-  "brand_philosophy": "Build in Silence. A $100M Venture Creation Company. COMPASS: Direction, Clarity, Conviction, Precision, Purpose, Long-term Thinking.",
+  "project_title": "Silent Architecture & Cartography - World Class Redesign",
+  "design_archetype": "Architectural Silent Luxury & Precision Cartography",
+  "theme": "Dark Luxury",
+  "tone": "Quiet, editorial, highly disciplined ('we build in silence'), true-north compass metaphor",
   "colors": {
-    "background": "#050505",
-    "foreground": "#F8F7F4",
-    "luxury_black": "#0A0A0A",
-    "ivory": "#F8F7F4",
-    "charcoal": "#1C1C1C",
-    "subtle_grey": "#A0A0A0",
-    "accent_gold": "#B89B5E",
-    "border": "#2A2A2A"
+    "ink": "#0a0a0b",
+    "ink_secondary": "#101011",
+    "charcoal": "#17171a",
+    "line": "#232325",
+    "ivory": "#f2eee4",
+    "ivory_dim": "rgba(242, 238, 228, 0.65)",
+    "grey": "#8b8880",
+    "grey_secondary": "#5c5a55",
+    "brass": "#b8945f",
+    "brass_glow": "rgba(184, 148, 95, 0.25)",
+    "brass_accent": "#d4af37"
   },
   "typography": {
     "headings": {
-      "family": "\"Cormorant Garamond\", serif",
-      "weights": ["300", "400", "500", "600"],
-      "style": "Elegant, timeless, tight tracking for large text"
+      "font_family": "'Cormorant Garamond', Georgia, serif",
+      "style": "Italic / SemiBold Display",
+      "hero_h1": "text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-[1.05] italic",
+      "section_h2": "text-3xl sm:text-5xl font-normal tracking-tight leading-[1.1]",
+      "sub_h3": "text-xl sm:text-2xl font-light italic"
     },
     "body": {
-      "family": "\"Outfit\", sans-serif",
-      "weights": ["300", "400"],
-      "style": "Modern, crisp, geometric, highly legible"
+      "font_family": "'Outfit', sans-serif",
+      "style": "Clean geometric, generous line-height",
+      "base": "text-sm sm:text-base text-[#8b8880] leading-relaxed font-light",
+      "subtext": "text-xs sm:text-sm text-[#5c5a55] tracking-wide"
     },
-    "scales": {
-      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-none",
-      "h2": "text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight",
-      "h3": "text-xl sm:text-2xl tracking-tight",
-      "body": "text-base sm:text-lg text-[#A0A0A0]",
-      "overline": "text-xs uppercase tracking-[0.2em] text-[#B89B5E]"
+    "mono_accents": {
+      "font_family": "'JetBrains Mono', 'Source Code Pro', monospace",
+      "style": "Cartographic coordinates & technical specs",
+      "coordinates": "text-[11px] uppercase tracking-[0.25em] text-[#b8945f]/80"
     }
   },
-  "layouts": {
-    "general": "Asymmetric, editorial, predominantly left-aligned. Extreme breathing room and negative space.",
-    "spacing": "Generous spacing. Use py-24, py-32, py-40 for vertical section padding. Containers must not feel cramped.",
-    "hero": "Kinetic layout. Compass logo centerpiece. On-load masked line-by-line staggered text reveal.",
-    "services_pillars": "5 premium pillars. AVOID standard SaaS cards. Use flat, structural partitions with massive typography (01, 02) and left-aligned editorial content. Use 1px borders for separation.",
-    "process_journey": "Vertical timeline map (Direction \u2192 Validation \u2192 Blueprint \u2192 Execution \u2192 Growth \u2192 Investment). Clean, connected, austere.",
-    "manifesto_why": "Editorial chapters. Huge quotes, vast negative space, slow marquee integration.",
-    "contact": "Minimalist luxury form. 1px bottom borders for inputs, no standard boxes."
+  "layout_and_grids": {
+    "spacing_scale": "p-4, p-8, p-12, p-16, p-24, p-32",
+    "container_padding": "px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto",
+    "bento_grid_rules": "Asymmetric multi-span cards with 1px border (#232325), rounded-sm (max 4px radius), internal padding p-6 sm:p-10",
+    "mobile_first": "Strict single column on <648px scaling seamlessly to multi-column desktop layouts. Images capped at max-h-[75vh] on mobile"
   },
-  "visual_enhancers": {
-    "borders": "1px solid #2A2A2A to create grid-like precision and architectural structure.",
-    "surfaces": "Avoid 'SaaS' soft shadows. Use stark contrast. Do NOT use pure transparent backgrounds for nav.",
-    "imagery": "Desaturated or black and white. Abstract architectural shadows, precision engineering."
-  },
-  "motion": {
-    "philosophy": "Extremely smooth, deliberate, unhurried.",
-    "scroll": "Lenis smooth scrolling is MANDATORY.",
-    "reveals": "Framer Motion. Masked line-by-line reveal (y: 100% to 0, clip-path or overflow hidden). Premium scroll reveals.",
-    "easing": "Custom cubic-bezier(0.16, 1, 0.3, 1) for a 'luxury glide'.",
-    "interactions": "Subtle desaturation on hover, slight scale down of images, line expansions for links. No bouncy effects."
-  },
-  "components": {
-    "navigation": "Sticky, minimal. Logo left, links right. background-color: #050505/90 with backdrop-blur-md on scroll.",
-    "buttons": "Sharp corners (rounded-none) or very slight radius (rounded-sm). 1px border. Hover: invert colors (bg-ivory text-black).",
-    "inputs": "Highly customized: transparent background, 1px bottom border, no side/top borders. Focus: border-ivory.",
-    "marquee": "Slow, editorial serif marquee. Massive text. Divider lines."
+  "graphic_signature_components": {
+    "hero_compass": {
+      "description": "An interactive, multi-layered 3D/SVG gyroscopic 4-point compass star centered in the hero section.",
+      "visual_details": "Features concentric rotating brass rings (#b8945f), lat/long tick marks, subtle mouse parallax tilt, glowing cardinal axes (N/E/S/W), and active node pulses for Direction, Validation, Blueprint, Growth, and Legacy.",
+      "interactions": "Hovering or clicking node buttons highlights specific vector ray lines projecting out from the compass hub to the section edges.",
+      "mobile_adaptation": "Scales fluidly to fit within 340px width while preserving touch-drag rotation and node selection."
+    },
+    "topographic_background_canvas": {
+      "description": "Dual-layer canvas blending a subtle starfield with interactive topographic contour lines.",
+      "visual_details": "Ultra-low opacity line vectors simulating terrain heightmaps that softly distort around the user's cursor.",
+      "performance": "Hardware accelerated HTML5 canvas with throttled requestAnimationFrame rendering."
+    },
+    "magnetic_cursor": {
+      "description": "Custom dual-element circle cursor.",
+      "visual_details": "Inner solid brass dot (4px) + outer lagging 1px ring (36px). Scales and displays current lat/long coordinates or action text ('EXPLORE', 'VIEW', 'SELECT') when hovering over interactive elements."
+    },
+    "site_loader": {
+      "description": "Editorial preloader with silent monolith transition.",
+      "visual_details": "Centered brass 4-point star expanding outward with a digital percentage counter (00 -> 100%) in Cormorant Garamond italic."
+    },
+    "kinetic_marquee": {
+      "description": "Architectural ribbon separator.",
+      "visual_details": "1px top and bottom brass borders (#232325), uppercase monospace text with repeating diamond compass glyphs moving with smooth momentum."
+    },
+    "services_blueprint_cards": {
+      "description": "Cardless structural grid sections.",
+      "visual_details": "1px solid line dividers, numerical indicators (01 - 05) in brass, hover state triggers a faint brass beam overlay and directional arrow reveal.",
+      "data_testid_prefix": "service-card-"
+    },
+    "process_journey_flow": {
+      "description": "Cartographic timeline path.",
+      "visual_details": "Vertical dashed brass vector line connecting steps with glowing waypoint nodes, coordinate timestamps, and accompanying dark luxury imagery."
+    },
+    "insights_editorial_grid": {
+      "description": "Magazine-style asymmetric bento layout for articles.",
+      "visual_details": "Feature card with dark architectural imagery overlay, sub-cards with hover elevation and brass tag badges."
+    }
   },
   "image_urls": {
-    "hero_abstract": {
-      "url": "https://images.pexels.com/photos/36969840/pexels-photo-36969840.jpeg",
-      "description": "Black and white abstract shadows for hero backdrop or manifesto section"
-    },
-    "office_luxury": {
-      "url": "https://images.pexels.com/photos/34549315/pexels-photo-34549315.jpeg",
-      "description": "Dark wood, luxury office interior for About or Service sections"
-    },
-    "precision_engineering": {
-      "url": "https://images.pexels.com/photos/16401928/pexels-photo-16401928.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      "description": "Minimalist black and white architectural precision for Process section"
-    },
-    "glass_dark": {
-      "url": "https://images.unsplash.com/photo-1515703944563-dbcfbf121b3d",
-      "description": "Dark room with clear glass wall for contact or footer backdrop"
-    }
+    "hero_and_abstract": [
+      "https://images.unsplash.com/photo-1756294205934-88c44f9b84b1?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1728853696418-c2c2a7f998fb?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1744739813274-24b1f3ef2678?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ],
+    "compass_and_cartography": [
+      "https://images.unsplash.com/photo-1668605105297-e6558855c89b?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1651302514811-d066fe98d4bd?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ],
+    "architecture_and_process": [
+      "https://images.unsplash.com/photo-1765323337815-1b1c1a47cdaa?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1760611656188-8a1289f7dfb9?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "https://images.unsplash.com/photo-1779247355053-5f1d31edc9fd?crop=entropy&cs=srgb&fm=jpg&q=85"
+    ]
+  },
+  "motion_and_animation": {
+    "libraries": ["framer-motion", "lenis"],
+    "scroll_behavior": "Lenis smooth momentum scrolling with dampening 0.1",
+    "transitions": "Specific property transitions (e.g. opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)). NO universal 'transition: all'",
+    "accessibility": "Full respects for prefers-reduced-motion using Framer Motion's useReducedMotion hook"
+  },
+  "testing_and_accessibility": {
+    "test_id_rules": "All interactive elements, buttons, nav links, forms, inputs, FAQ triggers, service links, and insights cards MUST retain or include data-testid attributes (e.g. data-testid='nav-link-about', data-testid='contact-submit-btn')",
+    "contrast_wcag": "Text contrast maintained above 4.5:1 ratio against #0a0a0b and #101011 using #f2eee4 and #8b8880",
+    "focus_states": "Focus visible rings in brass tint outline-none focus-visible:ring-1 focus-visible:ring-[#b8945f]"
   },
   "instructions_to_main_agent": [
-    "DO NOT use blue, gradients, stock illustrations, or default Tailwind colors. Stick STRICTLY to the defined hex codes.",
-    "Ensure headings use Cormorant Garamond and body uses Outfit. Load from Google Fonts.",
-    "Avoid the 'startup SaaS' aesthetic. No random floating cards with heavy drop shadows. Use 1px borders and flat architectural layouts.",
-    "All interactive elements MUST have `data-testid` attributes (e.g., `data-testid='hero-cta-button'`).",
-    "Implement Framer Motion for line-by-line staggered text reveals on load.",
-    "Ensure Lenis is set up for smooth scrolling.",
-    "Do NOT use transparent backgrounds for the sticky nav when content scrolls underneath. Use solid #050505 or #050505 with backdrop-blur.",
-    "For the Service section, build it as a list of premium pillars rather than a generic grid of cards.",
-    "For the Process section, design a vertical journey layout with timeline indicators.",
-    "Do not use generic icons. Rely on typography, lines, and the curated images."
-  ],
-  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
-    "Create depth through layered design elements with z-index hierarchy.",
-    "Use glass-morphism effects carefully with backdrop filters (12-24px blur).",
-    "MUST NOT apply universal transition (transition: all).",
-    "MUST NOT center align the app container in global CSS.",
-    "NEVER use emoji characters for icons.",
-    "Every interaction needs micro-animations (hover states, transitions).",
-    "Use 2-3x more spacing than typical designs for a luxurious feel.",
-    "Prioritize using existing UI components but highly customize their styles.",
-    "Use sonner for toasts if needed."
+    "Retain ALL existing content, routes, textual copy, and data structures verbatim.",
+    "Elevate the visual experience to world-class Awwwards standard using strict architectural luxury aesthetics.",
+    "Ensure header navigation has backdrop blur with non-transparent dark background (#0a0a0b/80).",
+    "Implement the 4-point compass hero graphic with SVG layers and framer-motion interactive state switches.",
+    "All components should strictly use .jsx / .js format.",
+    "Ensure mobile drawer, contact form modal/section, FAQ accordion, and page transitions work smoothly."
   ]
 }

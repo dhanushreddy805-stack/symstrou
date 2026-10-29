@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
 
-// Premium circle cursor — brass ring with lerp-follow + ivory dot, grows on interactive elements.
+// Brass instrument cursor: lerp ring with crosshair ticks + dot; shows a label from [data-cursor].
 export const CircleCursor = () => {
   const ring = useRef(null);
   const dot = useRef(null);
+  const label = useRef(null);
 
   useEffect(() => {
     if (window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
@@ -16,8 +17,11 @@ export const CircleCursor = () => {
       if (dot.current) dot.current.style.transform = `translate(${mx}px, ${my}px)`;
     };
     const over = (e) => {
-      const t = e.target.closest("a, button, input, textarea, [role='button']");
+      const tagged = e.target.closest("[data-cursor]");
+      const t = tagged || e.target.closest("a, button, input, textarea, [role='button']");
       document.body.classList.toggle("cursor-active", !!t);
+      document.body.classList.toggle("cursor-label", !!tagged);
+      if (label.current) label.current.textContent = tagged ? tagged.getAttribute("data-cursor") : "";
     };
     const loop = () => {
       rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
@@ -32,13 +36,17 @@ export const CircleCursor = () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
-      document.body.classList.remove("has-cursor", "cursor-active");
+      document.body.classList.remove("has-cursor", "cursor-active", "cursor-label");
     };
   }, []);
 
   return (
     <>
-      <div ref={ring} className="cursor-ring" aria-hidden="true" />
+      <div ref={ring} className="cursor-ring" aria-hidden="true">
+        <span className="cursor-tick cursor-tick-n" /><span className="cursor-tick cursor-tick-e" />
+        <span className="cursor-tick cursor-tick-s" /><span className="cursor-tick cursor-tick-w" />
+        <span ref={label} className="cursor-text" />
+      </div>
       <div ref={dot} className="cursor-dot" aria-hidden="true" />
     </>
   );
