@@ -10,6 +10,6 @@ React (CRA/craco) frontend + FastAPI backend + local PostgreSQL (SQLAlchemy asyn
 - Testing: backend 8/8 pass, frontend pages/contact form OK
 ## Known issues / backlog
 - P0: GET /api/contact is public (exposes leads)
-- P1: App.js hardcoded fallback to onrender prod backend
-- P1: Mobile nav drawer shows hero text through it
+- DONE: removed hardcoded prod backend fallback; form shows clear error if REACT_APP_BACKEND_URL missing
+- DONE: mobile drawer now fully opaque (clip-path reveal, solid bg, z-50)
 - P2: Silent DB-write failure fallback to in-memory; on_event deprecation

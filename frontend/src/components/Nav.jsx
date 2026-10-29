@@ -132,13 +132,15 @@ export const Nav = () => {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            data-testid="nav-mobile-drawer"
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-0 top-[65px] h-[calc(100dvh-65px)] flex flex-col justify-between overflow-y-auto bg-[var(--ink)] px-6 py-8 md:hidden"
+            className="fixed inset-x-0 top-[65px] z-50 h-[calc(100dvh-65px)] flex flex-col justify-between overflow-y-auto px-6 py-8 md:hidden"
             style={{
-              background: "radial-gradient(circle at top right, rgba(184,148,95,0.06), var(--ink) 70%)",
+              backgroundColor: "#0a0a0b",
+              backgroundImage: "radial-gradient(circle at top right, rgba(184,148,95,0.06), transparent 70%)",
             }}
           >
             {/* Nav Links */}
@@ -169,6 +171,7 @@ export const Nav = () => {
             {/* Mobile CTA & Quick Contacts */}
             <div className="space-y-6 pt-8 pb-4">
               <button
+                data-testid="nav-m-cta"
                 onClick={() => go("contact")}
                 className="btn-ghost btn-fill flex w-full items-center justify-center gap-3 border border-[var(--ivory)] py-4 font-sans text-xs tracking-[0.24em] text-[var(--ivory)]"
               >

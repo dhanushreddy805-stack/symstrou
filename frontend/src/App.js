@@ -17,7 +17,8 @@ import { SEO } from "@/components/SEO";
 // Home FAQ shows a curated subset (questions 1, 2, 4, 20, 12, 6).
 const HOME_FAQ = [0, 1, 3, 19, 11, 5];
 
-let rawBackendUrl = process.env.REACT_APP_BACKEND_URL || "https://symstruo-backend.onrender.com";
+let rawBackendUrl = (process.env.REACT_APP_BACKEND_URL || "").trim();
+if (!rawBackendUrl) console.error("REACT_APP_BACKEND_URL is not set; the contact form is disabled.");
 
 // Fix Render internal host reference if provided without .onrender.com
 if (
@@ -32,7 +33,7 @@ const formattedBackendUrl = rawBackendUrl.startsWith("http")
   ? rawBackendUrl
   : `https://${rawBackendUrl}`;
 
-const API = `${formattedBackendUrl.replace(/\/$/, "")}/api`;
+const API = rawBackendUrl ? `${formattedBackendUrl.replace(/\/$/, "")}/api` : null;
 
 const IMG = {
   about: "https://images.unsplash.com/photo-1565371557106-c2abcc6fb36a?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400",
@@ -793,6 +794,10 @@ const Contact = () => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
       toast.error("Please share your name, email and a note.");
+      return;
+    }
+    if (!API) {
+      toast.error("The contact form isn't connected right now. Please email dhanush@symstruo.com.");
       return;
     }
     setBusy(true);
