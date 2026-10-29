@@ -1102,7 +1102,7 @@ const ServiceDetail = () => {
               <div className="flex h-full flex-col justify-between border border-[var(--line)] p-10">
                 <div>
                   <p className="eyebrow mb-4">Ready when you are</p>
-                  <p className="font-serif text-3xl leading-tight text-[var(--ivory)] md:text-4xl">Let's find your direction.</p>
+                  <p className="font-serif text-3xl leading-tight text-[var(--ivory)] [text-wrap:balance] md:text-4xl">Let's find your direction.</p>
                 </div>
                 <button onClick={() => navigate("/#contact")} className="btn-ghost btn-fill mt-8 inline-flex w-fit items-center gap-3 border border-[var(--ivory)] px-8 py-4 font-sans text-xs tracking-[0.24em]">
                   <span>START BUILDING</span><ArrowUpRight size={15} className="relative z-[1]" />

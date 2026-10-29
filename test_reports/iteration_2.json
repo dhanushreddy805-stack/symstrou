@@ -1,0 +1,28 @@
+{
+  "summary": "Frontend-only test of the collapsible About section, About navigation from the nav menus, site-wide text layout, the mobile drawer and the contact form. Working: About is closed on load (about-details not in DOM, aria-expanded=false, 'READ MORE' and a + icon shown). Clicking the toggle opens it with all content (paragraphs, founder Dhanush B., LinkedIn link, image) and sets aria-expanded=true and CLOSE. Clicking again closes it. Clicking nav About from /faq and /insights goes home, scrolls About to the top of the screen (top=0) and opens it. Bug: nav About on the home page (desktop nav-about and mobile nav-m-about) opens the details but the scroll does not land on About. It either does not scroll at all (scrollY stays 0) or scrolls past About (top=-2122). Text layout: the CSS rules apply (headings use balance, paragraphs use pretty), there is no horizontal overflow at 1920 or 390, and an automated check found no single-word last lines on home, /insights, /insights/idea-to-business or /faq at either width. One possible orphan on /services/business-blueprint at 390px (\"Let's find your direction.\"). The mobile drawer is solid (rgb(10,10,11)). The contact form sent POST /api/contact, got 200 and the form reset (1 submission, qa+10@example.com).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Nav go() -> About on home page", "issue": "On / (at the top of the page), clicking nav About opens the details but the page does not reliably scroll to #about. Desktop: a JS click left scrollY at 0 (about top=1206), and a real Playwright click scrolled past it (about top=-2122). Mobile 390px: nav-m-about closed the drawer and opened About, but the page stayed at the hero (about top=1246). nav-services scrolls correctly from the same spot, and nav About also works once About is already open.", "selector": "[data-testid='nav-about'], [data-testid='nav-m-about']", "priority": "HIGH"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/services/business-blueprint at 390px", "issues": ["The automated check flagged a possible single-word last line in the CTA text \"Let's find your direction.\". Minor; not confirmed visually."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix the nav About scroll on the home page. Likely cause: scrollIntoView runs in the same tick as the About open state change, while the AnimatePresence height animation is changing the layout (with Lenis also running). On mobile, document.body overflow is still 'hidden' from the open drawer when the scroll is called, which probably blocks it. Suggested fix: in About's OPEN_ABOUT listener, after setOpen(true), scroll inside requestAnimationFrame or setTimeout(~60-100ms). In Nav.go(), for 'about' on '/', skip the immediate scrollTo, or delay it until after setOpen(false) has taken effect and body overflow is reset (e.g. setTimeout 350ms on mobile)."
+  ],
+  "critical_code_review_comments": [
+    "Nav.go() calls scrollTo() right after setOpen(false). On mobile the body still has overflow hidden from the lock effect, so this affects every in-page nav link on mobile, not just About (only About was tested at 390px; worth checking).",
+    "App.js is ~1190 lines; consider splitting it into components (About, Services, Contact, pages)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "~85% (About open/close, cross-page nav, text layout, drawer and contact form pass; nav About scroll on the home page fails on desktop and mobile)"},
+  "seed_data_creation": "One contact submission: TEST QA Iter2 / qa+10@example.com",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Wait about 3s after load (the loader takes 2s). The custom cursor ring is present; use a JS click if a click is intercepted. To check nav About on home: load / fresh, click nav-about, wait 2.5s, then check that document.getElementById('about').getBoundingClientRect().top is about 0. Also test mobile nav-m-about and nav-m-services at 390px.",
+  "rca of the issue": "Nav About on the home page: dispatching OPEN_ABOUT starts the About height animation from 0 to auto while scrollIntoView({behavior:'smooth'}) is running in the same tick, so the scroll gets cancelled or lands in the wrong place. On mobile, the body overflow lock from the open drawer is also still in place when scrollTo is called. Reproduce: fresh / at 1920px, click nav-about; About opens but the viewport stays on the hero."
+}

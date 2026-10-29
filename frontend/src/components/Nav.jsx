@@ -61,11 +61,14 @@ export const Nav = () => {
     if (pathname !== "/") {
       navigate("/", { state: { scrollTo: targetId === "home" ? null : targetId } });
     } else {
-      if (targetId === "home" || !targetId) {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        scrollTo(targetId);
-      }
+      const delay = open ? 400 : targetId === "about" ? 120 : 0;
+      setTimeout(() => {
+        if (targetId === "home" || !targetId) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          scrollTo(targetId);
+        }
+      }, delay);
     }
   };
 
