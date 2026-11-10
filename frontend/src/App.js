@@ -352,7 +352,7 @@ const InsightsIndex = () => (
     <section className="mx-auto max-w-[1500px] px-6 pt-32 pb-20 md:px-12 md:pt-52 md:pb-32" data-testid="insights-page">
       <Reveal><span className="eyebrow">Insights</span></Reveal>
       <Reveal delay={0.05}>
-        <h1 className="serif-display mt-6 max-w-4xl text-5xl md:text-7xl">Thinking, before building.</h1>
+        <h1 className="serif-display mt-6 max-w-4xl text-5xl md:text-7xl">Think, before building.</h1>
       </Reveal>
       <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {INSIGHTS.map((a, i) => (
@@ -838,8 +838,8 @@ const Home = () => {
       <main className="relative z-10">
         <HeroLumen ready={loaded} onStart={() => scrollTo("contact")} />
         <Marquee />
-        <NdaVault />
         <Journey services={SERVICES} />
+        <NdaVault />
         <section className="mx-auto max-w-[1400px] px-6 py-24 md:px-12 md:py-36" data-testid="philosophy">
           <Statement m={MANIFESTO[2]} idx={0} />
         </section>

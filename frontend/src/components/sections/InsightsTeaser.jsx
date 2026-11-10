@@ -10,7 +10,7 @@ export const InsightsTeaser = () => (
     <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
       <div>
         <Reveal><span className="eyebrow">Insights</span></Reveal>
-        <Reveal delay={0.05}><h2 className="display mt-5 text-4xl md:text-6xl">Thinking, <span className="text-shine">before building.</span></h2></Reveal>
+        <Reveal delay={0.05}><h2 className="display mt-5 text-4xl md:text-6xl">Think, <span className="text-shine">before building.</span></h2></Reveal>
       </div>
       <Reveal delay={0.1}>
         <Link to="/insights" data-testid="insights-all" className="pill-dark">All {INSIGHTS.length} insights <ArrowUpRight size={14} /></Link>

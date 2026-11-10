@@ -49,7 +49,7 @@ const Header = () => (
   <div className="mb-14 flex flex-col justify-between gap-8 md:flex-row md:items-end">
     <div>
       <Reveal><span className="eyebrow">Insights</span></Reveal>
-      <Reveal delay={0.05}><h2 className="serif-display mt-6 text-5xl md:text-7xl">Thinking, before building.</h2></Reveal>
+      <Reveal delay={0.05}><h2 className="serif-display mt-6 text-5xl md:text-7xl">Think, before building.</h2></Reveal>
     </div>
     <Reveal delay={0.1}>
       <p className="max-w-sm font-sans text-sm leading-relaxed text-[var(--grey)]">
