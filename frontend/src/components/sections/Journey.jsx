@@ -46,8 +46,8 @@ const DesktopJourney = ({ services }) => {
         <Link key={s.slug} to={`/services/${s.slug}`} data-testid={`journey-step-${s.no}`} data-cursor="OPEN"
           className="journey-step group absolute top-0 flex h-full -translate-x-1/2 flex-col items-center justify-between py-[3%]"
           style={{ left: `${(XS[i] / 1200) * 100}%`, width: `${((RX * 2) / 1200) * 100}%` }}>
-          <span className="grid h-9 w-9 place-items-center rounded-full border border-[rgba(244,244,245,0.2)] bg-[rgba(7,7,8,0.8)] font-mono text-[0.7rem] text-[var(--ivory-dim)] transition-colors group-hover:border-white group-hover:text-white">{i + 1}</span>
-          <span className="vertical-label font-sans text-[2.1vw] font-medium leading-none text-[var(--ivory-dim)] transition-colors duration-500 group-hover:text-white xl:text-[1.9rem]">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[rgba(244,244,245,0.2)] bg-[rgba(7,7,8,0.8)] font-mono text-[0.7rem] text-[var(--ivory-dim)] transition-colors group-hover:border-white group-hover:text-white">{i + 1}</span>
+          <span className="vertical-label font-sans text-[1.45vw] font-medium leading-none text-[var(--ivory-dim)] transition-colors duration-500 group-hover:text-white 2xl:text-[1.6rem]">
             {s.name.charAt(0) + s.name.slice(1).toLowerCase()}
           </span>
           <span className="flex flex-col items-center gap-2">

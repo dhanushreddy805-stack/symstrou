@@ -331,7 +331,7 @@ const Page = ({ children }) => {
   useLenis();
   useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
-    <div className="App grain">
+    <div className="App grain" style={{ overflowX: "clip" }}>
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80"><Starfield /></div>
       <Toaster position="top-right" offset={96} theme="dark" />
       <CircleCursor />
@@ -575,7 +575,7 @@ const Footer = () => (
             <Mark size={30} />
             <Wordmark height={22} />
           </div>
-          <p className="mt-6 font-serif text-2xl italic text-[var(--brass)]">Direction · Clarity · Conviction · Precision</p>
+          <p className="mt-6 flex flex-wrap gap-x-3 font-serif text-2xl text-[var(--brass)]">{["Direction", "Clarity", "Conviction", "Precision"].map((w, i) => <span key={w} className="whitespace-nowrap">{i ? "· " : ""}{w}</span>)}</p>
           <p className="mt-4 font-sans text-xs tracking-[0.24em] text-[var(--grey-2)]">SYMSTRUO PRIVATE LIMITED · BENGALURU, INDIA</p>
         </div>
         <div className="md:col-span-3">
@@ -670,7 +670,7 @@ const ServiceDetail = () => {
   const nextData = SERVICE_DETAILS[next];
 
   return (
-    <div className="App grain">
+    <div className="App grain" style={{ overflowX: "clip" }}>
       <SEO
         title={`${data.name} — Venture Services`}
         description={data.headline + " " + data.intro}

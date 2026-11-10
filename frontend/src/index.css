@@ -218,6 +218,7 @@ p, li, blockquote, figcaption, dd { text-wrap: pretty; hyphens: none; overflow-w
 }
 
 .btn-ghost { border-radius: 999px; }
+.btn-ghost.btn-fill { background: rgba(36,36,40,0.7); border-color: rgba(244,244,245,0.14) !important; backdrop-filter: blur(12px); }
 
 .hairline { border-color: var(--line); }
 

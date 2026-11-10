@@ -13,7 +13,7 @@ export const ScrollCompass = () => {
     <>
       <motion.div data-testid="scroll-progress" style={{ scaleX }}
         className="fixed left-0 top-0 z-[60] h-px w-full origin-left bg-[var(--brass)]" />
-      <div data-testid="scroll-compass" className="pointer-events-none fixed bottom-8 right-8 z-40 hidden items-center gap-4 lg:flex">
+      <div data-testid="scroll-compass" className="pointer-events-none fixed bottom-8 right-8 z-40 hidden items-center gap-4 xl:flex">
         <span className="font-mono text-[0.6rem] tracking-[0.3em] text-[var(--grey)]">
           BRG <span className="text-[var(--brass)]">{String(deg).padStart(3, "0")}°</span>
         </span>

@@ -9,10 +9,10 @@ import { useFinePointer } from "../fx/hooks";
 // Heights (%) form a valley so the headline sits in darkness.
 const COLS = [94, 82, 70, 56, 44, 34, 27, 24, 28, 37, 49, 62, 76, 90];
 const CHIPS = [
-  { label: "NDA Secured", x: "6%", y: "74%", d: 0 },
+  { label: "NDA Secured", x: "6%", y: "93%", d: 0 },
   { label: "Confidential", x: "30%", y: "60%", d: 1.2, md: true },
   { label: "Validated", x: "72%", y: "46%", d: 0.6, md: true },
-  { label: "Execution-ready", x: "62%", y: "80%", d: 1.8 },
+  { label: "Execution-ready", x: "62%", y: "80%", d: 1.8, md: true },
   { label: "Investor-ready", x: "84%", y: "66%", d: 2.4, md: true },
   { label: "Private by design", x: "16%", y: "88%", d: 0.9, md: true },
 ];

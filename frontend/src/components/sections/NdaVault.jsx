@@ -41,7 +41,7 @@ export const NdaVault = () => (
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full opacity-60"
         style={{ background: "radial-gradient(ellipse, rgba(205,209,217,0.16), transparent 65%)" }} />
       <div className="relative flex items-center justify-between font-mono text-[0.6rem] tracking-[0.3em] text-[var(--grey-2)]">
-        <span>CONFIDENTIAL BY DEFAULT</span><span>SYMSTRUO × FOUNDERS</span>
+        <span>CONFIDENTIAL BY DEFAULT</span><span className="hidden md:inline">SYMSTRUO × FOUNDERS</span>
       </div>
       <div className="relative mx-auto mt-12 max-w-3xl text-center">
         <Reveal><h2 className="display text-4xl md:text-6xl">Your idea is NDA-secured <span className="text-shine">from the first message.</span></h2></Reveal>

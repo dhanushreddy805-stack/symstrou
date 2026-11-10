@@ -52,7 +52,7 @@ export const Nav = () => {
 
         <div className={`glass-pill hidden items-center gap-1 p-1.5 transition-shadow duration-500 md:flex ${solid ? "shadow-[0_10px_40px_-10px_rgba(0,0,0,0.9)]" : ""}`}>
           {LINKS.map((l) => {
-            const on = l.href === pathname;
+            const on = l.href === "/" ? pathname === "/" : pathname.startsWith(l.href);
             return (
               <a key={l.id} href={l.href} data-testid={`nav-${l.id}`} onClick={(e) => { e.preventDefault(); go(l.href); }}
                 className={`relative rounded-full px-4 py-2 font-sans text-[0.8rem] transition-colors duration-300 lg:px-5 ${on ? "text-[var(--ivory)]" : "text-[var(--grey)] hover:text-[var(--ivory)]"}`}>
