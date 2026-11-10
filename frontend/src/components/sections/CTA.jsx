@@ -18,15 +18,15 @@ export const CTA = ({ onStart }) => {
       <motion.div style={{ scale, rotate }} className="pointer-events-none absolute left-1/2 top-1/2 h-[1100px] w-[1100px] -translate-x-1/2 -translate-y-1/2">
         <svg viewBox="-560 -560 1120 1120" className="h-full w-full">
           {RINGS.map((r, i) => (
-            <circle key={r} r={r} fill="none" stroke={i % 3 === 2 ? "rgba(184,148,95,0.42)" : "rgba(242,238,228,0.1)"} strokeDasharray={i % 2 ? "2 8" : undefined} />
+            <circle key={r} r={r} fill="none" stroke={i % 3 === 2 ? "rgba(205,209,217,0.42)" : "rgba(244,244,245,0.1)"} strokeDasharray={i % 2 ? "2 8" : undefined} />
           ))}
           {Array.from({ length: 36 }).map((_, i) => {
             const a = (i * Math.PI) / 18;
-            return <line key={i} x1={Math.sin(a) * 120} y1={-Math.cos(a) * 120} x2={Math.sin(a) * 540} y2={-Math.cos(a) * 540} stroke="rgba(242,238,228,0.035)" />;
+            return <line key={i} x1={Math.sin(a) * 120} y1={-Math.cos(a) * 120} x2={Math.sin(a) * 540} y2={-Math.cos(a) * 540} stroke="rgba(244,244,245,0.035)" />;
           })}
         </svg>
       </motion.div>
-      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(10,10,11,0.2) 0%, var(--ink) 72%)" }} />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(7,7,8,0.2) 0%, var(--ink) 72%)" }} />
       <div className="relative mx-auto max-w-[1300px] px-6 py-32 text-center md:px-12 md:py-56">
         <Reveal><div className="spin-slow mx-auto mb-12 w-fit"><Star size={34} color="var(--brass)" /></div></Reveal>
         <Reveal delay={0.05}>
@@ -40,8 +40,8 @@ export const CTA = ({ onStart }) => {
         <Reveal delay={0.15}>
           <Magnetic className="mt-14">
             <button data-testid="cta-start" data-cursor="BEGIN" onClick={onStart}
-              className="btn-ghost btn-fill inline-flex items-center gap-3 border border-[var(--ivory)] px-12 py-5 font-sans text-xs tracking-[0.24em]">
-              <span>START BUILDING</span>
+              className="pill-light">
+              <span>Start Building</span>
               <ArrowUpRight size={15} className="relative z-[1]" />
             </button>
           </Magnetic>

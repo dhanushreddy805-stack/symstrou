@@ -17,13 +17,13 @@ export const ScrollCompass = () => {
         <span className="font-mono text-[0.6rem] tracking-[0.3em] text-[var(--grey)]">
           BRG <span className="text-[var(--brass)]">{String(deg).padStart(3, "0")}°</span>
         </span>
-        <div className="relative h-14 w-14 rounded-full border border-[var(--line)] bg-[rgba(10,10,11,0.7)] backdrop-blur-md">
+        <div className="relative h-14 w-14 rounded-full border border-[var(--line)] bg-[rgba(7,7,8,0.7)] backdrop-blur-md">
           <svg viewBox="-30 -30 60 60" className="absolute inset-0 h-full w-full">
             {Array.from({ length: 24 }).map((_, i) => {
               const a = (i * Math.PI) / 12;
               const r1 = i % 6 === 0 ? 21 : 24;
               return <line key={i} x1={Math.sin(a) * r1} y1={-Math.cos(a) * r1} x2={Math.sin(a) * 27} y2={-Math.cos(a) * 27}
-                stroke={i === 0 ? "var(--brass)" : "rgba(242,238,228,0.25)"} strokeWidth="0.8" />;
+                stroke={i === 0 ? "var(--brass)" : "rgba(244,244,245,0.25)"} strokeWidth="0.8" />;
             })}
           </svg>
           <motion.svg style={{ rotate }} viewBox="-30 -30 60 60" className="absolute inset-0 h-full w-full">

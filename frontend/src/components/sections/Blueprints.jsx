@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const S = { fill: "none", stroke: "var(--brass)", strokeWidth: 1, vectorEffect: "non-scaling-stroke" };
-const F = { fill: "none", stroke: "rgba(242,238,228,0.35)", strokeWidth: 0.8, strokeDasharray: "3 4" };
+const F = { fill: "none", stroke: "rgba(244,244,245,0.35)", strokeWidth: 0.8, strokeDasharray: "3 4" };
 const T = { fill: "var(--grey)", fontFamily: "JetBrains Mono, monospace", fontSize: 8, letterSpacing: 1.5 };
 
 const Draw = ({ d, i = 0, style = S }) => (
@@ -16,7 +16,7 @@ const DRAWINGS = {
   "idea-lab": () => (
     <>
       {DOTS.map(([x, y], i) => (
-        <motion.circle key={i} cx={x} cy={y} r="2" fill="rgba(242,238,228,0.5)" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.05 * i }} />
+        <motion.circle key={i} cx={x} cy={y} r="2" fill="rgba(244,244,245,0.5)" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.05 * i }} />
       ))}
       <Draw d="M280 110 m-14 0 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0" i={1} />
       <Draw d="M280 110 m-30 0 a30 30 0 1 0 60 0 a30 30 0 1 0 -60 0" i={2} style={F} />
@@ -86,7 +86,7 @@ export const Blueprint = ({ slug, label, className = "" }) => {
       <svg viewBox="0 0 400 260" className="h-full w-full" preserveAspectRatio="xMidYMid meet">
         <defs>
           <pattern id={id} width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M20 0 H0 V20" fill="none" stroke="rgba(242,238,228,0.05)" strokeWidth="0.6" />
+            <path d="M20 0 H0 V20" fill="none" stroke="rgba(244,244,245,0.05)" strokeWidth="0.6" />
           </pattern>
         </defs>
         <rect width="400" height="260" fill={`url(#${id})`} />

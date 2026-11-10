@@ -102,14 +102,15 @@ const ServiceStack = ({ services }) => (
   </div>
 );
 
-export const Services = ({ services }) => {
+export const Services = ({ services, pageTop = false }) => {
+  const H = pageTop ? "h1" : "h2";
   const desktop = useIsDesktop();
   return (
     <section id="services" className="mx-auto max-w-[1500px] px-6 py-24 md:px-12 md:py-40" data-testid="services">
       <div className="mb-20 flex flex-col justify-between gap-8 md:flex-row md:items-end">
         <div>
           <Reveal><span className="eyebrow">Services</span></Reveal>
-          <Reveal delay={0.05}><h2 className="serif-display mt-6 text-5xl md:text-7xl lg:text-8xl">The Service Ecosystem</h2></Reveal>
+          <Reveal delay={0.05}><H className="display mt-6 text-5xl md:text-7xl lg:text-8xl">The Service <span className="text-shine">Ecosystem</span></H></Reveal>
         </div>
         <Reveal delay={0.1}>
           <p className="max-w-sm font-sans text-sm leading-relaxed text-[var(--grey)]">

@@ -39,7 +39,7 @@ export const Starfield = () => {
 
       // graticule
       ctx.lineWidth = 1;
-      ctx.strokeStyle = "rgba(242,238,228,0.025)";
+      ctx.strokeStyle = "rgba(244,244,245,0.025)";
       const g = mobile ? 90 : 140;
       const sy = (window.scrollY * 0.15) % g;
       ctx.beginPath();
@@ -53,7 +53,7 @@ export const Starfield = () => {
       for (let k = -1; k <= lines + 1; k++) {
         const base = k * gap - drift;
         const major = ((k % 5) + 5) % 5 === 0;
-        ctx.strokeStyle = major ? "rgba(184,148,95,0.11)" : "rgba(242,238,228,0.045)";
+        ctx.strokeStyle = major ? "rgba(205,209,217,0.11)" : "rgba(244,244,245,0.045)";
         ctx.lineWidth = major ? 1 : 0.8;
         ctx.beginPath();
         for (let x = -step; x <= W + step; x += step) {
@@ -72,7 +72,7 @@ export const Starfield = () => {
       // stars
       for (const s of stars) {
         s.tw += s.ts;
-        ctx.fillStyle = s.r > 0.9 ? `rgba(184,148,95,${s.a * (0.6 + 0.4 * Math.sin(s.tw))})` : `rgba(242,238,228,${s.a * (0.6 + 0.4 * Math.sin(s.tw))})`;
+        ctx.fillStyle = s.r > 0.9 ? `rgba(205,209,217,${s.a * (0.6 + 0.4 * Math.sin(s.tw))})` : `rgba(244,244,245,${s.a * (0.6 + 0.4 * Math.sin(s.tw))})`;
         ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
       }
     };

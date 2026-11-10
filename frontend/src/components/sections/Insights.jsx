@@ -19,9 +19,9 @@ const Constellation = ({ seed }) => {
   const [sx, sy] = pts[Math.floor(rnd() * pts.length)];
   return (
     <svg viewBox="0 0 300 140" className="h-full w-full" aria-hidden="true">
-      <circle cx={sx} cy={sy} r="26" fill="none" stroke="rgba(184,148,95,0.25)" strokeDasharray="1 4" />
-      <path d={d} fill="none" stroke="rgba(242,238,228,0.28)" strokeWidth="0.8" className="constellation-line" pathLength="1" />
-      {pts.map(([x, y], i) => <circle key={i} cx={x} cy={y} r="1.8" fill="rgba(242,238,228,0.7)" />)}
+      <circle cx={sx} cy={sy} r="26" fill="none" stroke="rgba(205,209,217,0.25)" strokeDasharray="1 4" />
+      <path d={d} fill="none" stroke="rgba(244,244,245,0.28)" strokeWidth="0.8" className="constellation-line" pathLength="1" />
+      {pts.map(([x, y], i) => <circle key={i} cx={x} cy={y} r="1.8" fill="rgba(244,244,245,0.7)" />)}
       <path transform={`translate(${sx} ${sy}) scale(0.07)`} d="M0 -122 C 2.4 -26, 15 -3.4, 108 0 C 15 3.4, 2.4 26, 0 122 C -2.4 26, -15 3.4, -108 0 C -15 -3.4, -2.4 -26, 0 -122 Z" fill="var(--brass)" />
     </svg>
   );
@@ -29,7 +29,7 @@ const Constellation = ({ seed }) => {
 
 export const InsightCard = ({ a, i, className = "" }) => (
   <Link to={`/insights/${a.slug}`} data-testid={`insight-${i}`} data-cursor="READ"
-    className={`insight-card group relative flex flex-col justify-between overflow-hidden border border-[var(--line)] bg-[rgba(16,16,17,0.72)] p-7 transition-colors duration-500 hover:border-[var(--brass)] md:p-9 ${className}`}>
+    className={`insight-card group relative flex flex-col rounded-[24px] justify-between overflow-hidden border border-[var(--line)] bg-[rgba(16,16,17,0.72)] p-7 transition-colors duration-500 hover:border-[var(--brass)] md:p-9 ${className}`}>
     <span className="insight-glow pointer-events-none absolute inset-0" />
     <div className="relative flex items-center justify-between font-mono text-[0.6rem] tracking-[0.3em]">
       <span className="text-[var(--brass)]">№ {String(i + 1).padStart(2, "0")}</span>

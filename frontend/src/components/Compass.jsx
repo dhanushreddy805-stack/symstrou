@@ -28,7 +28,7 @@ const ORBIT = 186;
 const DegreeRing = () => (
   <svg viewBox="-260 -260 520 520" className="absolute inset-0 h-full w-full spin-slower">
     <circle r="250" fill="none" stroke="var(--brass)" strokeWidth="0.6" opacity="0.45" />
-    <circle r="226" fill="none" stroke="rgba(242,238,228,0.12)" strokeWidth="0.6" />
+    <circle r="226" fill="none" stroke="rgba(244,244,245,0.12)" strokeWidth="0.6" />
     {Array.from({ length: 12 }).map((_, i) => {
       const [x, y] = pt(i * 30, 238);
       return (
@@ -59,11 +59,11 @@ const Orbit = ({ labels, bearings, active, onSelect }) => {
   const large = bearings[active] > 180 ? 1 : 0;
   return (
     <svg viewBox="-260 -260 520 520" className="absolute inset-0 h-full w-full">
-      <circle r={ORBIT} fill="none" stroke="rgba(242,238,228,0.18)" strokeWidth="0.7" strokeDasharray="2 6" />
-      <circle r="140" fill="none" stroke="rgba(242,238,228,0.08)" strokeWidth="0.7" />
-      <circle r="96" fill="none" stroke="rgba(184,148,95,0.25)" strokeWidth="0.6" strokeDasharray="1 4" />
-      <line x1="-226" y1="0" x2="226" y2="0" stroke="rgba(242,238,228,0.06)" />
-      <line x1="0" y1="-226" x2="0" y2="226" stroke="rgba(242,238,228,0.06)" />
+      <circle r={ORBIT} fill="none" stroke="rgba(244,244,245,0.18)" strokeWidth="0.7" strokeDasharray="2 6" />
+      <circle r="140" fill="none" stroke="rgba(244,244,245,0.08)" strokeWidth="0.7" />
+      <circle r="96" fill="none" stroke="rgba(205,209,217,0.25)" strokeWidth="0.6" strokeDasharray="1 4" />
+      <line x1="-226" y1="0" x2="226" y2="0" stroke="rgba(244,244,245,0.06)" />
+      <line x1="0" y1="-226" x2="0" y2="226" stroke="rgba(244,244,245,0.06)" />
       {["N", "E", "S", "W"].map((d, i) => {
         const [x, y] = pt(i * 90, 162);
         return <text key={d} x={x} y={y} textAnchor="middle" dominantBaseline="middle" fill={d === "N" ? "var(--brass)" : "var(--grey)"}
@@ -123,7 +123,7 @@ export const Compass = ({ size = 460, needleRotate, labels = [], bearings = [], 
           <motion.div className="w-[28%]" initial={{ rotate: -150, scale: 0.4, opacity: 0 }} animate={show ? { rotate: 0, scale: 1, opacity: 1 } : {}}
             transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}>
             <div className="float-slow">
-              <Mark style={{ width: "100%", filter: "drop-shadow(0 0 46px rgba(184,148,95,0.35))" }} />
+              <Mark style={{ width: "100%", filter: "drop-shadow(0 0 46px rgba(205,209,217,0.35))" }} />
             </div>
           </motion.div>
         </div>

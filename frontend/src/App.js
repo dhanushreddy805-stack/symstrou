@@ -11,11 +11,14 @@ import { Star, Mark, Wordmark } from "@/components/Compass";
 import { Reveal, EASE } from "@/components/fx/Reveal";
 import { ScrollCompass } from "@/components/fx/ScrollCompass";
 import { Loader } from "@/components/sections/Loader";
-import { Hero } from "@/components/sections/Hero";
+import { HeroLumen } from "@/components/sections/HeroLumen";
+import { NdaVault, GlowTile } from "@/components/sections/NdaVault";
+import { Journey } from "@/components/sections/Journey";
+import { InsightsTeaser } from "@/components/sections/InsightsTeaser";
 import { Marquee } from "@/components/sections/Marquee";
-import { Manifesto } from "@/components/sections/Manifesto";
+import { Manifesto, Statement, MANIFESTO } from "@/components/sections/Manifesto";
 import { Services } from "@/components/sections/Services";
-import { InsightsRail, InsightCard } from "@/components/sections/Insights";
+import { InsightCard } from "@/components/sections/Insights";
 import { CTA } from "@/components/sections/CTA";
 import { Beacon } from "@/components/sections/Beacon";
 import { Blueprint } from "@/components/sections/Blueprints";
@@ -26,7 +29,7 @@ import { INSIGHTS } from "@/data/insights";
 import { SEO } from "@/components/SEO";
 
 // Home FAQ shows a curated subset (questions 1, 2, 4, 20, 12, 6).
-const HOME_FAQ = [0, 1, 3, 19, 11, 5];
+const HOME_FAQ = [0, 1, 3, 19];
 
 let rawBackendUrl = (process.env.REACT_APP_BACKEND_URL || "").trim();
 if (!rawBackendUrl) console.error("REACT_APP_BACKEND_URL is not set; the contact form is disabled.");
@@ -112,6 +115,106 @@ const AboutPage = () => (
           </Reveal>
         </div>
       </div>
+    </section>
+    <Manifesto />
+  </Page>
+);
+
+/* --------------------------------------------------------------- Services page */
+const ServicesPage = () => (
+  <Page>
+    <SEO
+      title="Services — Idea Lab to Investment Preparation"
+      description="SYMSTRUO's five NDA-secured venture services: Idea Lab, Business Blueprint, Brand Architecture, Growth Engine and Investment Preparation."
+    />
+    <div className="pt-24 md:pt-28" data-testid="services-page">
+      <Services services={SERVICES} pageTop />
+      <Journey services={SERVICES} id="journey" />
+    </div>
+  </Page>
+);
+
+/* -------------------------------------------------------------------- NDA page */
+const NDA_COVERS = [
+  "Your idea, concept and vision", "Business model, pricing and financials", "Product, technical and IP details",
+  "Customer, market and research data", "Pitch decks, plans and documents", "Every call, message and meeting",
+];
+const NDA_STEPS = [
+  { n: "01", t: "You reach out", d: "Share as much or as little as you like — through our form, email or a call." },
+  { n: "02", t: "NDA applies instantly", d: "Our built-in NDA covers everything you share from your very first message." },
+  { n: "03", t: "Signed copy on request", d: "Prefer it on paper? Ask, and we will share a signed NDA before any deep-dive." },
+  { n: "04", t: "Your idea stays yours", d: "You keep full ownership of your ideas, plans and documents — always." },
+];
+const NDA_PROMISES = [
+  "We never sell or share your information with third parties.",
+  "Only the SYMSTRUO team working with you can see what you share.",
+  "We never use your idea for our own ventures.",
+  "You can ask us to delete your information at any time.",
+];
+
+const NdaPage = () => (
+  <Page>
+    <SEO
+      title="NDA & Confidentiality"
+      description="Every idea you share with SYMSTRUO is protected by our built-in NDA from the first message. See what is covered and how it works."
+    />
+    <section className="mx-auto max-w-[1400px] px-6 pb-16 pt-36 text-center md:px-12 md:pt-48" data-testid="nda-page">
+      <Reveal><span className="glass-pill inline-flex items-center gap-2 px-4 py-2 font-sans text-xs text-[var(--ivory-dim)]"><ShieldCheck size={14} /> Built-in NDA</span></Reveal>
+      <Reveal delay={0.05}><h1 className="display mx-auto mt-10 max-w-4xl text-5xl md:text-8xl">Confidential, <span className="text-shine">by design.</span></h1></Reveal>
+      <Reveal delay={0.1}>
+        <p className="mx-auto mt-8 max-w-2xl font-sans text-base leading-relaxed text-[var(--grey)] md:text-lg">
+          Founders trust us with their most valuable thinking. Every idea, document and conversation you
+          share with SYMSTRUO is protected by our built-in NDA — before you share a single detail.
+        </p>
+      </Reveal>
+    </section>
+
+    <section className="mx-auto max-w-[1400px] px-6 py-16 md:px-12">
+      <div className="lumen-card p-8 md:p-14">
+        <Reveal><span className="eyebrow">What's protected</span></Reveal>
+        <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-[var(--line)] sm:grid-cols-2 lg:grid-cols-3">
+          {NDA_COVERS.map((c, i) => (
+            <Reveal key={c} delay={i * 0.04}>
+              <div className="flex h-full items-center gap-4 bg-[var(--ink-2)] p-6" data-testid={`nda-cover-${i}`}>
+                <ShieldCheck size={18} className="shrink-0 text-[var(--ivory-dim)]" />
+                <span className="font-sans text-base text-[var(--ivory)]">{c}</span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="mx-auto max-w-[1400px] px-6 py-20 md:px-12">
+      <Reveal><h2 className="display text-center text-4xl md:text-6xl">How it works</h2></Reveal>
+      <div className="mt-20 grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        {NDA_STEPS.map((s, i) => (
+          <Reveal key={s.n} delay={i * 0.08} className={`text-center ${i % 2 ? "lg:mt-16" : ""}`}>
+            <GlowTile n={s.n} size="sm" testid={`nda-step-${i}`} />
+            <h3 className="mt-8 font-sans text-xl text-[var(--ivory)]">{s.t}</h3>
+            <p className="mx-auto mt-3 max-w-[16rem] font-sans text-sm leading-relaxed text-[var(--grey)]">{s.d}</p>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+
+    <section className="mx-auto max-w-[1000px] px-6 py-20 md:px-12">
+      <Reveal><span className="eyebrow">Our promise</span></Reveal>
+      <ul className="mt-8 border-t border-[var(--line)]">
+        {NDA_PROMISES.map((p, i) => (
+          <Reveal key={p} delay={i * 0.05}>
+            <li className="flex items-start gap-6 border-b border-[var(--line)] py-6">
+              <span className="pt-1 font-mono text-xs text-[var(--grey-2)]">0{i + 1}</span>
+              <span className="font-sans text-xl font-light text-[var(--ivory)] md:text-2xl">{p}</span>
+            </li>
+          </Reveal>
+        ))}
+      </ul>
+      <Reveal delay={0.1}>
+        <div className="mt-14 flex justify-center">
+          <Link to="/#contact" data-testid="nda-start" className="pill-light">Share your idea securely <ArrowUpRight size={15} /></Link>
+        </div>
+      </Reveal>
     </section>
   </Page>
 );
@@ -446,8 +549,8 @@ const Contact = () => {
               </div>
               <textarea data-testid="contact-message" rows={4} className="field-input" placeholder="Tell us about your idea *" value={form.message} onChange={set("message")} />
               <button data-testid="contact-submit" type="submit" disabled={busy}
-                className="btn-ghost btn-fill group flex w-full items-center justify-center gap-3 border border-[var(--ivory)] px-10 py-5 font-sans text-xs tracking-[0.24em] disabled:opacity-50 sm:w-auto">
-                <span>{busy ? "SENDING…" : "SEND MESSAGE"}</span>
+                className="pill-light group w-full disabled:opacity-50 sm:w-auto">
+                <span>{busy ? "Sending…" : "Send securely"}</span>
                 <ArrowRight size={15} className="relative z-[1]" />
               </button>
               <p data-testid="contact-nda-note" className="flex items-center gap-3 font-sans text-xs leading-relaxed text-[var(--grey)]">
@@ -481,7 +584,8 @@ const Footer = () => (
             {[
               ["Home", "/"],
               ["About SYMSTRUO", "/about"],
-              ["Services", "/#services"],
+              ["Services", "/services"],
+              ["NDA & Confidentiality", "/nda"],
               ["Insights", "/insights"],
               ["FAQ", "/faq"],
               ["Contact", "/#contact"],
@@ -596,7 +700,7 @@ const ServiceDetail = () => {
         {/* header */}
         <section className="mx-auto max-w-[1500px] px-6 pt-32 pb-14 md:px-12 md:pt-52 md:pb-24" data-testid="service-detail">
           <Reveal>
-            <button onClick={() => navigate("/#services")} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
+            <button onClick={() => navigate("/services")} className="link-underline mb-12 inline-flex items-center gap-2 font-sans text-[0.7rem] tracking-[0.24em] text-[var(--grey)]">
               <ArrowRight size={13} className="rotate-180" /> ALL SERVICES
             </button>
           </Reveal>
@@ -720,8 +824,8 @@ const Home = () => {
   return (
     <div className="App grain" style={{ overflowX: "clip" }}>
       <SEO
-        title="SYMSTRUO — Venture Creation Company | Direction · Clarity · Conviction"
-        description="SYMSTRUO is a global Venture Creation Company. We partner with founders to turn ideas into enduring businesses through venture strategy, business blueprints, brand architecture, growth systems, and investment readiness."
+        title="NDA-Secured Venture Creation Company in Bengaluru"
+        description="SYMSTRUO is an NDA-secured Venture Creation Company. We help founders turn ideas into enduring businesses with venture strategy, business blueprints, brand architecture, growth systems and investment readiness."
       />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80">
         <Starfield />
@@ -732,11 +836,14 @@ const Home = () => {
       <ScrollCompass />
       <Nav />
       <main className="relative z-10">
-        <Hero ready={loaded} onStart={() => scrollTo("contact")} />
+        <HeroLumen ready={loaded} onStart={() => scrollTo("contact")} />
         <Marquee />
-        <Manifesto />
-        <Services services={SERVICES} />
-        <InsightsRail />
+        <NdaVault />
+        <Journey services={SERVICES} />
+        <section className="mx-auto max-w-[1400px] px-6 py-24 md:px-12 md:py-36" data-testid="philosophy">
+          <Statement m={MANIFESTO[2]} idx={0} />
+        </section>
+        <InsightsTeaser />
         <FAQ />
         <CTA onStart={() => scrollTo("contact")} />
         <Contact />
@@ -756,6 +863,8 @@ function App() {
         <Route path="/insights/:slug" element={<ArticlePage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/nda" element={<NdaPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Star } from "../Compass";
 import { Reveal } from "../fx/Reveal";
 
-const MANIFESTO = [
+export const MANIFESTO = [
   { n: "01", text: ["Every successful company", "begins with the", "right direction."] },
   { n: "02", text: ["Execution without", "direction is", "expensive."] },
   { n: "03", text: ["We don't sell consulting.", "We create", "businesses."] },
@@ -20,7 +20,7 @@ const Word = ({ children, progress, range, italic }) => {
   );
 };
 
-const Statement = ({ m, idx }) => {
+export const Statement = ({ m, idx }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.9", "end 0.45"] });
   const numY = useTransform(scrollYProgress, [0, 1], [90, -60]);
@@ -63,18 +63,18 @@ const ValuesRose = () => {
       <motion.div style={{ rotate }} className="absolute inset-0">
         <svg viewBox="-220 -220 440 440" className="h-full w-full">
           <circle r="196" fill="none" stroke="var(--line)" />
-          <circle r="140" fill="none" stroke="rgba(184,148,95,0.3)" strokeDasharray="1 5" />
-          <circle r="60" fill="none" stroke="rgba(242,238,228,0.08)" />
+          <circle r="140" fill="none" stroke="rgba(205,209,217,0.3)" strokeDasharray="1 5" />
+          <circle r="60" fill="none" stroke="rgba(244,244,245,0.08)" />
           {Array.from({ length: 72 }).map((_, i) => {
             const a = (i * Math.PI) / 36;
             const r1 = i % 6 === 0 ? 184 : 190;
-            return <line key={`t${i}`} x1={Math.sin(a) * r1} y1={-Math.cos(a) * r1} x2={Math.sin(a) * 196} y2={-Math.cos(a) * 196} stroke="rgba(184,148,95,0.4)" strokeWidth="0.6" />;
+            return <line key={`t${i}`} x1={Math.sin(a) * r1} y1={-Math.cos(a) * r1} x2={Math.sin(a) * 196} y2={-Math.cos(a) * 196} stroke="rgba(205,209,217,0.4)" strokeWidth="0.6" />;
           })}
           {VALUES.map((v, i) => {
             const a = (i * Math.PI) / 3;
             return (
               <g key={v}>
-                <line x1={Math.sin(a) * 60} y1={-Math.cos(a) * 60} x2={Math.sin(a) * 140} y2={-Math.cos(a) * 140} stroke="rgba(242,238,228,0.14)" />
+                <line x1={Math.sin(a) * 60} y1={-Math.cos(a) * 60} x2={Math.sin(a) * 140} y2={-Math.cos(a) * 140} stroke="rgba(244,244,245,0.14)" />
                 <circle cx={Math.sin(a) * 140} cy={-Math.cos(a) * 140} r="3" fill="var(--brass)" />
               </g>
             );
