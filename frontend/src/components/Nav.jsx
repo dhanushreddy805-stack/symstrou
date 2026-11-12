@@ -45,9 +45,9 @@ export const Nav = () => {
     <header data-testid="site-nav" className="fixed left-0 top-0 z-50 w-full">
       <nav className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-4 md:px-10 md:py-5">
         <a href="/" data-testid="nav-logo" onClick={(e) => { e.preventDefault(); go("/"); }}
-          className="flex items-center gap-3 transition-transform active:scale-95">
+          className="flex items-center gap-2.5 transition-transform active:scale-95 sm:gap-3">
           <Mark size={24} />
-          <Wordmark height={13} className="mt-[1px] hidden sm:block" />
+          <Wordmark height={13} className="mt-[1px]" />
         </a>
 
         <div className={`glass-pill hidden items-center gap-1 p-1.5 transition-shadow duration-500 md:flex ${solid ? "shadow-[0_10px_40px_-10px_rgba(0,0,0,0.9)]" : ""}`}>
