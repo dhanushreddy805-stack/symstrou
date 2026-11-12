@@ -47,7 +47,6 @@ export const HomePage = () => {
   return (
     <div className="App grain" style={{ overflowX: "clip" }}>
       <SEO
-        title="NDA-Secured Venture Creation Company in Bengaluru"
         description="SYMSTRUO is an NDA-secured Venture Creation Company. We help founders turn ideas into enduring businesses with venture strategy, business blueprints, brand architecture, growth systems and investment readiness."
       />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-80">
